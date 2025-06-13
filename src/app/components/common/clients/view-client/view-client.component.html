@@ -1,0 +1,217 @@
+<div class="ct_right_panel">
+    <div class="ct_px_30 mt-4 pb-4">
+        <div class="container-fluid">
+            <div
+                class="ct_inner_header_bg mt-4  mb-4 d-flex align-items-center gap-2 justify-content-between ct_flex_column_575 ct_w_100_575">
+                <div class="d-flex align-items-center gap-2">
+                    <a (click)="backClicked()" class="ct_back_icon me-2 text-dark">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <h4 class="ct_fs_24 ct_fw_700 mb-0">Agents</h4>
+                    <!-- <span>/</span>
+                    <small class="ct_text_op_6"> View Profile</small>
+                    <span>/</span>
+                    <small class="ct_text_op_6"> Client Profile</small> -->
+                </div>
+
+            </div>
+
+            <div class="ct_white_bg">
+                <div class="d-flex gap-3 justify-content-between ct_flex_col_767">
+
+                    <div class="d-flex align-items-center gap-4 ct_flex_1 ">
+                        <div class="">
+                            <img [src]="clientData?.profile_image ? clientData?.profile_image : '../assets/img/no_pro.png'" alt="" data-bs-toggle="modal"
+                                data-bs-target="#full_view_img" class="ct_img_w_100">
+                        </div>
+                        <div class="ct_flex_1">
+                            <div class="d-flex   gap-3 justify-content-between flex-wrap">
+                                <div>
+                                    <h4 class="ct_fs_20 ct_fw_600 mb-1">{{clientData?.name}}</h4>
+                                    <p class="ct_fs_16 ct_dark_grey_text mb-0">{{clientData?.email}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ct_flex_1">
+                        <ul class="ct_grid_30_auto">
+                            <li>
+                                <p class="mb-2 ct_fs_16">Invitation Sent On:</p>
+                                <p class="mb-2 ct_text_op_6 ">{{clientData?.created_at | date:'dd-MMM-yyyy'}}</p>
+                            </li>
+                            <li>
+                                <p class="mb-2 ct_fs_16">Loans Compared:</p>
+                                <p class="mb-2 ct_text_op_6 ">-</p>
+                            </li>
+                            <li>
+                                <p class="mb-2 ct_fs_16">Reports Generated:</p>
+                                <p class="mb-2 ct_text_op_6 ">-</p>
+                            </li>
+                            <li>
+                                <p class="mb-2 ct_fs_16">Assigned Agent:</p>
+                                <p class="mb-2 ct_text_op_6 ">{{clientData?.created_by_name}}</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="ct_mt_30 ct_white_bg">
+                <h4 class="ct_fs_24 ct_fw_700 mb-0 mb-4">Reports Generated</h4>
+                <div class="table-responsive ct_custom_table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Report ID</th>
+                                <th>Case Name</th>
+                                <th>Date Generated</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>RPT-1042</td>
+                                <td>
+                                    <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
+                                </td>
+                                <td>02 Jun 2025</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3 justify-content-end">
+                                        <a href="../Dashboard/view-report.html" class="ct_blue_text"><i
+                                                class="fa-regular fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>RPT-1042</td>
+                                <td>
+                                    <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
+                                </td>
+                                <td>02 Jun 2025</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3 justify-content-end">
+                                        <a href="../Dashboard/view-report.html" class="ct_blue_text"><i
+                                                class="fa-regular fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>RPT-1042</td>
+                                <td>
+                                    <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
+                                </td>
+                                <td>02 Jun 2025</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3 justify-content-end">
+                                        <a href="../Dashboard/view-report.html" class="ct_blue_text"><i
+                                                class="fa-regular fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+            <div class="ct_mt_30 ct_white_bg">
+                <h4 class="ct_fs_24 ct_fw_700 mb-0 mb-4">Loans Compared</h4>
+                <div class="table-responsive ct_custom_table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Case Name</th>
+                                <th>Loans Compared</th>
+                                <th>Comapared On</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+
+                                <td>
+                                    <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
+                                </td>
+                                <td>3</td>
+                                <td>02 Jun 2025</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3 justify-content-end">
+                                        <a href="../compared-loan-detail.html" class="ct_blue_text"><i
+                                                class="fa-regular fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>RPT-1042</td>
+                                <td>
+                                    <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
+                                </td>
+                                <td>02 Jun 2025</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3 justify-content-end">
+                                        <a href="../compared-loan-detail.html" class="ct_blue_text"><i
+                                                class="fa-regular fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>RPT-1042</td>
+                                <td>
+                                    <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
+                                </td>
+                                <td>02 Jun 2025</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3 justify-content-end">
+                                        <a href="../compared-loan-detail.html" class="ct_blue_text"><i
+                                                class="fa-regular fa-eye"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<!-- Image preview Modal S -->
+<div class="modal fade modal-md" id="full_view_img" tabindex="-1" aria-labelledby="full_view_imgLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title ct_fs_24 ct_ff_QuattrocentoSans ct_fw_700 mb-0" id="full_view_imgLabel">
+                    Image Preview
+                </h5>
+                <button type="button" class="btn-close ct_custom_close_img" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ct_full_view_img">
+                    <img src="../assets/img/no_pro.png" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

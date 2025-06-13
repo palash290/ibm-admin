@@ -8,8 +8,8 @@ import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 })
 export class SharedService {
 
-  baseUrl = 'http://13.51.226.81:4000/api/admin/';
-  //baseUrl = 'http://192.168.29.142:4009/api/admin/';
+  //baseUrl = 'http://192.168.29.76:8000/api/';
+  baseUrl = 'http://89.116.21.92:4010/api/';
 
   constructor(private http: HttpClient, private route: Router) { }
 
@@ -27,6 +27,8 @@ export class SharedService {
 
   logout() {
     localStorage.removeItem('ibsAdminToken');
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('agentId');
     this.route.navigateByUrl('');
   }
 
@@ -89,6 +91,14 @@ export class SharedService {
     return this.http.post(this.baseUrl + url, data, { headers: headers })
   }
 
+  putAPIFormData(url: any, data: any): Observable<any> {
+    const authToken = localStorage.getItem('ibsAdminToken')
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${authToken}`
+    })
+    return this.http.put(this.baseUrl + url, data, { headers: headers })
+  }
+
   deleteAcc(url: any): Observable<any> {
     const authToken = localStorage.getItem('ibsAdminToken');
     const headers = new HttpHeaders({
@@ -127,5 +137,5 @@ export class SharedService {
     this.refreshSidebarSource.next(null);
   }
 
-  
+
 }

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SharedService } from '../../../services/shared.service';
 import { Router, RouterLink } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css'
 })
@@ -46,7 +47,7 @@ export class ForgotPasswordComponent {
               this.loading = false
               this.toastr.success(resp.message)
               this.resetForm.reset()
-              this.route.navigateByUrl('')
+              this.route.navigateByUrl('/')
             } else {
               this.loading = false
               this.toastr.warning(resp.message)

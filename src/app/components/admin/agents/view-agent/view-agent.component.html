@@ -1,0 +1,162 @@
+<div class="ct_right_panel">
+    <div class="ct_px_30 mt-4 pb-4">
+        <div class="container-fluid">
+            <div
+                class="ct_inner_header_bg mt-4  mb-4 d-flex align-items-center gap-2 justify-content-between ct_flex_column_575 ct_w_100_575">
+                <div class=" d-flex align-items-center gap-2">
+                    <a (click)="backClicked()" class="ct_back_icon me-2 text-dark">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <h4 class="ct_fs_24 ct_fw_700 mb-0">Agents</h4>
+                    <!-- <span>/</span>
+                    <small class="ct_text_op_6"> View Profile</small> -->
+                </div>
+
+            </div>
+
+            <div class="ct_white_bg">
+                <div class="d-flex gap-3 justify-content-between ct_flex_col_767">
+
+                    <div class="d-flex align-items-center gap-4 ct_flex_1 ">
+                        <div class="">
+                            <img [src]="agentData?.profile_image ? agentData?.profile_image : 'assets/img/no_pro.png'"
+                                alt="" data-bs-toggle="modal" data-bs-target="#full_view_img" class="ct_img_w_100">
+                        </div>
+                        <div class="ct_flex_1">
+                            <div class="d-flex gap-3 justify-content-between flex-wrap">
+                                <div>
+                                    <h4 class="ct_fs_20 ct_fw_600 mb-1">{{agentData?.name}}</h4>
+                                    <p class="ct_fs_16 ct_dark_grey_text mb-0">{{agentData?.email}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="ct_flex_1">
+                        <ul class="ct_grid_30_auto">
+                            <li>
+                                <p class="mb-2 ct_fs_16">Invitation Sent On:</p>
+                                <p class="mb-2 ct_text_op_6 ">{{agentData?.created_at | date:'dd-MMM-yyyy'}}</p>
+                            </li>
+                            <li>
+                                <p class="mb-2 ct_fs_16">Loans Compared:</p>
+                                <p class="mb-2 ct_text_op_6 ">-</p>
+                            </li>
+                            <li>
+                                <p class="mb-2 ct_fs_16">Reports Generated:</p>
+                                <p class="mb-2 ct_text_op_6 ">-</p>
+                            </li>
+                            <li>
+                                <p class="mb-2 ct_fs_16">Total Clients Under Management:</p>
+                                <p class="mb-2 ct_text_op_6 ">{{agentData?.user_count ? agentData?.user_count : '0'}}
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="ct_mt_30 ct_white_bg">
+                <h4 class="ct_fs_24 ct_fw_700 mb-0 mb-4">Assigned Clients</h4>
+                <div class="table-responsive ct_custom_table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone No.</th>
+                                <th>Status</th>
+                                <th>Invited On</th>
+                                <th class="text-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of clientsList; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td (click)="showImg(item.profile_image)">
+                                    <img [src]="item.profile_image ? item.profile_image : '../assets/img/no_pro.png'"
+                                        alt="" class="ct_img_w_44" data-bs-toggle="modal"
+                                        data-bs-target="#full_view_img_client">
+                                </td>
+                                <td>{{item.name}}</td>
+                                <td>
+                                    {{item.email}}
+                                </td>
+                                <td>
+                                    {{item?.phone_number ? item?.phone_number : '-'}}
+                                </td>
+                                <td>
+                                    <span *ngIf="item.status == '0'" class="ct_pending_status ct_fw_700">Pending</span>
+                                    <span *ngIf="item.status == '1'" class="ct_active_status ct_fw_700">Active</span>
+                                    <span *ngIf="item.status == '2'" class="ct_blocked_status ct_fw_700">Blocked</span>
+                                </td>
+                                <td>{{item?.created_at | date:'dd-MMM-yyyy'}}</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-3 justify-content-end">
+                                        <a [routerLink]="['/admin/view-client']" [queryParams]="{ id: item.id }"
+                                            class="ct_blue_text"><i class="fa-regular fa-eye"></i></a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Image preview Modal S -->
+<div class="modal fade modal-md" id="full_view_img" tabindex="-1" aria-labelledby="full_view_imgLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title ct_fs_24 ct_ff_QuattrocentoSans ct_fw_700 mb-0" id="full_view_imgLabel">
+                    Image Preview
+                </h5>
+                <button type="button" class="btn-close ct_custom_close_img" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ct_full_view_img">
+                    <img [src]="agentData?.profile_image ? agentData?.profile_image : '../assets/img/no_pro.png'"
+                        alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Image preview Modal S -->
+<div class="modal fade modal-md" id="full_view_img_client" tabindex="-1" aria-labelledby="full_view_imgLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title ct_fs_24 ct_ff_QuattrocentoSans ct_fw_700 mb-0" id="full_view_imgLabel">
+                    Image Preview
+                </h5>
+                <button type="button" class="btn-close ct_custom_close_img" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ct_full_view_img">
+                    <img [src]="userImg1 ? userImg1 : '../assets/img/no_pro.png'"
+                        alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,13 +1,15 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SharedService } from '../../../services/shared.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { AuthService } from '../../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -17,9 +19,9 @@ export class LoginComponent {
   loginForm!: FormGroup;
   loading: boolean = false;
 
-  constructor(private route: Router, private apiService: SharedService, private toastr: NzMessageService) {
+  constructor(private route: Router, private apiService: SharedService, private authService: AuthService, private toastr: NzMessageService) {
     if (this.apiService.isLogedIn()) {
-      this.route.navigate(['/home/dashboard']);
+      this.route.navigate(['/admin/admin-dashboard']);
     }
   }
 
@@ -41,13 +43,40 @@ export class LoginComponent {
       const formURlData = new URLSearchParams();
       formURlData.set('email', this.loginForm.value.email);
       formURlData.set('password', this.loginForm.value.password);
-      this.apiService.postAPI('loginAdmin', formURlData.toString()).subscribe({
+      this.apiService.postAPI('login', formURlData.toString()).subscribe({
         next: (resp: any) => {
           if (resp.success == true) {
-            this.route.navigateByUrl("/home/dashboard");
-            this.apiService.setToken(resp.data);
+            this.authService.setUserRole(resp.user.role_name)
+            this.apiService.setToken(resp.token);
             this.toastr.success(resp.message);
+
+            this.authService.setAgentId(resp.user.id)
+
+            if (resp.user.role_name == 'Admin') {
+              this.route.navigateByUrl("/admin/admin-dashboard");
+            } else if (resp.user.role_name == 'Agent' && resp.user.status == '0') {
+              this.route.navigate(['/set-password'], { queryParams: { id: resp.user.id } });
+            } else if (resp.user.role_name == 'Agent' && resp.user.status == '1') {
+              this.route.navigateByUrl("/agent/agent-dashboard");
+            } else if (resp.user.role_name == 'Client' && resp.user.status == '0') {
+              this.route.navigate(['/set-password'], { queryParams: { id: resp.user.id } });
+            } else if (resp.user.role_name == 'Client' && resp.user.status == '1') {
+              this.route.navigateByUrl("/user/user-dashboard");
+            }
+            // if(){
+
+            // }
             this.loading = false;
+
+
+
+            // if (resp.user.role_name == 'Client') {
+            //   this.route.navigateByUrl("/user/dashboard");
+            // }
+            // if (resp.user.role_name == 'SubAdmin') {
+            //   this.route.navigateByUrl("/admin/dashboard");
+            // }
+
           } else {
             this.toastr.warning(resp.message);
             this.loading = false;

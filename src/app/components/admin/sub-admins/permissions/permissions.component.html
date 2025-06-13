@@ -1,0 +1,474 @@
+<!-- <div class="ct_dashbaord_middle">
+  <div class="d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center gap-3">
+      <a routerLink="/admin/main/roles-manage" class="mb-0 ct_back_btn_4 ct_fs_22 text-dark ct_fw_500"><i
+          class="fa-solid fa-arrow-left-long me-1 "></i>Back</a>
+      <h4 class="mb-0 ct_fs_22">
+        Select Privileges For -
+        <span *ngIf="name; else showCount">{{ name }} </span>
+        <ng-template #showCount>{{ count }} Sub-Admin</ng-template>
+      </h4>
+
+    </div>
+    <button (click)="logSelectedModules()" class="ct_green_btn px-5">
+      Update
+    </button>
+  </div>
+  <div class="row ct_mt_30">
+    <div class="col-lg-12 mb-4 mb-lg-0">
+      <div class="table-responsive">
+        <table class="table ct_project_table ct_border_table_0">
+          <thead>
+            <tr>
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_all_modules" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="checkAllModules" (change)="toggleAllCheckboxes('modules')" />
+                      <label for="ct_checkbox_all_modules" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">All Modules</p>
+                </div>
+              </th>
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_all_add" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="checkAllAdd" (change)="toggleAllCheckboxes('add')" />
+                      <label for="ct_checkbox_all_add" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">Add</p>
+                </div>
+              </th>
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_all_view" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="checkAllView" (change)="toggleAllCheckboxes('view')" [checked]="true"
+                        [disabled]="true" />
+                      <label for="ct_checkbox_all_view" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">View</p>
+                </div>
+              </th>
+
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_all_edit" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="checkAllEdit" (change)="toggleAllCheckboxes('edit')" />
+                      <label for="ct_checkbox_all_edit" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">Edit</p>
+                </div>
+              </th>
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_all_delete" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="checkAllDelete" (change)="toggleAllCheckboxes('delete')" />
+                      <label for="ct_checkbox_all_delete" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">Delete</p>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let pic of data; let i = index">
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_cbx_{{ i }}" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="pic.checkedModules" (change)="updateColumnCheckAll('modules', pic)" />
+                      <label for="ct_checkbox_cbx_{{ i }}" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">{{ pic.title }}</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_add_{{ i }}" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="pic.checkedAdd" (change)="updateColumnCheckAll('add', pic)" />
+                      <label for="ct_checkbox_add_{{ i }}" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">Add</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_view_{{ i }}" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="pic.checkedView" (change)="updateColumnCheckAll('view', pic)" [disabled]="true" />
+                      <label for="ct_checkbox_view_{{ i }}" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">View</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_edit_{{ i }}" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="pic.checkedEdit" (change)="updateColumnCheckAll('edit', pic)" />
+                      <label for="ct_checkbox_edit_{{ i }}" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">Edit</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <div class="ct_checkbox_main">
+                    <div>
+                      <input type="checkbox" id="ct_checkbox_delete_{{ i }}" class="ct_hidden-xs-up ct_checkbox_cbx_12"
+                        [(ngModel)]="pic.checkedDelete" (change)="updateColumnCheckAll('delete', pic)" />
+                      <label for="ct_checkbox_delete_{{ i }}" class="ct_checkbox_cbx"></label>
+                    </div>
+                  </div>
+                  <p class="mb-0 ct_line_h_27">Delete</p>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="ct_right_panel">
+  <div class="ct_px_30 mt-4 pb-4">
+    <div class="container-fluid">
+      <div
+        class="ct_inner_header_bg mt-4  mb-4 d-flex align-items-center gap-2 justify-content-between ct_flex_column_575 ct_w_100_575">
+        <div class=" d-flex align-items-center gap-2">
+          <a (click)="backClicked()" class="ct_back_icon me-2 text-dark">
+            <i class="fa-solid fa-chevron-left"></i>
+          </a>
+          <h4 class="ct_fs_24 ct_fw_700 mb-0">Sub-Admins</h4>
+          <!-- <span>/</span>
+          <small class="ct_text_op_6"> Select Permission access</small> -->
+        </div>
+        <div class="ct_w_100_575">
+          <button class="ct_blue_btn ct_btn_h_48 ct_w_100_575">Update</button>
+
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table ct_transparent_table ct_border_table_0">
+          <thead>
+            <tr>
+
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">All Modules</p>
+                </div>
+              </th>
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">All</p>
+                </div>
+              </th>
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">All</p>
+                </div>
+              </th>
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">All</p>
+                </div>
+              </th>
+              <th>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">All</p>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Dashboard</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Add</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">View</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Edit</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Delete</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Sub-Admins</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Add</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">View</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Edit</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Delete</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Agents</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Add</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">View</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Edit</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Delete</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Users</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Add</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">View</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Edit</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Delete</p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Reports</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Add</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">View</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Edit</p>
+                </div>
+              </td>
+              <td>
+                <div class="d-flex align-items-center gap-3">
+                  <label class="ct_checkbox-container">
+                    <input class="ct_custom-checkbox" type="checkbox">
+                    <span class="ct_checkmark"></span>
+                  </label>
+                  <p class="mb-0 ct_line_h_27">Delete</p>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+
+
+</div>

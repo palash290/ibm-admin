@@ -1,0 +1,265 @@
+<div class="ct_right_panel">
+
+    <div class="ct_px_30 mt-4 pb-4">
+        <div class="container-fluid">
+            <div class="ct_inner_header_bg mt-4  mb-4">
+                <h4 class="ct_fs_28 ct_fw_700 mb-0 ct_black_text">Sub-Admins</h4>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767">
+                <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767 ">
+                    <div class="form-group position-relative ct_search_w ct_w_100_767">
+                        <input type="text" class="form-control ct_input ct_input_ps_40"
+                            placeholder="Search" [(ngModel)]="searchQuery"
+                            (ngModelChange)="getAllSubAdmins()">
+                        <i class="fa-solid fa-search ct_input_icon_left"></i>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 ct_w_100_767">
+                        <img src="../assets/img/filter_question_icon.svg" alt="">
+                        <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By</p>
+                        <select class="form-control ct_input ct_select_w_150 ct_w_100_767" [(ngModel)]="status"
+                            (ngModelChange)="getAllSubAdmins()">
+                            <option value="" selected>All</option>
+                            <option value="1">Active</option>
+                            <option value="2">Blocked</option>
+
+                        </select>
+                    </div>
+                </div>
+                <div class="ct_w_100_767">
+                    <button class="ct_blue_btn ct_btn_h_48 ct_white_nowrap ct_w_100_767" data-bs-toggle="modal"
+                        data-bs-target="#invite_sub_admin">+ Invite
+                        Sub-Admin</button>
+                </div>
+            </div>
+
+
+            <div class="row ct_mt_30">
+                <div class="col-md-12">
+                    <div class="table-responsive mt-4 ct_custom_table">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone No.</th>
+                                    <th>Status</th>
+                                    <th>Invited On</th>
+                                    <th>Block</th>
+                                    <th class="text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="let item of subAdminList | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                                    <td>{{(p - 1) * 10 + i + 1}}</td>
+                                    <td (click)="showImg(item.profile_image)">
+                                        <img [src]="item.profile_image ? item.profile_image : '../assets/img/no_pro.png'"
+                                            alt="" class="ct_img_w_44" data-bs-toggle="modal"
+                                            data-bs-target="#full_view_img">
+                                    </td>
+                                    <td>{{item?.name}}</td>
+                                    <td>
+                                        {{item?.email}}
+                                    </td>
+                                    <td>{{item?.phone_number ? item?.phone_number : '-'}}</td>
+                                    <td>
+                                        <span *ngIf="item.status == '0'"
+                                            class="ct_pending_status ct_fw_700">Pending</span>
+                                        <span *ngIf="item.status == '1'"
+                                            class="ct_active_status ct_fw_700">Active</span>
+                                        <span *ngIf="item.status == '2'"
+                                            class="ct_blocked_status ct_fw_700">Blocked</span>
+                                    </td>
+                                    <td>{{item?.created_at | date:'dd-MMM-yyyy'}}</td>
+                                    <td>
+
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" [(ngModel)]="item.status"
+                                                [ngModel]="item.status == '2'" (click)="handleCheckboxChange(item)">
+                                            <div class="toggle-switch-background">
+                                                <div class="toggle-switch-handle" (click)="getId(item?.id)"></div>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3 justify-content-end">
+                                            <a [routerLink]="['/admin/permissions']" [queryParams]="{ id: item.id }"
+                                                class="text-dark"><i class="fa-regular fa-pen-to-square"></i></a>
+
+                                            <a class="ct_blue_text"><i class="fa-regular fa-solid fa-trash"
+                                                    (click)="getId(item.id)" data-bs-toggle="modal"
+                                                    data-bs-target="#ct_delete_modal_post"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="subAdminList?.length == 0" class="text-center">
+                        <p class="ct_fs_15 mt-5">No sub admin found</p>
+                        <!-- Pagination Controls -->
+                    </div>
+                    <pagination-controls class="ct_pagination_div" *ngIf="!(subAdminList?.length == 0)"
+                        (pageChange)="p = $event"></pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Invite Subadmin Modal S -->
+
+<div class="modal fade" id="invite_sub_admin" tabindex="-1" aria-labelledby="invite_sub_adminLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-2">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body border-0 pt-0">
+                <div>
+                    <h4 class="ct_fs_20 ct_fw_700 mb-1">Invite Sub-Administrator</h4>
+                    <p class="mb-0 ct_text_op_6">Add a new sub-admin to manage your team.</p>
+                </div>
+                <form [formGroup]="profileForm" class="ct_mt_30">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Full Name</label>
+                        <div class="position-relative">
+                            <input type="text" class="form-control ct_input ct_input_ps_40"
+                                placeholder="Enter Full Name" formControlName="name">
+                            <img src="../assets/img/user_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                        </div>
+                        <div *ngIf="profileForm.controls['name'].invalid && profileForm.controls['name'].touched"
+                            class="err_msg">
+                            <div *ngIf="profileForm.controls['name'].errors?.['required']">Full name is required.</div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Email Address</label>
+                        <div class="position-relative">
+                            <input type="email" class="form-control ct_input ct_input_ps_40"
+                                placeholder="Enter Email Address" formControlName="email">
+                            <img src="../assets/img/mail_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                        </div>
+                        <div *ngIf="profileForm.controls['email'].invalid && profileForm.controls['email'].touched"
+                            class="err_msg">
+                            <div *ngIf="profileForm.controls['email'].errors?.['required']" class="ct_fs_14 mt-1">
+                                Email is required.
+                            </div>
+                            <div *ngIf="profileForm.controls['email'].errors?.['email'] && !profileForm.controls['email'].errors?.['required']"
+                                class="ct_fs_14 mt-1">
+                                Invalid email format.</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4">
+                <button type="button" class="ct_outline_btn ct_btn_w_162" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="ct_blue_btn ct_btn_w_162" (click)="addSubAdmin()">Send Invitation</button>
+                <button hidden type="button" class="btn btn-secondary" #closeModal1
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Invite Subadmin Modal E -->
+
+<!-- delete -->
+
+<div class="modal fade" id="ct_delete_modal_post" tabindex="-1" aria-labelledby="ct_delete_postLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header pb-0 border-0">
+                <button type="button" class="btn-close ct_close" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="ct_delete_post_modal">
+                    <figure>
+                        <div class="ct_delete_post_icon text-center">
+                            <svg width="48" height="48" viewBox="0 0 48 48" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_36_4091)">
+                                    <path
+                                        d="M24 0C10.7452 0 0 10.7452 0 24V24.036C0 37.2908 10.7092 48 23.964 48H24C37.2548 48 48 37.2908 48 24.036V24C48 10.7452 37.2908 0 24.036 0H24Z"
+                                        fill="#282828" fill-opacity="0.1" />
+                                    <path
+                                        d="M15.6775 33.29H32.321C32.5913 33.29 32.857 33.2198 33.0921 33.0864C33.3272 32.9529 33.5236 32.7608 33.6622 32.5287C33.8008 32.2966 33.8768 32.0325 33.8828 31.7623C33.8889 31.492 33.8246 31.2248 33.6965 30.9868L25.3752 15.5327C24.7849 14.437 23.2136 14.437 22.6233 15.5327L14.302 30.9868C14.1738 31.2248 14.1096 31.492 14.1156 31.7623C14.1216 32.0325 14.1976 32.2966 14.3362 32.5287C14.4748 32.7608 14.6713 32.9529 14.9064 33.0864C15.1415 33.2198 15.4071 33.29 15.6775 33.29Z"
+                                        stroke="black" stroke-width="1.25" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M23.7189 21.0405L23.9992 26.9976L24.279 21.043C24.2807 21.0049 24.2747 20.9669 24.2612 20.9312C24.2477 20.8956 24.2272 20.8631 24.2007 20.8357C24.1742 20.8082 24.1425 20.7865 24.1073 20.7718C24.0722 20.757 24.0344 20.7496 23.9963 20.75C23.9588 20.7504 23.9219 20.7582 23.8875 20.7731C23.8532 20.788 23.8221 20.8097 23.7963 20.8367C23.7704 20.8638 23.7503 20.8958 23.737 20.9308C23.7237 20.9658 23.7176 21.0031 23.7189 21.0405Z"
+                                        stroke="black" stroke-width="1.25" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M24 30.8984C23.8069 30.8984 23.618 30.8412 23.4575 30.7339C23.2969 30.6266 23.1717 30.474 23.0978 30.2956C23.0239 30.1171 23.0045 29.9208 23.0422 29.7314C23.0799 29.5419 23.1729 29.3679 23.3095 29.2313C23.446 29.0948 23.62 29.0018 23.8095 28.9641C23.9989 28.9264 24.1953 28.9457 24.3737 29.0196C24.5522 29.0936 24.7047 29.2187 24.812 29.3793C24.9193 29.5399 24.9766 29.7287 24.9766 29.9219C24.9766 30.1809 24.8737 30.4293 24.6905 30.6124C24.5074 30.7956 24.259 30.8984 24 30.8984Z"
+                                        fill="black" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_36_4091">
+                                        <rect width="48" height="48" fill="white" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+
+                        </div>
+                        <figcaption class="mt-4 text-center">
+                            <h4 class="ct_fs_24 ct_fw_700">Are you sure?</h4>
+                            <p class="mb-0">You want to delete this sub admin permanently?</p>
+                        </figcaption>
+                    </figure>
+                    <div class="d-flex justify-content-center border-0 gap-3 ct_modal_footer mt-4">
+                        <button type="button" class="ct_outline_btn  w-100 ct_fw_600 ct_border_radius_5"
+                            data-bs-dismiss="modal">No</button>
+                        <a (click)="deleteAgent()"
+                            class="  ct_blue_btn ct_red_btn w-100 ct_border_radius_5 ct_fw_600 text-center">Yes</a>
+                        <button hidden type="button" class="btn btn-secondary" #closeModal
+                            data-bs-dismiss="modal">Close</button>
+                        <button hidden type="button" class="btn btn-secondary" #closeModalDelete
+                            data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <div class="loader-1">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>
+
+<!-- Image preview Modal S -->
+<div class="modal fade modal-md" id="full_view_img" tabindex="-1" aria-labelledby="full_view_imgLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title ct_fs_24 ct_ff_QuattrocentoSans ct_fw_700 mb-0" id="full_view_imgLabel">
+                    Image Preview
+                </h5>
+                <button type="button" class="btn-close ct_custom_close_img" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ct_full_view_img">
+                    <img [src]="userImg1 ? userImg1 : '../assets/img/no_pro.png'" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

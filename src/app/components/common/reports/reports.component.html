@@ -1,0 +1,114 @@
+<div class="ct_right_panel">
+    <div class="ct_px_30 mt-4 pb-4">
+        <div class="container-fluid">
+            <div class="ct_inner_header_bg mt-4  mb-4">
+                <h4 class="ct_fs_28 ct_fw_700 mb-0 ct_black_text">Reports</h4>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767">
+                <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767 ">
+                    <div class="form-group position-relative ct_search_w ct_w_100_767">
+                        <input type="text" class="form-control ct_input ct_input_ps_40"
+                            placeholder="Search">
+                        <i class="fa-solid fa-search ct_input_icon_left"></i>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 ct_w_100_767">
+                        <img src="../assets/img/filter_question_icon.svg" alt="">
+                        <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By</p>
+                        <select class="form-control ct_input ct_select_w_150 ct_w_100_767">
+                            <option value="">Latest</option>
+                            <option value="">Newest</option>
+                            <option value="">Oldest</option>
+
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row ct_mt_30">
+                <div class="col-md-12">
+                    <div class="table-responsive ct_custom_table">
+                        <table class="table ">
+                            <thead>
+                                <tr>
+
+                                    <th>S.No</th>
+                                    <th>Report ID</th>
+                                    <th>Case Name</th>
+                                    <th>Client Name</th>
+                                    <th>Agent Name</th>
+                                    <th>Date Generated</th>
+                                    <th class="text-end">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+
+                                    <td>1</td>
+                                    <td>RPT-1042</td>
+                                    <td>
+                                        <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
+                                    </td>
+                                    <td>John Doe</td>
+                                    <td>Jane Cooper</td>
+                                    <td>02 Jun 2025</td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3 justify-content-end">
+                                            <a routerLink="/admin/view-report" class="ct_blue_text"><i
+                                                    class="fa-regular fa-eye"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Invite Subadmin Modal S -->
+
+<div class="modal fade" id="invite_sub_admin" tabindex="-1" aria-labelledby="invite_sub_adminLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-2">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body border-0 pt-0">
+                <div>
+                    <h4 class="ct_fs_20 ct_fw_700 mb-1">Invite Sub-Administrator</h4>
+                    <p class="mb-0 ct_text_op_6">Add a new sub-admin to manage your team.</p>
+                </div>
+                <form action="" class="ct_mt_30">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Full Name</label>
+                        <div class="position-relative">
+                            <input type="text" class="form-control ct_input ct_input_ps_40"
+                                placeholder="Enter Full Name">
+                            <img src="../assets/img/user_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                        </div>
+
+                    </div>
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Email Address</label>
+                        <div class="position-relative">
+                            <input type="email" class="form-control ct_input ct_input_ps_40"
+                                placeholder="Enter Email Address">
+                            <img src="../assets/img/mail_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4">
+                <button type="button" class="ct_outline_btn ct_btn_w_162" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="ct_blue_btn ct_btn_w_162">Send Invitation</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Invite Subadmin Modal E -->

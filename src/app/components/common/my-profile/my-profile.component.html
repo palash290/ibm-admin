@@ -1,0 +1,102 @@
+<div class="ct_right_panel">
+
+    <div class="ct_px_30 mt-4 pb-4">
+        <div class="container-fluid">
+            <div class="ct_inner_header_bg mt-4  mb-4 d-flex align-items-center gap-2">
+                <a (click)="backClicked()" class="ct_back_icon me-2 text-dark">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </a>
+                <h4 class="ct_fs_24 ct_fw_700 mb-0">My Profile</h4>
+                <!-- <span>/</span>
+                <small class="ct_text_op_6"> Edit Profile</small> -->
+            </div>
+
+
+            <div class="ct_white_bg">
+                <div class="">
+                    <form [formGroup]="profileForm" class="">
+
+                        <div class="d-flex align-items-center justify-content-between gap-3">
+                            <div class="d-flex align-items-center gap-4">
+                                <div class="ct_profile_img">
+                                    <img [src]="profileImg ? profileImg : 'https://creativethoughtsinfo.com/interfriendsApp/assets/img/np_pro.png'"
+                                        width="100" height="100" />
+                                    <label for="ct_profile_update">
+                                        <input type="file" class="d-none" id="ct_profile_update"
+                                            (change)="onFileSelected($event)">
+                                        <div class="ct_upload_icon">
+                                            <i class="fa-solid fa-pencil"></i>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div>
+                                    <h4 class="ct_fs_18 ct_fw_700 mb-1">{{first_name}}</h4>
+                                    <p class="mb-0 ct_text_op_05 ct_fs_14">{{userEmail}}</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row mt-5">
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    <label for="" class="ct_fw_600 mb-2">Full Name</label>
+                                    <input type="text" class="form-control ct_input ct_input_grey_bg"
+                                        placeholder="Full Name" value="Alice" formControlName="name">
+
+                                    <div *ngIf="profileForm.controls['name'].invalid && profileForm.controls['name'].touched"
+                                        class="err_msg">
+                                        <div *ngIf="profileForm.controls['name'].errors?.['required']">Please enter
+                                            your full name.</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    <label for="" class="ct_fw_600 mb-2">Contact Number</label>
+                                    <input type="text" class="form-control ct_input ct_input_grey_bg"
+                                        placeholder="Contact Number" value="+123456789" formControlName="phone" [maxlength]="15">
+
+                                    <div *ngIf="profileForm.controls['phone'].invalid && profileForm.controls['phone'].touched"
+                                        class="err_msg">
+                                        <div *ngIf="profileForm.controls['phone'].errors?.['required']">Please enter
+                                            your contact number.</div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group mb-4">
+                                    <label for="" class="ct_fw_600 mb-2">Email Address</label>
+                                    <input type="email" class="form-control ct_input ct_input_grey_bg"
+                                        placeholder="Email address" value="alice@gmail.com" formControlName="email">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex justify-content-end gap-2 align-items-center mt-4">
+                            <!-- <a href="my-profile.html" class="ct_outline_btn ct_border_radius_5">Cancel</a> -->
+                            <button class="ct_blue_btn ct_border_radius_5" (click)="onSubmit()">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <div class="loader-1">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>

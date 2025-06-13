@@ -1,0 +1,148 @@
+@media (min-width: 1450px) {
+  .ct_login_form {
+    padding: 90px 50px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .ct_blue_btn,
+  .ct_outline_btn {
+    font-size: 16px;
+  }
+  .ct_login_overlay_images img {
+    max-width: 500px;
+  }
+  .ct_px_30 {
+    padding-inline: 15px;
+  }
+  .ct_row_reverse {
+    flex-direction: column-reverse;
+  }
+  #ct_form_progressbar {
+    margin-bottom: 0px;
+    overflow: hidden;
+    color: lightgrey;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .ct_login_overlay_images img {
+    max-width: 400px;
+  }
+
+  .ct_side_bar {
+    left: -100%;
+    padding-top: 40px;
+  }
+  .ct_right_panel {
+    margin-left: 0px;
+    width: 100%;
+  }
+  .ct_show .ct_side_bar {
+    left: 0px;
+  }
+  .ct_show .ct_side_bar {
+    left: 0px;
+  }
+  .ct_close_sidebar {
+    position: absolute;
+    display: block;
+    right: 15px;
+    top: 0px;
+    font-size: 22px;
+    transition: 0.4s ease all;
+  }
+  .ct_close_sidebar:hover {
+    transform: rotate(360deg);
+  }
+  .ct_menu_bar {
+    display: block;
+  }
+}
+@media screen and (max-width: 767px) {
+  .ct_login_overlay_images img {
+    max-width: 300px;
+  }
+  .ct_fs_32 {
+    font-size: 28px;
+  }
+  .ct_dash_icon {
+    width: 40px;
+    height: 40px;
+  }
+  .ct_dash_icon img {
+    width: 22px;
+  }
+  .ct_fs_24 {
+    font-size: 20px;
+  }
+  .ct_px_30 {
+    padding-inline: 0px;
+  }
+  header {
+    padding-inline: 15px;
+  }
+  .ct_white_bg,
+  .ct_outline_border,
+  .ct_light_blue_bg2 {
+    padding: 20px;
+  }
+  .ct_pe_30 {
+    padding-right: 20px;
+  }
+  .ct_fs_28 {
+    font-size: 24px;
+  }
+  .ct_light_blue_bg > img {
+    max-width: 180px;
+  }
+  .ct_fs_22 {
+    font-size: 20px;
+  }
+  .ct_fs_20 {
+    font-size: 16px;
+  }
+
+  .ct_flex_column_767 {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+  .ct_w_100_767 {
+    width: 100%;
+  }
+  .ct_search_w {
+    min-width: 100%;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .ct_login_overlay_images img {
+    max-width: 200px;
+  }
+
+  .ct_flex_column_575 {
+    flex-direction: column;
+    align-items: flex-start !important;
+  }
+  .ct_w_100_575 {
+    width: 100%;
+  }
+  .ct_light_blue_bg > img {
+    display: none;
+  }
+  .ct_grid_3,
+  .ct_grid_4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .ct_btn_w_162 {
+    width: fit-content;
+  }
+}
+@media screen and (max-width: 500px) {
+  .ct_login_overlay_images img {
+    max-width: 180px;
+  }
+}

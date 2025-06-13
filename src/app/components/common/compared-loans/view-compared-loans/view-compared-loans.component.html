@@ -1,0 +1,122 @@
+<div class="ct_right_panel">
+    <div class="ct_px_30 mt-4 pb-4">
+        <div class="container-fluid">
+            <div
+                class="ct_inner_header_bg mt-4  mb-4 d-flex align-items-center gap-2 justify-content-between ct_flex_column_575 ct_w_100_575">
+                <div class=" d-flex align-items-center gap-2 flex-wrap">
+                    <a (click)="backClicked()" class="ct_back_icon me-2 text-dark">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </a>
+                    <h4 class="ct_fs_24 ct_fw_700 mb-0">Agents</h4>
+                    <!-- <span>/</span>
+                    <small class="ct_text_op_6">View Profile </small>
+                    <span>/</span>
+                    <small class="ct_text_op_6">Client Profile </small>
+                    <span>/</span>
+                    <small class="ct_text_op_6"> Loans Compared </small>
+                    <span>/</span>
+                    <small class="ct_text_op_6"> Compared Loan Details </small> -->
+                </div>
+
+            </div>
+
+
+
+            <div class="ct_mt_30 ct_white_bg">
+                <div
+                    class="mb-4 d-flex align-items-center gap-3 justify-content-between ct_flex_column_575 ct_w_100_575">
+                    <h4 class="ct_fs_24 ct_fw_700 mb-0 ">Comparison On: <span class="ct_fs_20 ct_text_939393">25
+                            May,
+                            2025</span></h4>
+                    <div class="ct_w_100_575">
+                        <button class="ct_blue_btn ct_btn_h_48 ct_w_100_575"><img src="assets/img/download_icon.png"
+                                class="me-1" alt="">Download</button>
+                    </div>
+                </div>
+                <div class="table-responsive ct_custom_table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>S.No</th>
+                                <th>Loan Type</th>
+                                <th>Terms</th>
+                                <th>EMI</th>
+                                <th class="text-end">Interest Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Home Loan</td>
+                                <td>
+                                    30 Years
+                                </td>
+                                <td>$2,048</td>
+                                <td class="text-end">
+                                    3.5%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Home Loan</td>
+                                <td>
+                                    30 Years
+                                </td>
+                                <td>$2,048</td>
+                                <td class="text-end">
+                                    3.5%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>Home Loan</td>
+                                <td>
+                                    30 Years
+                                </td>
+                                <td>$2,048</td>
+                                <td class="text-end">
+                                    3.5%
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+            <div class="ct_mt_30 ct_white_bg">
+                <h4 class="ct_fs_24 ct_fw_700 ">Monthly Outflow Comparison</h4>
+                <div id="ct_bugget_summary"></div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<!-- Image preview Modal S -->
+<div class="modal fade modal-md" id="full_view_img" tabindex="-1" aria-labelledby="full_view_imgLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title ct_fs_24 ct_ff_QuattrocentoSans ct_fw_700 mb-0" id="full_view_imgLabel">
+                    Image Preview
+                </h5>
+                <button type="button" class="btn-close ct_custom_close_img" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ct_full_view_img">
+                    <img src="../assets/img/no_pro.png" alt="">
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
