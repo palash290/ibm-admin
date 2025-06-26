@@ -1,0 +1,56 @@
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+
+}
+
+.dropdown-header {
+    padding: 8px;
+    background: #fff;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.dropdown-list {
+    position: absolute;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid #ccc;
+    z-index: 10;
+    border-radius: 4px;
+}
+
+.dropdown-list label {
+    display: block;
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
+.dropdown-list label:hover {
+    background-color: #f3f3f3;
+}
+
+.selected-chip {
+    background: #e0e0e0;
+    padding: 4px 8px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    margin: 2px;
+}
+
+.remove-chip {
+    margin-left: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #888;
+}
+
+.remove-chip:hover {
+    color: red;
+}

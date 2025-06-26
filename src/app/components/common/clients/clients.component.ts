@@ -34,7 +34,7 @@ export class ClientsComponent {
     this.userRole = this.authService.getUserRole();
     this.agentId = this.authService.getAgentId();
     this.initForm();
-    if (this.userRole == 'Admin') {
+    if (this.userRole == 'Admin' || this.userRole == 'Sub Admin') {
       this.getAllClients();
     } else {
       this.getAllClientsByAgentId();
@@ -50,6 +50,7 @@ export class ClientsComponent {
 
 
   getAllClients() {
+    this.p = 1;
     const trimmedSearch = this.searchQuery?.trim() || '';
 
     const formURlData = new URLSearchParams();
@@ -59,7 +60,7 @@ export class ClientsComponent {
 
     this.service.postAPI(`get-users-by-role`, formURlData).subscribe({
       next: (resp: any) => {
-        this.clientsList = resp.users;
+        this.clientsList = resp.users.reverse();
       },
       error: error => {
         this.clientsList = []
@@ -111,7 +112,7 @@ export class ClientsComponent {
             this.toastr.success(resp.message);
             this.loading = false;
             this.closeModal1.nativeElement.click();
-            if (this.userRole == 'Admin') {
+            if (this.userRole == 'Admin' || this.userRole == 'Sub Admin') {
               this.getAllClients();
             } else {
               this.getAllClientsByAgentId();
@@ -154,7 +155,7 @@ export class ClientsComponent {
           this.service.postAPI(`block-unblock-user`, formURlData).subscribe({
             next: resp => {
               this.toastr.success(resp.message);
-              if (this.userRole == 'Admin') {
+              if (this.userRole == 'Admin' || this.userRole == 'Sub Admin') {
                 this.getAllClients();
               } else {
                 this.getAllClientsByAgentId();
@@ -163,7 +164,7 @@ export class ClientsComponent {
           })
         } else {
           //this.toastr.warning('Something went wrong!');
-          if (this.userRole == 'Admin') {
+          if (this.userRole == 'Admin' || this.userRole == 'Sub Admin') {
             this.getAllClients();
           } else {
             this.getAllClientsByAgentId();
@@ -189,7 +190,7 @@ export class ClientsComponent {
           this.service.postAPI(`block-unblock-user`, formURlData).subscribe({
             next: resp => {
               this.toastr.success(resp.message);
-              if (this.userRole == 'Admin') {
+              if (this.userRole == 'Admin' || this.userRole == 'Sub Admin') {
                 this.getAllClients();
               } else {
                 this.getAllClientsByAgentId();
@@ -198,7 +199,7 @@ export class ClientsComponent {
           })
         } else {
           //this.toastr.warning('Something went wrong!');
-          if (this.userRole == 'Admin') {
+          if (this.userRole == 'Admin' || this.userRole == 'Sub Admin') {
             this.getAllClients();
           } else {
             this.getAllClientsByAgentId();

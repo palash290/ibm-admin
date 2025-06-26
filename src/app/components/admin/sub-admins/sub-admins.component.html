@@ -9,13 +9,12 @@
             <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767">
                 <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767 ">
                     <div class="form-group position-relative ct_search_w ct_w_100_767">
-                        <input type="text" class="form-control ct_input ct_input_ps_40"
-                            placeholder="Search" [(ngModel)]="searchQuery"
-                            (ngModelChange)="getAllSubAdmins()">
+                        <input type="text" class="form-control ct_input ct_input_ps_40" placeholder="Search"
+                            [(ngModel)]="searchQuery" (ngModelChange)="getAllSubAdmins()">
                         <i class="fa-solid fa-search ct_input_icon_left"></i>
                     </div>
                     <div class="d-flex align-items-center gap-2 ct_w_100_767">
-                        <img src="../assets/img/filter_question_icon.svg" alt="">
+                        <img src="assets/img/filter_question_icon.svg" alt="">
                         <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By</p>
                         <select class="form-control ct_input ct_select_w_150 ct_w_100_767" [(ngModel)]="status"
                             (ngModelChange)="getAllSubAdmins()">
@@ -56,7 +55,7 @@
                                     *ngFor="let item of subAdminList | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
                                     <td>{{(p - 1) * 10 + i + 1}}</td>
                                     <td (click)="showImg(item.profile_image)">
-                                        <img [src]="item.profile_image ? item.profile_image : '../assets/img/no_pro.png'"
+                                        <img [src]="item.profile_image ? item.profile_image : 'assets/img/no_pro.png'"
                                             alt="" class="ct_img_w_44" data-bs-toggle="modal"
                                             data-bs-target="#full_view_img">
                                     </td>
@@ -75,7 +74,6 @@
                                     </td>
                                     <td>{{item?.created_at | date:'dd-MMM-yyyy'}}</td>
                                     <td>
-
                                         <label class="toggle-switch">
                                             <input type="checkbox" [(ngModel)]="item.status"
                                                 [ngModel]="item.status == '2'" (click)="handleCheckboxChange(item)">
@@ -86,8 +84,13 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center gap-3 justify-content-end">
-                                            <a [routerLink]="['/admin/permissions']" [queryParams]="{ id: item.id }"
-                                                class="text-dark"><i class="fa-regular fa-pen-to-square"></i></a>
+                                            <!-- <a [routerLink]="['/admin/permissions']" [queryParams]="{ id: item.id }"
+                                                class="text-dark"><i class="fa-regular fa-pen-to-square"></i></a> -->
+
+                                            <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                data-bs-target="#ct_permision_modal"
+                                                (click)="loadPreselectedUsers(item.id)">
+                                                <i class="fa-solid fa-arrows-rotate ct_purple_text"></i></a>
 
                                             <a class="ct_blue_text"><i class="fa-regular fa-solid fa-trash"
                                                     (click)="getId(item.id)" data-bs-toggle="modal"
@@ -100,7 +103,6 @@
                     </div>
                     <div *ngIf="subAdminList?.length == 0" class="text-center">
                         <p class="ct_fs_15 mt-5">No sub admin found</p>
-                        <!-- Pagination Controls -->
                     </div>
                     <pagination-controls class="ct_pagination_div" *ngIf="!(subAdminList?.length == 0)"
                         (pageChange)="p = $event"></pagination-controls>
@@ -130,7 +132,7 @@
                         <div class="position-relative">
                             <input type="text" class="form-control ct_input ct_input_ps_40"
                                 placeholder="Enter Full Name" formControlName="name">
-                            <img src="../assets/img/user_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                            <img src="assets/img/user_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
                         </div>
                         <div *ngIf="profileForm.controls['name'].invalid && profileForm.controls['name'].touched"
                             class="err_msg">
@@ -142,7 +144,7 @@
                         <div class="position-relative">
                             <input type="email" class="form-control ct_input ct_input_ps_40"
                                 placeholder="Enter Email Address" formControlName="email">
-                            <img src="../assets/img/mail_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                            <img src="assets/img/mail_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
                         </div>
                         <div *ngIf="profileForm.controls['email'].invalid && profileForm.controls['email'].touched"
                             class="err_msg">
@@ -154,6 +156,42 @@
                                 Invalid email format.</div>
                         </div>
                     </div>
+
+                    <div class="form-group mb-4">
+                        <label class="ct_fw_600 mb-2">Permissions</label><br />
+                        <div #dropdown>
+                            <div class="custom-dropdown">
+                                <div class="position-relative">
+                                    <div class="dropdown-header" (click)="toggleUserDropdown()"
+                                        style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                        <ng-container *ngIf="selectedUsers.length; else placeholder">
+                                            <span *ngFor="let userId of selectedUsers" class="selected-chip"
+                                                (click)="$event.stopPropagation()">
+                                                {{ getUserNameById(userId) }}
+                                                <!-- <span class="remove-chip" (click)="removeUser(userId)">×</span> -->
+
+                                            </span>
+                                        </ng-container>
+                                        <ng-template #placeholder>
+                                            <span class="text-muted">Select Permissions</span>
+                                        </ng-template>
+                                    </div>
+
+                                    <i class="fa-solid fa-angle-down ct_show_eye "
+                                        style="right: 3px;font-size: 12px;"></i>
+                                </div>
+                                <div class="dropdown-list ct_checkbox_main" *ngIf="userDropdownOpen">
+                                    <label *ngFor="let user of availableUsers">
+                                        <input type="checkbox" [checked]="isUserSelected(user.id)"
+                                            (change)="toggleUserSelection(user.id)"
+                                            [disabled]="user.name == 'Dashboard'" />
+                                        {{ user.name }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </form>
             </div>
             <div class="modal-footer border-0 pt-0 pb-4">
@@ -256,10 +294,74 @@
             </div>
             <div class="modal-body">
                 <div class="ct_full_view_img">
-                    <img [src]="userImg1 ? userImg1 : '../assets/img/no_pro.png'" alt="">
+                    <img [src]="userImg1 ? userImg1 : 'assets/img/no_pro.png'" alt="">
                 </div>
             </div>
 
         </div>
     </div>
 </div>
+
+
+<!-- Reassign Agent Modal S -->
+<div class="modal fade" id="ct_permision_modal" tabindex="-1" aria-labelledby="ct_permision_modalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-2">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body border-0 pt-0">
+                <div class="mb-4">
+                    <h4 class="ct_fs_20 ct_fw_700 mb-1">Agent Permissions</h4>
+                    <!-- <p class="mb-0 ct_text_op_6">Reassign a new agent for these clients.</p> -->
+                </div>
+
+                <!-- Custom Multi-select Dropdown for Users -->
+                <div class="form-group mb-4">
+                    <label class="ct_fw_600 mb-2">Permissions</label><br />
+                    <div #dropdown>
+                        <div class="custom-dropdown">
+                            <div class="position-relative">
+                                <!-- <div class="dropdown-header" (click)="toggleUserDropdown()">
+                                    {{ getSelectedUserNames() }}
+                                </div> -->
+                                <div class="dropdown-header" (click)="toggleUserDropdown()"
+                                    style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                    <ng-container *ngIf="selectedUsers.length; else placeholder">
+                                        <span *ngFor="let userId of selectedUsers" class="selected-chip"
+                                            (click)="$event.stopPropagation()">
+                                            {{ getUserNameById(userId) }}
+                                            <!-- <span class="remove-chip" (click)="removeUser(userId)">×</span> -->
+                                        </span>
+                                    </ng-container>
+                                    <ng-template #placeholder>
+                                        <span class="text-muted">Select Permissions</span>
+                                    </ng-template>
+                                </div>
+
+                                <i class="fa-solid fa-angle-down ct_show_eye " style="right: 3px;font-size: 12px;"></i>
+                            </div>
+                            <div class="dropdown-list ct_checkbox_main" *ngIf="userDropdownOpen">
+                                <label *ngFor="let user of availableUsers">
+                                    <input type="checkbox" [checked]="isUserSelected(user.id)"
+                                        (change)="toggleUserSelection(user.id)" [disabled]="user.name == 'Dashboard'"/>
+                                    {{ user.name }}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4">
+                <button type="button" class="ct_outline_btn " data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="ct_blue_btn" (click)="assignPermission()">
+                    Assign
+                </button>
+                <button hidden type="button" class="btn btn-secondary" #closeModalPremision
+                    data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Invite Subadmin Modal E -->

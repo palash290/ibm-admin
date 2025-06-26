@@ -1,0 +1,507 @@
+<fieldset class="ct_white_bg">
+    <div class="ct_form-card">
+        <h4 class="ct_fs_24 ct_fw_700 mb-4">Property Details</h4>
+        <!-- <div>
+            <div class="row">
+       
+
+
+              
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Loan Start Date</label>
+                        <div class="position-relative">
+                            <input type="date" class="form-control ct_input ">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Loan Length
+                            (Months)</label>
+                        <div class="position-relative">
+                            <input type="number" class="form-control ct_input " placeholder="Enter Months">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Interest Rate (%)</label>
+                        <div class="position-relative">
+                           
+                            <select class="form-control ct_input ct_input_ps_30">
+                                <option value="">65 %</option>
+                                <option value="">80 %</option>
+                            </select>
+                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if(selectedCaseType != '1'){
+        <div>
+            <h4 class="ct_fs_20 ct_fw_700 mb-4">HELOC Calculations</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Total Size (% of Property
+                            Value) </label>
+                        <input type="text" class="form-control ct_input" placeholder="Auto-Calculated">
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Interest Rate</label>
+                        <div class="position-relative">
+                            <input type="number" class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                            <span class="ct_input_icon_left">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Current Balance</label>
+                        <div class="position-relative">
+                            <input type="number" class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                            <span class="ct_input_icon_left">$</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Credit Available</label>
+                        <div class="position-relative">
+                            <input type="number" class="form-control ct_input " placeholder="Auto-Calculated">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+        @if(selectedCaseType != '1' && selectedCaseType != '3'){
+        <div>
+            <h4 class="ct_fs_20 ct_fw_700 mb-4">Monthly Expenses</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Insurance</label>
+                        <div class="position-relative">
+                            <input type="number" class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                            <span class="ct_input_icon_left">$</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Tax</label>
+                        <div class="position-relative">
+                            <input type="number" class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                            <span class="ct_input_icon_left">$</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Utilities</label>
+                        <div class="position-relative">
+                            <input type="number" class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                            <span class="ct_input_icon_left">$</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Maintenance</label>
+                        <div class="position-relative">
+                            <input type="number" class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                            <span class="ct_input_icon_left">$</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-4">
+                        <label for="" class="mb-2 ct_fw_600">Extra Payments Made</label>
+                        <div class="position-relative">
+                            <input type="number" class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                            <span class="ct_input_icon_left">$</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+
+        <div class="form-group mb-4">
+            <label for="" class="mb-2 ct_fw_600">Notes</label>
+            <textarea type="text" name="" id="" rows="4" placeholder="Add Any Additional Notes About This Property"
+                class="ct_input form-control h-auto"></textarea>
+        </div>
+
+        <div class="d-flex align-items-center gap-3 mb-4">
+            <button class="ct_outline_btn ct_btn_h_48 ct_border_radius_5">+ Add
+                Property</button>
+        </div> -->
+
+        <form [formGroup]="form">
+            <div formArrayName="properties">
+                <div *ngFor="let property of properties.controls; let i = index" [formGroupName]="i"
+                    class="border p-4 mb-4">
+                    <div class="row">
+
+                        <h4 class="ct_fs_20 ct_fw_700 mb-4">Property Details</h4>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Property Name </label>
+                                <input formControlName="property_name" placeholder="Property Name"
+                                    class="form-control" />
+                                <div
+                                    *ngIf="property.get('property_name')?.touched && property.get('property_name')?.invalid">
+                                    <small class="text-danger">Property name is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Property Address </label>
+                                <input formControlName="property_address" placeholder="Property Address"
+                                    class="form-control" />
+                                <div
+                                    *ngIf="property.get('property_address')?.touched && property.get('property_address')?.invalid">
+                                    <small class="text-danger">Property address is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Current Value</label>
+                                <input formControlName="current_value" placeholder="Current Value" type="number"
+                                    class="form-control" (ngModelChange)="calculateCurrentEquity(property)" />
+                                <div
+                                    *ngIf="property.get('current_value')?.touched && property.get('current_value')?.invalid">
+                                    <small class="text-danger">Current value is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Equity</label>
+                                <input formControlName="equity" placeholder="Equity" type="number"
+                                    class="form-control" />
+                                <div *ngIf="property.get('equity')?.touched && property.get('equity')?.invalid">
+                                    <small class="text-danger">Equity is required</small>
+                                </div>
+                            </div>
+                        </div>
+                        @if(selectedCaseType != '3'){
+
+                        <h4 class="ct_fs_20 ct_fw_700 mb-4">Mortgage Details</h4>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Financed Amount (most recent renewal)</label>
+                                <input formControlName="financed_amount" type="number" class="form-control"
+                                    placeholder="Financed Amount" />
+                                <div
+                                    *ngIf="property.get('financed_amount')?.touched && property.get('financed_amount')?.invalid">
+                                    <small class="text-danger">Financed amount is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Loan Start Date</label>
+                                <input formControlName="loan_start_date" type="date" class="form-control"
+                                    [attr.max]="minDate" />
+                                <div
+                                    *ngIf="property.get('loan_start_date')?.touched && property.get('loan_start_date')?.invalid">
+                                    <small class="text-danger">Equity is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <!-- <label for="" class="mb-2 ct_fw_600">Loan Length (Months)</label>
+                                <div class="position-relative">
+                                    <select class="form-control ct_input ct_input_ps_30" formControlName="loan_tenure">
+                                        <option value="6" selected>6</option>
+                                        <option value="12">12</option>
+                                        <option value="18">18</option>
+                                        <option value="24">24</option>
+                                        <option value="30">30</option>
+                                        <option value="36">36</option>
+                                    </select>
+                                </div> -->
+                                <label for="" class="mb-2 ct_fw_600">Loan Length (Months)</label>
+                                <input formControlName="loan_tenure" type="number" class="form-control"
+                                    placeholder="Loan Length " />
+                                <div
+                                    *ngIf="property.get('loan_tenure')?.touched && property.get('loan_tenure')?.invalid">
+                                    <small class="text-danger">Loan length is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Interest Rate(%)</label>
+                                <input formControlName="interest_rate" type="number" class="form-control"
+                                    placeholder="Interest Rate" />
+                                <div
+                                    *ngIf="property.get('interest_rate')?.touched && property.get('interest_rate')?.invalid">
+                                    <small class="text-danger">Interest rate is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Current Loan Balance</label>
+                                <input formControlName="current_loan_balance" type="number" class="form-control"
+                                    placeholder="Current Loan Balance"
+                                    (ngModelChange)="calculateCurrentEquity(property)" />
+                                <div
+                                    *ngIf="property.get('current_loan_balance')?.touched && property.get('current_loan_balance')?.invalid">
+                                    <small class="text-danger">Current loan balance is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Monthly Payment</label>
+                                <input formControlName="monthly_payment" type="number" class="form-control"
+                                    placeholder="Monthly Payment" />
+                                <div
+                                    *ngIf="property.get('monthly_payment')?.touched && property.get('monthly_payment')?.invalid">
+                                    <small class="text-danger">Monthly payment is required</small>
+                                </div>
+                            </div>
+                        </div>
+                        }
+
+                        <!-- Conditionally Show HELOC -->
+                        <ng-container *ngIf="selectedCaseType !== '1' && selectedCaseType !='3'">
+                            <h4 class="ct_fs_20 ct_fw_700 mb-4">HELOC Calculations</h4>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="1" class="mb-2 ct_fw_600">Loan Percent (%)</label>
+                                    <div class="position-relative">
+                                        <select class="form-control ct_input ct_input_ps_30"
+                                            formControlName="heloc_interest_rate" >
+                                            <option value="65.00" selected>65 %</option>
+                                            <option value="80.00">80 %</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="" class="mb-2 ct_fw_600">HELOC Amount</label>
+                                    <input formControlName="heloc_amount" placeholder="HELOC Amount"
+                                        class="form-control" readonly />
+
+                                    <!-- <div
+                                        *ngIf="property.get('heloc_amount')?.touched && property.get('heloc_amount')?.invalid">
+                                        <small class="text-danger">Total size is required</small>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="" class="mb-2 ct_fw_600">HELOC Current Debt</label>
+                                    <input formControlName="heloc_current_debt_balance" placeholder="HELOC Current Debt"
+                                        type="number" class="form-control"
+                                        (ngModelChange)="calculateCurrentEquity(property)" />
+
+                                    <div
+                                        *ngIf="property.get('heloc_current_debt_balance')?.touched && property.get('heloc_current_debt_balance')?.errors">
+                                        <small class="text-danger"
+                                            *ngIf="property.get('heloc_current_debt_balance')?.hasError('required')">
+                                            HELOC current debt is required
+                                        </small>
+                                        <small class="text-danger"
+                                            *ngIf="property.get('heloc_current_debt_balance')?.hasError('helocDebtExceedsLimit')">
+                                            HELOC current debt cannot exceed HELOC amount
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="" class="mb-2 ct_fw_600">HELOC Room Available</label>
+                                    <input formControlName="heloc_room_abvailable" placeholder="HELOC Room Available" type="number"
+                                        class="form-control" />
+
+                                    <!-- <div
+                                        *ngIf="property.get('heloc_room_abvailable')?.touched && property.get('heloc_room_abvailable')?.invalid">
+                                        <small class="text-danger">HELOC room is required</small>
+                                    </div> -->
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-md-6">
+                                <div class="form-group mb-2">
+                                    <label for="" class="mb-2 ct_fw_600">HELOC Credit Available</label>
+                                    <input formControlName="credit_available" placeholder="HELOC Credit Available"
+                                        class="form-control" readonly />
+
+                                    <div
+                                        *ngIf="property.get('credit_available')?.touched && property.get('credit_available')?.invalid">
+                                        <small class="text-danger">Equity is required</small>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                        </ng-container>
+
+                        <!-- Conditionally Show Monthly Expenses -->
+                        <ng-container>
+                            <h4 class="ct_fs_20 ct_fw_700 mb-4">Property Expenses(Monthly)</h4>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="" class="mb-2 ct_fw_600">Monthly Mortgage Insurance Expense</label>
+                                    <input formControlName="monthly_mortgage_insurance_expense" placeholder="Insurance" type="number"
+                                        class="form-control" />
+
+                                    <div
+                                        *ngIf="property.get('monthly_mortgage_insurance_expense')?.touched && property.get('monthly_mortgage_insurance_expense')?.invalid">
+                                        <small class="text-danger">This field is required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="" class="mb-2 ct_fw_600">Monthly Mortgage Extra Expense</label>
+                                    <input formControlName="monthly_mortgage_extra_expense" placeholder="Extra Expense" type="number"
+                                        class="form-control" />
+
+                                    <div
+                                        *ngIf="property.get('monthly_mortgage_extra_expense')?.touched && property.get('monthly_mortgage_extra_expense')?.invalid">
+                                        <small class="text-danger">This field is required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="" class="mb-2 ct_fw_600">Monthly Property Tax Expense</label>
+                                    <input formControlName="monthly_property_tax_expense" placeholder="Tax" type="number" class="form-control" />
+
+                                    <div *ngIf="property.get('monthly_property_tax_expense')?.touched && property.get('monthly_property_tax_expense')?.invalid">
+                                        <small class="text-danger">Tax is required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="" class="mb-2 ct_fw_600">Monthly Property Insurance Expense</label>
+                                    <input formControlName="monthly_property_insurance_expense" placeholder="Insurance"
+                                        type="number" class="form-control" />
+
+                                    <div
+                                        *ngIf="property.get('monthly_property_insurance_expense')?.touched && property.get('monthly_property_insurance_expense')?.invalid">
+                                        <small class="text-danger">This field is required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="" class="mb-2 ct_fw_600">Monthly Utilities Expense</label>
+                                    <input formControlName="monthly_utility_expense" placeholder="Utilities" type="number"
+                                        class="form-control" />
+
+                                    <div
+                                        *ngIf="property.get('monthly_utility_expense')?.touched && property.get('monthly_utility_expense')?.invalid">
+                                        <small class="text-danger">Utilities is required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group mb-4">
+                                    <label for="" class="mb-2 ct_fw_600">Community/Condo Fees Expense</label>
+                                    <input formControlName="community_condo_fees_expense" placeholder="Maintenance" type="number"
+                                        class="form-control" />
+
+                                    <div
+                                        *ngIf="property.get('community_condo_fees_expense')?.touched && property.get('community_condo_fees_expense')?.invalid">
+                                        <small class="text-danger">This field is required</small>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </ng-container>
+
+                        <div class="col-12">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Notes</label>
+                                <textarea formControlName="notes" placeholder="Notes..." class="form-control"
+                                    rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end mt-2" *ngIf="i > 0">
+                        <button type="button" class="btn btn-danger btn-sm" (click)="removeProperty(i)">
+                            Remove Property
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Property Button -->
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <button type="button" class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addProperty()">+
+                    Add
+                    Property</button>
+            </div>
+
+        </form>
+
+
+    </div>
+    <button type="button" name="next" (click)="submit()"
+        class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5">Save
+        & Next</button>
+    <button type="button" name="previous" routerLink="/user/loan-calculator/people-details"
+        class="previous action-button-previou ct_outline_btn float-end ct_border_radius_5">Back</button>
+</fieldset>
+
+
+
+
+<div class="ct_loader_main" *ngIf="loading">
+    <div class="loader-1">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>

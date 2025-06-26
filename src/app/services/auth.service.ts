@@ -11,19 +11,19 @@ export class AuthService {
 
   setUserRole(role: string) {
     this.userRole = role;
-    localStorage.setItem('userRole', role);
+    sessionStorage.setItem('userRole', role);
   }
 
   setAgentId(id: string) {
-    localStorage.setItem('agentId', id);
+    sessionStorage.setItem('agentId', id);
   }
 
   getAgentId(): string {
-    return localStorage.getItem('agentId') || '';
+    return sessionStorage.getItem('agentId') || '';
   }
 
   getUserRole(): string {
-    return localStorage.getItem('userRole') || 'Admin';
+    return sessionStorage.getItem('userRole') || 'Admin';
   }
 
   isAuthorized(allowedRoles: string[]): boolean {

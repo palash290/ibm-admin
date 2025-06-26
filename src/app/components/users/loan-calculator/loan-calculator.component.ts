@@ -1,11 +1,13 @@
 import { Component, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
+import { CaseWizardStepsComponent } from './case-wizard-steps/case-wizard-steps.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-loan-calculator',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CaseWizardStepsComponent, RouterOutlet],
   templateUrl: './loan-calculator.component.html',
   styleUrl: './loan-calculator.component.css'
 })

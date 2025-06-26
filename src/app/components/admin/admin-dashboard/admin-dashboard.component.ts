@@ -16,6 +16,7 @@ export class AdminDashboardComponent {
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: any;
   userRole: any;
+  permissionNames: string[] = [];
 
   constructor(private authService: AuthService, private sharedService: SharedService) {
     this.chartOptions = {
@@ -94,6 +95,12 @@ export class AdminDashboardComponent {
   ngOnInit() {
     this.userRole = this.authService.getUserRole();
     this.getAllAgents();
+    const storedPermissions = localStorage.getItem('subAdminPermissions');
+    this.permissionNames = storedPermissions ? JSON.parse(storedPermissions) : [];
+  }
+
+  hasPermission(name: string): boolean {
+    return this.permissionNames.includes(name);
   }
 
   @HostListener('wheel', ['$event'])
@@ -107,7 +114,6 @@ export class AdminDashboardComponent {
   data: any;
 
   getAllAgents() {
-
     this.sharedService.getApi(`admin-dashboard`).subscribe({
       next: (resp: any) => {
         this.data = resp.data;

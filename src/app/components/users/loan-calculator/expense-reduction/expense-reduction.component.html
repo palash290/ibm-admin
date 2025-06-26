@@ -1,0 +1,127 @@
+<fieldset class="ct_white_bg">
+    <div class="ct_form-card">
+        <div class="mb-4">
+            <div>
+                <h4 class="ct_fs_24 ct_fw_700 mb-2">Final Totals</h4>
+                <p class="ct_text_op_6 mb-2">Total Monthly Investment Allotments</p>
+                <h5 class="ct_fs_20 ct_fw_700">₹10,500</h5>
+            </div>
+            <div class="table-responsive mt-4 ct_custom_table">
+                <table class="table ">
+                    <thead>
+                        <tr>
+                            <th>Investment Name</th>
+                            <th class="text-end">Monthly Allotment</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of investmentList; let i = index">
+                            <td>{{item.investment_name}}</td>
+                            <td class="text-end"> ${{item.monthly_allotment}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="ct_fw_600">Monthly Reduction on Investments</th>
+                            <th class="text-end ct_fw_600   ">${{totalInvestment}}</th>
+                        </tr>
+                    </tfoot>
+
+
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mt-4">
+                        <label for="" class="mb-2 ct_fw_600">Monthly Total Investment Allotments</label>
+                        <input type="text" class="form-control ct_input" placeholder="Investment Allotments"
+                            [(ngModel)]="totalInvestment" disabled>
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group mt-4">
+                        <label for="" class="mb-2 ct_fw_600">Monthly Reduction on Investment Allotments</label>
+                        <input type="text" class="form-control ct_input"
+                            placeholder="Reduction on Investment Allotments" [(ngModel)]="investment_reduction"
+                            (blur)="validateInvestmentReduction()">
+                        <div *ngIf="investmentReductionError" class="text-danger mt-1">
+                            {{ investmentReductionError }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mb-4">
+            <div>
+                <h4 class="ct_fs_24 ct_fw_700 mb-2">Expenses Reductions</h4>
+                <p class="ct_text_op_6 mb-2">Total Monthly Expenses</p>
+                <h5 class="ct_fs_20 ct_fw_700">$7,500</h5>
+            </div>
+            <div class="table-responsive mt-4 ct_custom_table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Expense Name</th>
+                            <th class="text-end">Monthly Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of expensesList">
+                            <td>{{ item.name }}</td>
+                            <td class="text-end">$ {{ item.amount | number: '1.2-2' }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="ct_fw_600">Monthly Reduction on Investments</th>
+                            <th class="text-end ct_fw_600">$ {{ totalExpense | number: '1.2-2' }}</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group mt-4">
+                        <label class="mb-2 ct_fw_600">Monthly Total Expenses</label>
+                        <input type="text" class="form-control ct_input" placeholder="Total Expenses"
+                            [(ngModel)]="totalExpense" disabled>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group mt-4">
+                        <label class="mb-2 ct_fw_600">Monthly Reduction of Expenses</label>
+                        <input type="number" class="form-control ct_input" placeholder="Reduction of Expenses"
+                            [(ngModel)]="expense_reduction" (blur)="validateExpenseReduction()">
+                        <div *ngIf="expenseReductionError" class="text-danger mt-1">
+                            {{ expenseReductionError }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <button type="button" name="next" (click)="sibmit()"
+        class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5">Save
+        & Next</button>
+    <button type="button" name="previous" routerLink="/user/loan-calculator/totals"
+        class="previous action-button-previou ct_outline_btn float-end ct_border_radius_5">Back</button>
+</fieldset>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <div class="loader-1">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>

@@ -5,7 +5,6 @@
             <div class="ct_inner_header_bg mt-4  mb-4">
                 <h4 class="ct_fs_28 ct_fw_700 mb-0 ct_black_text">Agents</h4>
             </div>
-
             <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767">
                 <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767 ">
                     <div class="form-group position-relative ct_search_w ct_w_100_767">
@@ -14,27 +13,22 @@
                         <i class="fa-solid fa-search ct_input_icon_left"></i>
                     </div>
                     <div class="d-flex align-items-center gap-2 ct_w_100_767">
-                        <img src="../assets/img/filter_question_icon.svg" alt="">
-                        <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By</p>
+                        <img src="assets/img/filter_question_icon.svg" alt="">
+                        <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By Status</p>
                         <select class="form-control ct_input ct_select_w_150 ct_w_100_767" style="width: 120px;"
                             [(ngModel)]="status" (ngModelChange)="getAllAgents()">
                             <option value="" selected>All</option>
                             <option value="1">Active</option>
                             <option value="0">Pending</option>
                             <option value="2">Blocked</option>
-
                         </select>
                     </div>
                 </div>
-
                 <div class="ct_w_100_767">
                     <button class="ct_blue_btn ct_btn_h_48 ct_white_nowrap ct_w_100_767" data-bs-toggle="modal"
                         data-bs-target="#invite_agent">+ Invite Agent</button>
                 </div>
-
             </div>
-
-
             <div class="row ct_mt_30">
                 <div class="col-md-12">
                     <div class="table-responsive mt-4 ct_custom_table">
@@ -58,7 +52,7 @@
                                     *ngFor="let item of agentsList | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
                                     <td>{{(p - 1) * 10 + i + 1}}</td>
                                     <td (click)="showImg(item.profile_image)">
-                                        <img [src]="item.profile_image ? item.profile_image : '../assets/img/no_pro.png'"
+                                        <img [src]="item.profile_image ? item.profile_image : 'assets/img/no_pro.png'"
                                             alt="" class="ct_img_w_44" data-bs-toggle="modal"
                                             data-bs-target="#full_view_img">
                                     </td>
@@ -91,12 +85,25 @@
                                         <div class="d-flex align-items-center gap-3 justify-content-end">
                                             <a [routerLink]="['/admin/view-agent']" [queryParams]="{ id: item.id }"
                                                 class="ct_blue_text"><i class="fa-regular fa-eye"></i></a>
+
+                                            @if (item.status == 2 &&
+                                            (userRole !== 'Sub Admin')) {
+                                            <!-- Show active icon + modal trigger -->
                                             <a href="javascript:void(0)" data-bs-toggle="modal"
                                                 data-bs-target="#ct_reaasign_modal" (click)="getModalAgents(item.id)">
-                                                <i class="fa-solid fa-arrows-rotate ct_purple_text"></i></a>
-                                            <a class="ct_blue_text"><i class="fa-regular fa-solid fa-trash"
+                                                <i class="fa-solid fa-arrows-rotate ct_purple_text"></i>
+                                            </a>
+                                            } @else if (
+                                            userRole !== 'Sub Admin') {
+                                            <!-- Show disabled icon only if not Sub Admin without permission -->
+                                            <a href="javascript:void(0)">
+                                                <i class="fa-solid fa-arrows-rotate ct_purple_text"></i>
+                                            </a>
+                                            }
+
+                                            <!-- <a class="ct_blue_text"><i class="fa-regular fa-solid fa-trash"
                                                     (click)="getId(item.id)" data-bs-toggle="modal"
-                                                    data-bs-target="#ct_delete_modal_post"></i></a>
+                                                    data-bs-target="#ct_delete_modal_post"></i></a> -->
                                         </div>
                                     </td>
                                 </tr>
@@ -134,7 +141,7 @@
                         <div class="position-relative">
                             <input type="text" class="form-control ct_input ct_input_ps_40"
                                 placeholder="Enter Full Name" formControlName="name">
-                            <img src="../assets/img/user_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                            <img src="assets/img/user_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
                         </div>
                         <div *ngIf="profileForm.controls['name'].invalid && profileForm.controls['name'].touched"
                             class="err_msg">
@@ -146,9 +153,8 @@
                         <div class="position-relative">
                             <input type="email" class="form-control ct_input ct_input_ps_40"
                                 placeholder="Enter Email Address" formControlName="email">
-                            <img src="../assets/img/mail_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                            <img src="assets/img/mail_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
                         </div>
-
                         <div *ngIf="profileForm.controls['email'].invalid && profileForm.controls['email'].touched"
                             class="err_msg">
                             <div *ngIf="profileForm.controls['email'].errors?.['required']" class="ct_fs_14 mt-1">
@@ -158,7 +164,6 @@
                                 class="ct_fs_14 mt-1">
                                 Invalid email format.</div>
                         </div>
-
                     </div>
                 </form>
             </div>
@@ -182,16 +187,15 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body border-0 pt-0">
-                <div>
+                <div class="mb-4">
                     <h4 class="ct_fs_20 ct_fw_700 mb-1">Reassign Agent</h4>
                     <p class="mb-0 ct_text_op_6">Reassign a new agent for these clients.</p>
                 </div>
-                <form action="" class="ct_mt_30">
-
+                <!-- <form action="" class="ct_mt_30">
                     <div class="form-group position-relative">
                         <input type="text" class="form-control ct_input ct_input_ps_40 ct_grey_input"
-                            placeholder="Search" [ngModelOptions]="{standalone: true}"
-                            [(ngModel)]="searchQueryModal" (ngModelChange)="getModalAgents(singleAgentId)">
+                            placeholder="Search" [ngModelOptions]="{standalone: true}" [(ngModel)]="searchQueryModal"
+                            (ngModelChange)="getModalAgents(singleAgentId)">
                         <i class="fa-solid fa-search ct_input_icon_left"></i>
                     </div>
                     <div class="mt-4">
@@ -201,7 +205,6 @@
                                 <div class="ct_radio-container">
                                     <div class="ct_radio-wrapper">
                                         <label class="ct_radio-button">
-                                            <!-- <input id="option1" name="ct_radio-group" type="radio"> -->
                                             <input type="radio" name="ct_radio-group" [value]="item.id"
                                                 [(ngModel)]="selectedAgentId" />
                                             <span class="ct_radio-checkmark"></span>
@@ -214,15 +217,93 @@
                     </div>
                     <div *ngIf="agentsListModal?.length == 0" class="text-center">
                         <p class="ct_fs_15 mt-5">No agent found</p>
-                        <!-- Pagination Controls -->
                     </div>
-                </form>
+                </form> -->
+
+                <!-- Custom Multi-select Dropdown for Users -->
+                <div class="form-group mb-4">
+                    <label class="ct_fw_600 mb-2">Users</label><br />
+                    <div #dropdown>
+                        <!-- <div class="custom-dropdown">
+                            <div class="position-relative">
+                                <div class="dropdown-header" (click)="toggleUserDropdown()">
+                                    {{ getSelectedUserNames() }}
+                                </div>
+                                <i class="fa-solid fa-angle-down ct_show_eye " style="right: 3px;font-size: 12px;"></i>
+                            </div>
+                            <div class="dropdown-list ct_checkbox_main" *ngIf="userDropdownOpen">
+                                <label *ngFor="let user of availableUsers">
+                                    <input type="checkbox" [checked]="isUserSelected(user.id)"
+                                        (change)="toggleUserSelection(user.id)" />
+                                    {{ user.name }}
+                                </label>
+                            </div>
+                        </div> -->
+                        <div class="custom-dropdown">
+                            <div class="position-relative">
+                                <div class="dropdown-header" (click)="toggleUserDropdown()">
+                                    {{ getSelectedUserNames() }}
+                                </div>
+                                <i class="fa-solid fa-angle-down ct_show_eye" style="right: 3px; font-size: 12px;"></i>
+                            </div>
+
+                            <div class="dropdown-list ct_checkbox_main" *ngIf="userDropdownOpen">
+                                <ng-container *ngIf="availableUsers && availableUsers.length > 0; else noUsersTemplate">
+                                    <label *ngFor="let user of availableUsers">
+                                        <input type="checkbox" [checked]="isUserSelected(user.id)"
+                                            (change)="toggleUserSelection(user.id)" />
+                                        {{ user.name }} ({{ user.email }})
+                                    </label>
+                                </ng-container>
+
+                                <ng-template #noUsersTemplate>
+                                    <p class="text-muted">No users available</p>
+                                </ng-template>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Agent Dropdown -->
+                <div class="form-group mb-4">
+                    <label class="ct_fw_600 mb-2">Select Agent:</label><br />
+                    <select [(ngModel)]="selectedAgent" name="agent" class="form-control ct_input">
+                        <option [ngValue]="''" disabled selected>Select an agent</option>
+                        <option *ngFor="let agent of agentsListModal" [value]="agent.name">{{ agent.name }}</option>
+                    </select>
+                </div>
+
+                <!-- Assign Button -->
+                <!-- <button (click)="assignUsersToAgent()" [disabled]="!selectedUsers.length || !selectedAgent">
+                    Assign
+                </button> -->
+
+
+
+                <!-- Display Assignments -->
+                <!-- <h3>Current Assignments:</h3>
+                <div *ngFor="let agent of agentsListModal">
+                    <strong>{{ agent.name }}:</strong>
+                    <span *ngIf="assignments[agent.name]?.length; else noUsers">
+                        {{ getAssignedUserNames(agent.name) }}
+                    </span>
+                    <ng-template #noUsers>None</ng-template>
+                </div> -->
+
+
             </div>
-            <div class="modal-footer border-0 pt-0 pb-4 mt-4">
+            <div class="modal-footer border-0 pt-0 pb-4">
                 <button type="button" class="ct_outline_btn " data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="ct_blue_btn" (click)="assignAgent()" [disabled]="!selectedAgentId">
-                    Confirm Reassignment
+                <!-- <button type="button" class="ct_blue_btn" (click)="assignAgent()" [disabled]="!selectedAgentId">
+                    Assign
+                </button> -->
+                <button type="button" class="ct_blue_btn" (click)="assignUsersToAgent()"
+                    [disabled]="!selectedUsers.length || !selectedAgent">
+                    Assign
                 </button>
+                <button hidden type="button" class="btn btn-secondary" #closeModalAsign
+                            data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -322,7 +403,7 @@
             </div>
             <div class="modal-body">
                 <div class="ct_full_view_img">
-                    <img [src]="userImg1 ? userImg1 : '../assets/img/no_pro.png'" alt="">
+                    <img [src]="userImg1 ? userImg1 : 'assets/img/no_pro.png'" alt="">
                 </div>
             </div>
 

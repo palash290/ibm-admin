@@ -1,5 +1,7 @@
-<app-sidebar></app-sidebar>
+<main [ngClass]="{ 'ct_show': isMenuActive }">
+    <app-sidebar (toggleEvent)="closeMenu($event)"></app-sidebar>
+</main>
 <div class="ct_right_panel">
-    <app-header></app-header>
+    <app-header (toggleEvent)="openMenu($event)"></app-header>
 </div>
 <router-outlet></router-outlet>

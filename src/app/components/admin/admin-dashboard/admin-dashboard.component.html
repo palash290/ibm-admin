@@ -12,7 +12,7 @@
                             <h3 class="ct_fs_28 ct_fw_700 mt-3 mb-0">{{data?.agentCount ? data?.agentCount : '0'}}</h3>
                         </div>
                         <div class="ct_dash_icon">
-                            <img src="../assets/img/agent_icon.svg" alt="">
+                            <img src="assets/img/agent_icon.svg" alt="">
                         </div>
                     </div>
                 </div>
@@ -20,15 +20,13 @@
                     <div class="ct_dashboard_card">
                         <div>
                             <p class="ct_text_op_6">Total Clients</p>
-                            <h3 class="ct_fs_28 ct_fw_700 mt-3 mb-0">{{data?.clientCount ? data?.clientCount : '0'}}</h3>
+                            <h3 class="ct_fs_28 ct_fw_700 mt-3 mb-0">{{data?.clientCount ? data?.clientCount : '0'}}
+                            </h3>
                         </div>
                         <div class="ct_dash_icon">
-                            <img src="../assets/img/user_icon.svg" alt="">
+                            <img src="assets/img/user_icon.svg" alt="">
                         </div>
-
-
                     </div>
-
                 </div>
                 <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 mb-xxl-0">
                     <div class="ct_dashboard_card">
@@ -37,71 +35,55 @@
                             <h3 class="ct_fs_28 ct_fw_700 mt-3 mb-0">-</h3>
                         </div>
                         <div class="ct_dash_icon">
-                            <img src="../assets/img/report_icon.svg" alt="">
+                            <img src="assets/img/report_icon.svg" alt="">
                         </div>
-
-
                     </div>
-
                 </div>
                 <div class="col-xxl-3 col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 mb-xxl-0">
                     <div class="ct_dashboard_card">
                         <div>
                             <p class="ct_text_op_6">Total Sub Admins</p>
-                            <h3 class="ct_fs_28 ct_fw_700 mt-3 mb-0">{{data?.subadminCount ? data?.subadminCount : '0'}}</h3>
+                            <h3 class="ct_fs_28 ct_fw_700 mt-3 mb-0">{{data?.subadminCount ? data?.subadminCount : '0'}}
+                            </h3>
                         </div>
                         <div class="ct_dash_icon">
-                            <img src="../assets/img/sub-admin_icon.svg" alt="">
+                            <img src="assets/img/sub-admin_icon.svg" alt="">
                         </div>
-
-
                     </div>
-
                 </div>
-
             </div>
-
             <div class="row ct_mt_30">
                 <div class="col-md-12">
                     <div class="ct_white_bg">
                         <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-4">
                             <h4 class="mb-0 ct_fs_24 ct_fw_700">Reports Generated Over Time</h4>
-                            <!-- <a href="#" class="ct_blue_link_underline ct_fw_600">View All</a> -->
+                            <!-- <a class="ct_blue_link_underline ct_fw_600">View All</a> -->
                             <select class="form-control ct_input ct_h_40 w-auto">
                                 <option value="">January</option>
                                 <option value="">January</option>
                                 <option value="">January</option>
                             </select>
-
                         </div>
-
                         <!-- <div id="chart"></div> -->
-
                         <div style="text-align:center">
                             <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
                                 [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"></apx-chart>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
+            @if((userRole === 'Sub Admin' && hasPermission('Report'))){
             <div class="row ct_mt_30">
                 <div class="col-md-12">
                     <div class="ct_white_bg">
                         <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
                             <h4 class="mb-0 ct_fs_24 ct_fw_700">Recently Generated Reports</h4>
-                            <a href="#" class="ct_blue_link_underline ct_fw_600">View All</a>
-
+                            <a class="ct_blue_link_underline ct_fw_600">View All</a>
                         </div>
-
                         <div class="table-responsive mt-4 ct_custom_table">
                             <table class="table ">
                                 <thead>
                                     <tr>
-
                                         <th>S.No</th>
                                         <th>Report ID</th>
                                         <th>Case Name</th>
@@ -113,7 +95,6 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-
                                         <td>1</td>
                                         <td>RPT-1042</td>
                                         <td>
@@ -124,12 +105,11 @@
                                         <td>May 12, 2025</td>
                                         <td>
                                             <div class="d-flex align-items-center gap-3 justify-content-end">
-                                                <a href="view-report.html"><i class="fa-regular fa-eye"></i></a>
+                                                <a><i class="fa-regular fa-eye"></i></a>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-
                                         <td>1</td>
                                         <td>RPT-1042</td>
                                         <td>
@@ -140,12 +120,11 @@
                                         <td>May 12, 2025</td>
                                         <td>
                                             <div class="d-flex align-items-center gap-3 justify-content-end">
-                                                <a href="view-report.html"><i class="fa-regular fa-eye"></i></a>
+                                                <a><i class="fa-regular fa-eye"></i></a>
                                             </div>
                                         </td>
                                     </tr>
                                     <tr>
-
                                         <td>1</td>
                                         <td>RPT-1042</td>
                                         <td>
@@ -156,7 +135,7 @@
                                         <td>May 12, 2025</td>
                                         <td>
                                             <div class="d-flex align-items-center gap-3 justify-content-end">
-                                                <a href="view-report.html"><i class="fa-regular fa-eye"></i></a>
+                                                <a><i class="fa-regular fa-eye"></i></a>
                                             </div>
                                         </td>
                                     </tr>
@@ -166,6 +145,8 @@
                     </div>
                 </div>
             </div>
+            }
+
         </div>
     </div>
 </div>

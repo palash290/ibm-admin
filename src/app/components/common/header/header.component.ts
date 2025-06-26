@@ -1,11 +1,13 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { SharedService } from '../../../services/shared.service';
+import { AuthService } from '../../../services/auth.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -15,13 +17,15 @@ export class HeaderComponent {
   phone: any;
   profileImg: string | ArrayBuffer | null = null;
   userEmail: any;
+  userRole: any;
 
   @ViewChild('closeModal') closeModal!: ElementRef;
 
-  constructor(private service: SharedService) { }
+  constructor(private service: SharedService, private authService: AuthService) { }
 
 
   ngOnInit() {
+    this.userRole = this.authService.getUserRole();
     this.service.refreshSidebar$.subscribe(() => {
       this.loadUserProfile();
     });
@@ -54,5 +58,12 @@ export class HeaderComponent {
     event.stopPropagation();
     this.dropdownOpen = !this.dropdownOpen;
   }
+
+  @Output() toggleEvent = new EventEmitter<boolean>();
+
+  toggleMenu() {
+    this.toggleEvent.emit(true);
+  }
+
 
 }

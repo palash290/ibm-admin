@@ -1,0 +1,210 @@
+<fieldset class="ct_white_bg">
+    <div class="ct_form-card">
+        <h4 class="ct_fs_24 ct_fw_700 mb-4">People</h4>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div formArrayName="people">
+                <div *ngFor="let person of people.controls; let i = index" [formGroupName]="i" class="border p-3 mb-4">
+                    <div class="row">
+                        <div class="col-md-6" *ngIf="person.get('first_name')">
+                            <div class="form-group mb-4">
+                                <label class="mb-2 ct_fw_600">First Name</label>
+                                <div class="position-relative">
+                                    <input formControlName="first_name" type="text" class="form-control ct_input"
+                                        placeholder="First Name" />
+                                </div>
+                                <div *ngIf="person.get('first_name')?.touched && person.get('first_name')?.invalid">
+                                    <small class="text-danger">First name is required</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6" *ngIf="person.get('last_name')">
+                            <div class="form-group mb-4">
+                                <label class="mb-2 ct_fw_600">Last Name</label>
+                                <div class="position-relative">
+                                    <input formControlName="last_name" type="text" class="form-control ct_input"
+                                        placeholder="Last Name" />
+                                </div>
+                                <div *ngIf="person.get('last_name')?.touched && person.get('last_name')?.invalid">
+                                    <small class="text-danger">Last name is required</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6" *ngIf="person.get('email')">
+                            <div class="form-group mb-4">
+                                <label class="mb-2 ct_fw_600">Email Address</label>
+                                <div class="position-relative">
+                                    <input formControlName="email" type="email" class="form-control ct_input"
+                                        placeholder="Enter Email Address" />
+                                </div>
+                                <div *ngIf="person.get('email')?.touched && person.get('email')?.invalid">
+                                    <small class="text-danger">Email is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="person.get('phone_number')">
+                            <div class="form-group mb-4">
+                                <label class="mb-2 ct_fw_600">Phone Number</label>
+                                <div class="position-relative">
+                                    <input formControlName="phone_number" type="number" class="form-control ct_input"
+                                        placeholder="Enter Phone Number" />
+                                </div>
+                                <div *ngIf="person.get('phone_number')?.touched && person.get('phone_number')?.invalid">
+                                    <small class="text-danger">Phone number is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="person.get('date_of_birth')">
+                            <div class="form-group mb-4">
+                                <label class="mb-2 ct_fw_600">Date of Birth</label>
+                                <div class="position-relative">
+                                    <input formControlName="date_of_birth" type="date" class="form-control ct_input" />
+                                </div>
+                                <div
+                                    *ngIf="person.get('date_of_birth')?.touched && person.get('date_of_birth')?.invalid">
+                                    <small class="text-danger">Date of birth is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="person.get('monthly_net_income')">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Monthly Net Income</label>
+                                <div class="position-relative">
+                                    <input formControlName="monthly_net_income" type="number"
+                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00"
+                                        (ngModelChange)="calculateTotalIncome(person)">
+                                    <span class="ct_input_icon_left">$</span>
+                                </div>
+                                <div
+                                    *ngIf="person.get('monthly_net_income')?.touched && person.get('monthly_net_income')?.invalid">
+                                    <small class="text-danger">Monthly net income is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="person.get('monthly_bonuses_dividends')">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Monthly
+                                    Bonuses/Dividends</label>
+                                <div class="position-relative">
+                                    <input formControlName="monthly_bonuses_dividends" type="number"
+                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00"
+                                        (ngModelChange)="calculateTotalIncome(person)">
+                                    <span class="ct_input_icon_left">$</span>
+                                </div>
+                                <div
+                                    *ngIf="person.get('monthly_bonuses_dividends')?.touched && person.get('monthly_bonuses_dividends')?.invalid">
+                                    <small class="text-danger">Monthly
+                                        Bonuses/Dividends is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="person.get('monthly_other_incomes')">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Monthly Other
+                                    Income </label>
+                                <div class="position-relative">
+                                    <input formControlName="monthly_other_incomes" type="number"
+                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00"
+                                        (ngModelChange)="calculateTotalIncome(person)">
+                                    <span class="ct_input_icon_left">$</span>
+                                </div>
+                                <div
+                                    *ngIf="person.get('monthly_other_incomes')?.touched && person.get('monthly_other_incomes')?.invalid">
+                                    <small class="text-danger">Monthly other income is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="person.get('total_amount')">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Total Income</label>
+                                <div class="position-relative">
+                                    <input formControlName="total_amount" type="number"
+                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                                    <span class="ct_input_icon_left">$</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6" *ngIf="person.get('projected_amount')">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Projection</label>
+                                <div class="position-relative">
+                                    <input formControlName="projected_amount" type="number"
+                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                                    <span class="ct_input_icon_left">$</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mb-4">
+                            <div class="col-md-12" *ngIf="person.get('increase_percent')">
+                                <div class="ct_case_select_card py-4">
+                                    <h4 class="ct_fs_20 ct_fw_700 mb-3">Annual Income Growth</h4>
+                                    <div class="form-group mb-0">
+                                        <input type="range" class="custom-range" min="0" max="100" formControlName="increase_percent"
+                                              [formControl]="getFormControl(person, 'increase_percent')" />
+                                        <span class="ct_text_op_07 d-block text-end">
+                                            {{ person.get('increase_percent')?.value }}%
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-12" *ngIf="person.get('notes')">
+                            <label class="mb-2 ct_fw_600">Notes</label>
+                            <textarea formControlName="notes" rows="4" class="ct_input form-control h-auto"
+                                placeholder="Add Any Additional Notes Here..."></textarea>
+                        </div>
+                        <div class="col-12 text-end mt-2" *ngIf="i > 0">
+                            <button type="button" class="btn btn-danger btn-sm"
+                                (click)="removePerson(i)">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-3 my-2">
+                <button type="button" class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addAdult()">+ Add
+                    Adult</button>
+                <button type="button" class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addChild()">+ Add
+                    Child</button>
+            </div>
+        </form>
+
+
+    </div>
+    <button type="button" name="next" class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5"
+        (click)="submit()">Save
+        & Next</button>
+    <button type="button" name="previous" [routerLink]="['/user/loan-calculator/case-type']"
+        [queryParams]="{ caseType: caseType }"
+        class="previous action-button-previou ct_outline_btn float-end ct_border_radius_5">Back</button>
+</fieldset>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <div class="loader-1">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>

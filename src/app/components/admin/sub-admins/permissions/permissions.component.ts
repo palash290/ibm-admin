@@ -86,7 +86,7 @@ export class PermissionsComponent {
     console.log('==========>', selectedModules);
   }
 
-    backClicked() {
+  backClicked() {
     this.location.back();
   }
 

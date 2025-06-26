@@ -6,16 +6,16 @@
             </div>
 
             <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767">
+                @if (userRole == 'Admin' || userRole == 'Sub Admin') {
                 <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767 ">
                     <div class="form-group position-relative ct_search_w ct_w_100_767">
-                        <input type="text" class="form-control ct_input ct_input_ps_40"
-                            placeholder="Search" [(ngModel)]="searchQuery"
-                            (ngModelChange)="getAllClients()">
+                        <input type="text" class="form-control ct_input ct_input_ps_40" placeholder="Search"
+                            [(ngModel)]="searchQuery" (ngModelChange)="getAllClients()">
                         <i class="fa-solid fa-search ct_input_icon_left"></i>
                     </div>
                     <div class="d-flex align-items-center gap-2 ct_w_100_767">
-                        <img src="../assets/img/filter_question_icon.svg" alt="">
-                        <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By</p>
+                        <img src="assets/img/filter_question_icon.svg" alt="">
+                        <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By Status</p>
                         <select class="form-control ct_input ct_select_w_150 ct_w_100_767" style="width: 120px;"
                             [(ngModel)]="status" (ngModelChange)="getAllClients()">
                             <option value="" selected>All</option>
@@ -26,6 +26,28 @@
                         </select>
                     </div>
                 </div>
+                } @else {
+                <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767 ">
+                    <div class="form-group position-relative ct_search_w ct_w_100_767">
+                        <input type="text" class="form-control ct_input ct_input_ps_40" placeholder="Search"
+                            [(ngModel)]="searchQuery" (ngModelChange)="getAllClientsByAgentId()">
+                        <i class="fa-solid fa-search ct_input_icon_left"></i>
+                    </div>
+                    <div class="d-flex align-items-center gap-2 ct_w_100_767">
+                        <img src="assets/img/filter_question_icon.svg" alt="">
+                        <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By Status</p>
+                        <select class="form-control ct_input ct_select_w_150 ct_w_100_767" style="width: 120px;"
+                            [(ngModel)]="status" (ngModelChange)="getAllClientsByAgentId()">
+                            <option value="" selected>All</option>
+                            <option value="1">Active</option>
+                            <option value="0">Pending</option>
+                            <option value="2">Blocked</option>
+
+                        </select>
+                    </div>
+                </div>
+                }
+
                 @if(userRole == 'Agent'){
                 <div class="ct_w_100_767">
                     <button class="ct_blue_btn ct_btn_h_48 ct_white_nowrap ct_w_100_767" data-bs-toggle="modal"
@@ -59,7 +81,7 @@
 
                                     <td>{{(p - 1) * 10 + i + 1}}</td>
                                     <td (click)="showImg(item.profile_image)">
-                                        <img [src]="item.profile_image ? item.profile_image : '../assets/img/no_pro.png'"
+                                        <img [src]="item.profile_image ? item.profile_image : 'assets/img/no_pro.png'"
                                             alt="" class="ct_img_w_44" data-bs-toggle="modal"
                                             data-bs-target="#full_view_img">
                                     </td>
@@ -99,7 +121,7 @@
                                         </div>
                                     </td>
                                     } @else {
-                                          <td>
+                                    <td>
                                         <div class="d-flex align-items-center gap-3 justify-content-end">
                                             <a [routerLink]="['/agent/view-client']" [queryParams]="{ id: item.id }"
                                                 class="ct_blue_text"><i class="fa-regular fa-eye"></i></a>
@@ -147,7 +169,7 @@
                         <div class="position-relative">
                             <input type="text" class="form-control ct_input ct_input_ps_40"
                                 placeholder="Enter Full Name" formControlName="name">
-                            <img src="../assets/img/user_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                            <img src="assets/img/user_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
                         </div>
                         <div *ngIf="profileForm.controls['name'].invalid && profileForm.controls['name'].touched"
                             class="err_msg">
@@ -159,7 +181,7 @@
                         <div class="position-relative">
                             <input type="email" class="form-control ct_input ct_input_ps_40"
                                 placeholder="Enter Email Address" formControlName="email">
-                            <img src="../assets/img/mail_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
+                            <img src="assets/img/mail_icon.svg" class="ct_input_icon_left ct_icon_w_20" alt="">
                         </div>
                         <div *ngIf="profileForm.controls['email'].invalid && profileForm.controls['email'].touched"
                             class="err_msg">
@@ -303,7 +325,7 @@
             </div>
             <div class="modal-body">
                 <div class="ct_full_view_img">
-                    <img [src]="userImg1 ? userImg1 : '../assets/img/no_pro.png'" alt="">
+                    <img [src]="userImg1 ? userImg1 : 'assets/img/no_pro.png'" alt="">
                 </div>
             </div>
 

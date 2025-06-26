@@ -8,17 +8,17 @@ import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 })
 export class SharedService {
 
-  //baseUrl = 'http://192.168.29.76:8000/api/';
-  baseUrl = 'http://89.116.21.92:4010/api/';
+  baseUrl = 'http://192.168.29.76:8000/api/';
+  //baseUrl = 'http://89.116.21.92:4010/api/';
 
   constructor(private http: HttpClient, private route: Router) { }
 
   setToken(token: string) {
-    localStorage.setItem('ibsAdminToken', token)
+    sessionStorage.setItem('ibsAdminToken', token)
   }
 
   getToken() {
-    return localStorage.getItem('ibsAdminToken')
+    return sessionStorage.getItem('ibsAdminToken')
   }
 
   isLogedIn() {
@@ -26,9 +26,11 @@ export class SharedService {
   }
 
   logout() {
-    localStorage.removeItem('ibsAdminToken');
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('agentId');
+    sessionStorage.removeItem('ibsAdminToken');
+    sessionStorage.removeItem('userRole');
+    sessionStorage.removeItem('agentId');
+    localStorage.clear();
+    sessionStorage.clear();
     this.route.navigateByUrl('');
   }
 
@@ -57,7 +59,7 @@ export class SharedService {
   }
 
   postAPI(url: any, data: any): Observable<any> {
-    const authToken = localStorage.getItem('ibsAdminToken')
+    const authToken = sessionStorage.getItem('ibsAdminToken')
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: `Bearer ${authToken}`
@@ -65,17 +67,8 @@ export class SharedService {
     return this.http.post(this.baseUrl + url, data, { headers: headers })
   }
 
-  postAPIUser<T, U>(url: string, data: U): Observable<T> {
-    const authToken = localStorage.getItem('ibsAdminToken')
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/x-www-form-urlencoded',
-      Authorization: `Bearer ${authToken}`
-    })
-    return this.http.post<T>(url, data, { headers: headers })
-  };
-
   postData(url: any, data: any): Observable<any> {
-    const authToken = localStorage.getItem('ibsAdminToken')
+    const authToken = sessionStorage.getItem('ibsAdminToken')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${authToken}`
@@ -84,7 +77,7 @@ export class SharedService {
   }
 
   postAPIFormData(url: any, data: any): Observable<any> {
-    const authToken = localStorage.getItem('ibsAdminToken')
+    const authToken = sessionStorage.getItem('ibsAdminToken')
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     })
@@ -92,7 +85,7 @@ export class SharedService {
   }
 
   putAPIFormData(url: any, data: any): Observable<any> {
-    const authToken = localStorage.getItem('ibsAdminToken')
+    const authToken = sessionStorage.getItem('ibsAdminToken')
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     })
@@ -100,7 +93,7 @@ export class SharedService {
   }
 
   deleteAcc(url: any): Observable<any> {
-    const authToken = localStorage.getItem('ibsAdminToken');
+    const authToken = sessionStorage.getItem('ibsAdminToken');
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${authToken}`
     });
@@ -109,7 +102,7 @@ export class SharedService {
 
   //start//
   private getHeaders(contentType: string): HttpHeaders {
-    const authToken = localStorage.getItem('ibsAdminToken') || '';
+    const authToken = sessionStorage.getItem('ibsAdminToken') || '';
     return new HttpHeaders({
       'Content-Type': contentType,
       Authorization: `Bearer ${authToken}`
@@ -124,7 +117,7 @@ export class SharedService {
   }
 
   private handleUnauthorizedError(): void {
-    localStorage.removeItem('ibsAdminToken');
+    sessionStorage.removeItem('ibsAdminToken');
     this.route.navigate(['']);
   }
   //end//

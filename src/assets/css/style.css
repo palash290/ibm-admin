@@ -450,7 +450,7 @@ textarea {
   position: fixed;
   height: 100vh;
   background-color: #fff;
-  max-width: 276px;
+  max-width: 230px;
   width: 100%;
   padding: 30px 0px;
   transition: 0.4s ease all;
@@ -489,8 +489,8 @@ textarea {
 }
 
 .ct_right_panel {
-  width: calc(100% - 276px);
-  margin-left: 276px;
+  width: calc(100% - 230px);
+  margin-left: 230px;
   transition: 0.4s ease all;
 }
 header {

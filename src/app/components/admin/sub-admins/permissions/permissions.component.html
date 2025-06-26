@@ -154,6 +154,10 @@
   </div>
 </div> -->
 
+
+
+
+
 <div class="ct_right_panel">
   <div class="ct_px_30 mt-4 pb-4">
     <div class="container-fluid">
@@ -167,9 +171,8 @@
           <!-- <span>/</span>
           <small class="ct_text_op_6"> Select Permission access</small> -->
         </div>
-        <div class="ct_w_100_575">
+        <div class="ct_w_100_575" (click)="logSelectedModules()">
           <button class="ct_blue_btn ct_btn_h_48 ct_w_100_575">Update</button>
-
         </div>
       </div>
 
@@ -177,11 +180,11 @@
         <table class="table ct_transparent_table ct_border_table_0">
           <thead>
             <tr>
-
               <th>
                 <div class="d-flex align-items-center gap-3">
                   <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                    <input class="ct_custom-checkbox" type="checkbox" [(ngModel)]="checkAllModules"
+                      (change)="toggleAllCheckboxes('modules')">
                     <span class="ct_checkmark"></span>
                   </label>
                   <p class="mb-0 ct_line_h_27">All Modules</p>
@@ -190,7 +193,8 @@
               <th>
                 <div class="d-flex align-items-center gap-3">
                   <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                    <input class="ct_custom-checkbox" type="checkbox" [(ngModel)]="checkAllAdd"
+                      (change)="toggleAllCheckboxes('add')">
                     <span class="ct_checkmark"></span>
                   </label>
                   <p class="mb-0 ct_line_h_27">All</p>
@@ -199,7 +203,8 @@
               <th>
                 <div class="d-flex align-items-center gap-3">
                   <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                    <input class="ct_custom-checkbox" type="checkbox" [(ngModel)]="checkAllView"
+                      (change)="toggleAllCheckboxes('view')" [checked]="true" [disabled]="true">
                     <span class="ct_checkmark"></span>
                   </label>
                   <p class="mb-0 ct_line_h_27">All</p>
@@ -208,7 +213,8 @@
               <th>
                 <div class="d-flex align-items-center gap-3">
                   <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                    <input class="ct_custom-checkbox" type="checkbox" [(ngModel)]="checkAllEdit"
+                      (change)="toggleAllCheckboxes('edit')">
                     <span class="ct_checkmark"></span>
                   </label>
                   <p class="mb-0 ct_line_h_27">All</p>
@@ -217,7 +223,8 @@
               <th>
                 <div class="d-flex align-items-center gap-3">
                   <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                    <input class="ct_custom-checkbox" type="checkbox" [(ngModel)]="checkAllDelete"
+                      (change)="toggleAllCheckboxes('delete')">
                     <span class="ct_checkmark"></span>
                   </label>
                   <p class="mb-0 ct_line_h_27">All</p>
@@ -226,20 +233,22 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr *ngFor="let pic of data; let i = index">
               <td>
                 <div class="d-flex align-items-center gap-3">
-                  <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                  <label class="ct_checkbox-container" for="ct_checkbox_cbx_{{ i }}">
+                    <input class="ct_custom-checkbox" type="checkbox" id="ct_checkbox_cbx_{{ i }}"
+                      [(ngModel)]="pic.checkedModules" (change)="updateColumnCheckAll('modules', pic)">
                     <span class="ct_checkmark"></span>
                   </label>
-                  <p class="mb-0 ct_line_h_27">Dashboard</p>
+                  <p class="mb-0 ct_line_h_27">{{pic.title}}</p>
                 </div>
               </td>
               <td>
                 <div class="d-flex align-items-center gap-3">
                   <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                    <input class="ct_custom-checkbox" type="checkbox" id="ct_checkbox_add_{{ i }}"
+                      [(ngModel)]="pic.checkedAdd" (change)="updateColumnCheckAll('add', pic)">
                     <span class="ct_checkmark"></span>
                   </label>
                   <p class="mb-0 ct_line_h_27">Add</p>
@@ -247,8 +256,9 @@
               </td>
               <td>
                 <div class="d-flex align-items-center gap-3">
-                  <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                  <label class="ct_checkbox-container" for="ct_checkbox_view_{{ i }}">
+                    <input class="ct_custom-checkbox" type="checkbox" id="ct_checkbox_view_{{ i }}"
+                      [(ngModel)]="pic.checkedView" (change)="updateColumnCheckAll('view', pic)" [disabled]="true">
                     <span class="ct_checkmark"></span>
                   </label>
                   <p class="mb-0 ct_line_h_27">View</p>
@@ -256,8 +266,9 @@
               </td>
               <td>
                 <div class="d-flex align-items-center gap-3">
-                  <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                  <label class="ct_checkbox-container" for="ct_checkbox_edit_{{ i }}">
+                    <input class="ct_custom-checkbox" id="ct_checkbox_edit_{{ i }}" type="checkbox"
+                      [(ngModel)]="pic.checkedEdit" (change)="updateColumnCheckAll('edit', pic)">
                     <span class="ct_checkmark"></span>
                   </label>
                   <p class="mb-0 ct_line_h_27">Edit</p>
@@ -265,15 +276,16 @@
               </td>
               <td>
                 <div class="d-flex align-items-center gap-3">
-                  <label class="ct_checkbox-container">
-                    <input class="ct_custom-checkbox" type="checkbox">
+                  <label class="ct_checkbox-container" for="ct_checkbox_delete_{{ i }}">
+                    <input class="ct_custom-checkbox" id="ct_checkbox_delete_{{ i }}" type="checkbox"
+                      [(ngModel)]="pic.checkedDelete" (change)="updateColumnCheckAll('delete', pic)">
                     <span class="ct_checkmark"></span>
                   </label>
                   <p class="mb-0 ct_line_h_27">Delete</p>
                 </div>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>
                 <div class="d-flex align-items-center gap-3">
                   <label class="ct_checkbox-container">
@@ -460,7 +472,7 @@
                   <p class="mb-0 ct_line_h_27">Delete</p>
                 </div>
               </td>
-            </tr>
+            </tr> -->
 
           </tbody>
         </table>

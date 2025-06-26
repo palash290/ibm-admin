@@ -14,11 +14,18 @@ import { AuthService } from '../../../services/auth.service';
 export class SidebarComponent {
 
   userRole: any;
+  permissionNames: string[] = [];
 
   constructor(private router: Router, private shared: SharedService, private authService: AuthService) { }
 
   ngOnInit() {
     this.userRole = this.authService.getUserRole();
+    const storedPermissions = localStorage.getItem('subAdminPermissions');
+    this.permissionNames = storedPermissions ? JSON.parse(storedPermissions) : [];
+  }
+
+  hasPermission(name: string): boolean {
+    return this.permissionNames.includes(name);
   }
 
   isActive(route: string): boolean {
@@ -29,10 +36,17 @@ export class SidebarComponent {
     this.shared.logout();
   }
 
-  // @Output() toggleEvent = new EventEmitter<boolean>();
+  @Output() toggleEvent = new EventEmitter<boolean>();
 
-  // toggleMenu() {
-  //   this.toggleEvent.emit(false);
-  // }
+  toggleMenu() {
+    sessionStorage.setItem('selectedCaseName', '');
+    sessionStorage.setItem('selectedClientName', '');
+    sessionStorage.setItem('selectedClientId', '');
+    sessionStorage.setItem('selectedCaseType', '');
+    sessionStorage.setItem('client_case_id', '');
+    this.toggleEvent.emit(false);
+  }
+
+  // removeSession()
 
 }

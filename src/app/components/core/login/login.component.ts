@@ -18,6 +18,7 @@ export class LoginComponent {
   isPasswordVisible: boolean = false;
   loginForm!: FormGroup;
   loading: boolean = false;
+  subAdminPermission: any;
 
   constructor(private route: Router, private apiService: SharedService, private authService: AuthService, private toastr: NzMessageService) {
     if (this.apiService.isLogedIn()) {
@@ -36,6 +37,8 @@ export class LoginComponent {
     })
   }
 
+  subAdminPermissionNames: any[] = [];
+
   loginAndFetchData() {
     this.loginForm.markAllAsTouched();
     if (this.loginForm.valid) {
@@ -50,9 +53,13 @@ export class LoginComponent {
             this.apiService.setToken(resp.token);
             this.toastr.success(resp.message);
 
-            this.authService.setAgentId(resp.user.id)
+            this.authService.setAgentId(resp.user.id);
+            this.subAdminPermission = resp.user.permissions;
+            this.subAdminPermissionNames = resp.user?.permissions?.map((p: any) => p.name) || [];
+            localStorage.setItem('subAdminPermissions', JSON.stringify(this.subAdminPermissionNames));
 
-            if (resp.user.role_name == 'Admin') {
+
+            if (resp.user.role_name == 'Admin' || resp.user.role_name == 'Sub Admin') {
               this.route.navigateByUrl("/admin/admin-dashboard");
             } else if (resp.user.role_name == 'Agent' && resp.user.status == '0') {
               this.route.navigate(['/set-password'], { queryParams: { id: resp.user.id } });
@@ -63,12 +70,7 @@ export class LoginComponent {
             } else if (resp.user.role_name == 'Client' && resp.user.status == '1') {
               this.route.navigateByUrl("/user/user-dashboard");
             }
-            // if(){
-
-            // }
             this.loading = false;
-
-
 
             // if (resp.user.role_name == 'Client') {
             //   this.route.navigateByUrl("/user/dashboard");
@@ -93,6 +95,7 @@ export class LoginComponent {
       });
     }
   }
+
 
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;

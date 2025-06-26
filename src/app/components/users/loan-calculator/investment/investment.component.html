@@ -1,0 +1,119 @@
+<fieldset class="ct_white_bg">
+    <div class="ct_form-card">
+        <h4 class="ct_fs_24 ct_fw_700 mb-4">Investment</h4>
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div formArrayName="investments">
+                <div *ngFor="let investment of investments.controls; let i = index" [formGroupName]="i"
+                    class="mb-4 border p-3 rounded">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label class="mb-2 ct_fw_600">Investment Name</label>
+                                <input formControlName="investment_name" type="text" class="form-control ct_input"
+                                    placeholder="Enter Investment Name">
+
+                                <div
+                                    *ngIf="investment.get('investment_name')?.touched && investment.get('investment_name')?.invalid">
+                                    <small class="text-danger">Investment name is required</small>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label class="mb-2 ct_fw_600">Balance</label>
+                                <div class="position-relative">
+                                    <input formControlName="balance_amount" type="number"
+                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                                    <span class="ct_input_icon_left">$</span>
+                                </div>
+                                <div *ngIf="investment.get('balance_amount')?.touched && investment.get('balance_amount')?.invalid">
+                                    <small class="text-danger">Balance is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group mb-4">
+                                <label class="mb-2 ct_fw_600">Monthly Allotment</label>
+                                <div class="position-relative">
+                                    <input formControlName="monthly_allotment" type="number"
+                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00" (ngModelChange)="calculateTotalIncome(investment)">
+                                    <span class="ct_input_icon_left">$</span>
+                                </div>
+                                <div
+                                    *ngIf="investment.get('monthly_allotment')?.touched && investment.get('monthly_allotment')?.invalid">
+                                    <small class="text-danger">Monthly allotment is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12" *ngIf="investment.get('projected_amount')">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Projection</label>
+                                <div class="position-relative">
+                                    <input formControlName="projected_amount" type="number"
+                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                                    <span class="ct_input_icon_left">$</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mb-4">
+                            <div class="col-md-12" *ngIf="investment.get('increase_percent')">
+                                <div class="ct_case_select_card py-4">
+                                    <h4 class="ct_fs_20 ct_fw_700 mb-3">Annual Income Growth</h4>
+                                    <div class="form-group mb-0">
+                                        <input type="range" class="custom-range" min="0" max="100"
+                                            formControlName="increase_percent"
+                                            [formControl]="getFormControl(investment, 'increase_percent')" />
+                                        <span class="ct_text_op_07 d-block text-end">
+                                            {{ investment.get('increase_percent')?.value }}%
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Remove button (hidden on first item) -->
+                        <div class="col-12 text-end" *ngIf="i > 0">
+                            <button type="button" class="btn btn-danger btn-sm"
+                                (click)="removeInvestment(i)">Remove</button>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="d-flex align-items-center gap-3 mb-4">
+            <button class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addInvestment()">+ Add
+                Investment</button>
+        </div>
+
+    </div>
+    <button type="button" name="next" (click)="submit()"
+        class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5">Save
+        & Next</button>
+    <button type="button" name="previous" routerLink="/user/loan-calculator/loan-details"
+        class="previous action-button-previou ct_outline_btn float-end ct_border_radius_5">Back</button>
+</fieldset>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <div class="loader-1">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+</div>

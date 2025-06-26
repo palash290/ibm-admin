@@ -80,7 +80,7 @@
                             <tr *ngFor="let item of clientsList; let i = index">
                                 <td>{{i + 1}}</td>
                                 <td (click)="showImg(item.profile_image)">
-                                    <img [src]="item.profile_image ? item.profile_image : '../assets/img/no_pro.png'"
+                                    <img [src]="item.profile_image ? item.profile_image : 'assets/img/no_pro.png'"
                                         alt="" class="ct_img_w_44" data-bs-toggle="modal"
                                         data-bs-target="#full_view_img_client">
                                 </td>
@@ -128,7 +128,7 @@
             </div>
             <div class="modal-body">
                 <div class="ct_full_view_img">
-                    <img [src]="agentData?.profile_image ? agentData?.profile_image : '../assets/img/no_pro.png'"
+                    <img [src]="agentData?.profile_image ? agentData?.profile_image : 'assets/img/no_pro.png'"
                         alt="">
                 </div>
             </div>
@@ -152,7 +152,7 @@
             </div>
             <div class="modal-body">
                 <div class="ct_full_view_img">
-                    <img [src]="userImg1 ? userImg1 : '../assets/img/no_pro.png'"
+                    <img [src]="userImg1 ? userImg1 : 'assets/img/no_pro.png'"
                         alt="">
                 </div>
             </div>
