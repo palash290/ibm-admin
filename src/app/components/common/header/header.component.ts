@@ -18,6 +18,7 @@ export class HeaderComponent {
   profileImg: string | ArrayBuffer | null = null;
   userEmail: any;
   userRole: any;
+  dropdownOpen = false;
 
   @ViewChild('closeModal') closeModal!: ElementRef;
 
@@ -52,7 +53,6 @@ export class HeaderComponent {
     this.service.logout();
   }
 
-  dropdownOpen = false;
 
   toggleDropdown(event: Event): void {
     event.stopPropagation();

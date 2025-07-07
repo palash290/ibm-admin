@@ -122,7 +122,7 @@ export class AgentDashboardComponent {
   prepareChart(data: any[]) {
     this.chartOptions = {
       chart: {
-        type: "bar", // or "line" or "area"
+        type: "bar",
         height: 350
       },
       series: [{
@@ -149,7 +149,7 @@ export class AgentDashboardComponent {
   onWheelScroll(event: WheelEvent) {
     const chartElement = document.querySelector('apx-chart');
     if (chartElement && chartElement.contains(event.target as Node)) {
-      event.preventDefault(); // Prevent page scroll
+      event.preventDefault();
     }
   }
 

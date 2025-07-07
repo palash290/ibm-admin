@@ -29,6 +29,19 @@ export class FinalReportComponent {
   netWorthChart: any;
   growthChart: any;
 
+  adultsData: any[] = [];
+  childrenData: any[] = [];
+  apiPropertyData: any[] = [];
+  apiCreditData: any[] = [];
+  apiLoanData: any[] = [];
+  apiinvestmentsData: any[] = [];
+  apiExpData: any;
+
+  totalCalculations: any;
+  finalotalCalculations: any;
+  apiPolicyDetails: any;
+  loading: boolean = false;
+
   constructor(private sharedService: SharedService, private route: ActivatedRoute) {
     this.paymentChart = {
       chart: {
@@ -253,13 +266,7 @@ export class FinalReportComponent {
   }
 
 
-  adultsData: any[] = [];
-  childrenData: any[] = [];
-  apiPropertyData: any[] = [];
-  apiCreditData: any[] = [];
-  apiLoanData: any[] = [];
-  apiinvestmentsData: any[] = [];
-  apiExpData: any;
+
 
   getPeoplesDetails() {
     const formURlData = new URLSearchParams();
@@ -359,7 +366,7 @@ export class FinalReportComponent {
     });
   }
 
-  totalCalculations: any;
+
 
   getTotals(id: any) {
     const payload = {
@@ -375,8 +382,6 @@ export class FinalReportComponent {
       }
     });
   }
-
-  finalotalCalculations: any;
 
   getFinalTotals(id: any) {
     const payload = {
@@ -476,7 +481,7 @@ export class FinalReportComponent {
     };
   }
 
-  apiPolicyDetails: any;
+
 
   getPolicyDetails() {
     const formURlData = new URLSearchParams();
@@ -515,9 +520,6 @@ export class FinalReportComponent {
       }
     });
   }
-
-
-  loading: boolean = false;
 
   downloadPDF(): void {
     const element = document.getElementById('pdfContent');

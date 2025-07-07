@@ -20,6 +20,8 @@ export class AdminDashboardComponent {
   permissionNames: string[] = [];
   startDate: any;
   endDate: any;
+  data: any;
+
 
   constructor(private authService: AuthService, private sharedService: SharedService) {
 
@@ -37,14 +39,13 @@ export class AdminDashboardComponent {
   }
 
   @HostListener('wheel', ['$event'])
+
   onWheelScroll(event: WheelEvent) {
     const chartElement = document.querySelector('apx-chart');
     if (chartElement && chartElement.contains(event.target as Node)) {
       event.preventDefault(); // Prevent page scroll
     }
   }
-
-  data: any;
 
   getAllAgents() {
     const formURlData = new URLSearchParams();

@@ -379,7 +379,7 @@
         }
 
 
-        @if(userRole == 'Admin' || (userRole === 'Sub Admin' && hasPermission('Compared Loan'))) {
+        <!-- @if(userRole == 'Admin' || (userRole === 'Sub Admin' && hasPermission('Compared Loan'))) {
         <li (click)="toggleMenu()">
             <a routerLink="/admin/compared-loans" [ngClass]="{ 'active': isActive('/admin/compared-loans')}">
                 <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -409,10 +409,10 @@
                 </svg>
                 Compared Loans</a>
         </li>
-        }
+        } -->
 
 
-        @if(userRole == 'Admin' || (userRole === 'Sub Admin' && hasPermission('Report'))) {
+        <!-- @if(userRole == 'Admin' || (userRole === 'Sub Admin' && hasPermission('Report'))) {
         <li (click)="toggleMenu()">
             <a routerLink="/admin/reports" [ngClass]="{ 'active': isActive('/admin/reports')}">
                 <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -481,7 +481,7 @@
                 </svg>
                 My Reports</a>
         </li>
-        }
+        } -->
 
     </ul>
 </div>

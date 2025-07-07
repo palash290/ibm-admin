@@ -25,6 +25,10 @@ export class CaseNameComponent {
   name: any;
   loading: boolean = false;
 
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  caseType: any = '';
+  selectedFile: File | null = null;
+
   constructor(private service: SharedService, private authService: AuthService, private router: Router, private toastr: NzMessageService) { }
 
   ngOnInit() {
@@ -99,10 +103,6 @@ export class CaseNameComponent {
     }
   }
 
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  caseType: any = '';
-  selectedFile: File | null = null;
-
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -140,6 +140,8 @@ export class CaseNameComponent {
         console.log('Upload success', response);
         this.loading = false;
         this.selectedFile = null;
+        this.toastr.success(response.message);
+        this.router.navigateByUrl('/agent/cases');
       },
       error: (error) => {
         this.loading = false;

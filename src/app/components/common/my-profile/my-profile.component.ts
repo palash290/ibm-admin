@@ -22,6 +22,7 @@ export class MyProfileComponent {
   loading: boolean = false;
   profileImg: string | ArrayBuffer | null = null;
   pattern1 = "^[0-9_-]{8,15}";
+    selectedFile!: File;
 
   constructor(private service: SharedService, private toastr: NzMessageService, private location: Location) { }
 
@@ -105,7 +106,7 @@ export class MyProfileComponent {
     }
   }
 
-  selectedFile!: File;
+
   //previewImageAdd: string | ArrayBuffer | null = null;
 
   // Handle File Upload and Show Preview for Add and Edit Modals
@@ -126,7 +127,6 @@ export class MyProfileComponent {
     backClicked() {
     this.location.back();
   }
-
 
 
 }

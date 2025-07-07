@@ -27,6 +27,7 @@ export class ClientsComponent {
   agentId: any;
   @ViewChild('closeModal1') closeModal1!: ElementRef;
   @ViewChild('closeModalDelete') closeModalDelete!: ElementRef;
+  userImg1: any;
 
   constructor(private service: SharedService, private toastr: NzMessageService, private authService: AuthService) { }
 
@@ -208,8 +209,6 @@ export class ClientsComponent {
       });
     }
   }
-
-  userImg1: any;
 
   showImg(url: any) {
     this.userImg1 = url;

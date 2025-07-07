@@ -24,6 +24,14 @@ export class ExpenseReductionComponent {
   totalExpense: any;
   loading: boolean = false;
 
+  investment_reduction: any = '';
+  expense_reduction: any = '0';
+  expenseReductionError: string | null = null;
+  investmentReductionError: string | null = null;
+  selectedExpenses: any;
+  selectedInvestmentIds: number[] = [];
+  selectedInvestments: any;
+
   constructor(private authService: AuthService, private sharedService: SharedService, private router: Router) { }
 
   ngOnInit() {
@@ -100,10 +108,6 @@ export class ExpenseReductionComponent {
       }));
   }
 
-
-  investment_reduction: any = '';
-  expense_reduction: any = '0';
-
   sibmit() {
     this.validateExpenseReduction();
     this.validateInvestmentReduction();
@@ -133,8 +137,6 @@ export class ExpenseReductionComponent {
     });
   }
 
-  expenseReductionError: string | null = null;
-
   validateExpenseReduction(): void {
     if (this.expense_reduction === null || this.expense_reduction === undefined || this.expense_reduction === '') {
       this.expenseReductionError = 'Expense reduction is required.';
@@ -145,8 +147,6 @@ export class ExpenseReductionComponent {
     }
   }
 
-  investmentReductionError: string | null = null;
-
   validateInvestmentReduction(): void {
     if (this.investment_reduction === null || this.investment_reduction === undefined || this.investment_reduction === '') {
       this.investmentReductionError = 'Investment reduction is required.';
@@ -156,8 +156,6 @@ export class ExpenseReductionComponent {
       this.investmentReductionError = null;
     }
   }
-
-  selectedExpenses: any;
 
   updateSelectedExpenseTotal() {
     this.expense_reduction = this.expensesList
@@ -173,10 +171,6 @@ export class ExpenseReductionComponent {
     console.log('Selected Expenses:', this.selectedExpenses);
 
   }
-
-  selectedInvestmentIds: number[] = [];
-  selectedInvestments: any;
-
 
   updateSelectedInvestmentTotal() {
     // Calculate the selected items and investment reduction
@@ -197,7 +191,6 @@ export class ExpenseReductionComponent {
     console.log('Selected IDs:', this.selectedInvestmentIds);
     console.log('Selected Investments:', this.selectedInvestments);
   }
-
 
 
 }

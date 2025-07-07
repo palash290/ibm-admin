@@ -12,7 +12,7 @@ export class ViewReportComponent {
 
   constructor(private location: Location) { }
 
-    backClicked() {
+  backClicked() {
     this.location.back();
   }
 

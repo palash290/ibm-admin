@@ -32,6 +32,17 @@ export class AgentsComponent {
   @ViewChild('closeModalDelete') closeModalDelete!: ElementRef;
   @ViewChild('closeModalAsign') closeModalAsign!: ElementRef;
 
+  clientsList: any[] = [];
+  availableUsers: any[] = [];
+  selectedUsers: number[] = [];
+  selectedAgent: string = '';
+  userDropdownOpen = false;
+  agentId: any;
+  userImg1: any;
+  assignments: { [key: string]: any[] } = {};
+  @ViewChild('dropdown') dropdownRef!: ElementRef;
+
+
   constructor(private service: SharedService, private toastr: NzMessageService, private authService: AuthService) { }
 
   ngOnInit() {
@@ -201,7 +212,6 @@ export class AgentsComponent {
     }
   }
 
-  agentId: any;
 
   getId(id: any) {
     this.agentId = id;
@@ -224,7 +234,6 @@ export class AgentsComponent {
     });
   }
 
-  userImg1: any;
 
   showImg(url: any) {
     this.userImg1 = url;
@@ -254,23 +263,11 @@ export class AgentsComponent {
   // }
 
 
-
-
-
-
-  clientsList: any[] = [];
-  availableUsers: any[] = [];
-  selectedUsers: number[] = [];
-  selectedAgent: string = '';
-  userDropdownOpen = false;
-
   // agents = [
   //   { id: 1, name: 'agent1' },
   //   { id: 2, name: 'agent2' },
   //   { id: 3, name: 'agent3' }
   // ];
-
-  assignments: { [key: string]: any[] } = {};
 
 
   getSingleAgentClients(agentId: any) {
@@ -345,8 +342,8 @@ export class AgentsComponent {
         this.toastr.success(resp.message);
         console.log('Assignment successful:', resp);
         // Optionally show toast
-        if(this.availableUsers.length == 0){
-           this.closeModalAsign.nativeElement.click();
+        if (this.availableUsers.length == 0) {
+          this.closeModalAsign.nativeElement.click();
         }
       },
       error: (err) => {
@@ -366,8 +363,6 @@ export class AgentsComponent {
     const assignedUsers = this.assignments[agentName] || [];
     return assignedUsers.map(user => user.name).join(', ');
   }
-
-  @ViewChild('dropdown') dropdownRef!: ElementRef;
 
   @HostListener('document:click', ['$event'])
 

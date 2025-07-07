@@ -47,6 +47,5 @@ export class SidebarComponent {
     this.toggleEvent.emit(false);
   }
 
-  // removeSession()
 
 }

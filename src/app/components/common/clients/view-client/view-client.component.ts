@@ -17,6 +17,8 @@ export class ViewClientComponent {
   p: any = 1;
   clientId: any;
   carFeaturesList: string[] = [];
+  clientData: any;
+  allCases: any;
 
   constructor(private service: SharedService, private route: ActivatedRoute, private location: Location) { }
 
@@ -25,9 +27,6 @@ export class ViewClientComponent {
     this.getBuseSchedule(this.clientId);
     this.getBuseSchedule1(this.clientId);
   }
-
-  clientData: any;
-  allCases: any;
 
   getBuseSchedule(clientId: any) {
     const formURlData = new URLSearchParams();

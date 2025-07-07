@@ -18,6 +18,11 @@ export class PoliciesComponent {
   client_case_id: any;
   apiPeopleData: any[] = [];
 
+  submitted = false;
+  existingFileNames: string[] = [];
+  selectedFiles: (File | null)[] = [];
+  //existingFileNames: any = '';
+
   constructor(private fb: FormBuilder, private router: Router, private sharedService: SharedService) { }
 
   ngOnInit(): void {
@@ -48,7 +53,7 @@ export class PoliciesComponent {
     });
   }
 
-  existingFileNames: string[] = [];
+
 
   getPeoplePolicies() {
     const formURlData1 = new URLSearchParams();
@@ -99,7 +104,6 @@ export class PoliciesComponent {
     });
   }
 
-  submitted = false;
 
   submit(): void {
     debugger
@@ -155,9 +159,6 @@ export class PoliciesComponent {
       }
     });
   }
-
-  selectedFiles: (File | null)[] = [];
-  //existingFileNames: any = '';
 
   onFileChange(event: any, index: number) {
     const file = event.target.files[0];

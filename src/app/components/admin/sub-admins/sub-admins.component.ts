@@ -25,6 +25,12 @@ export class SubAdminsComponent {
   @ViewChild('closeModal1') closeModal1!: ElementRef;
   @ViewChild('closeModalDelete') closeModalDelete!: ElementRef;
   @ViewChild('closeModalPremision') closeModalPremision!: ElementRef;
+  userDropdownOpen = false;
+  selectedUsers: number[] = [];
+  availableUsers: any[] = [];
+  subId: any;
+  userImg1: any;
+
 
   constructor(private service: SharedService, private toastr: NzMessageService) { }
 
@@ -185,7 +191,6 @@ export class SubAdminsComponent {
     }
   }
 
-  subId: any;
 
   getId(id: any) {
     this.subId = id;
@@ -209,16 +214,10 @@ export class SubAdminsComponent {
     });
   }
 
-  userImg1: any;
 
   showImg(url: any) {
     this.userImg1 = url;
   }
-
-
-  userDropdownOpen = false;
-  selectedUsers: number[] = [];
-  availableUsers: any[] = [];
 
   toggleUserDropdown(): void {
     this.userDropdownOpen = !this.userDropdownOpen;
@@ -309,8 +308,6 @@ export class SubAdminsComponent {
       }
     });
   }
-
-
 
 
 }

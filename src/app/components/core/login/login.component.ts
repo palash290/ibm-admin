@@ -19,6 +19,8 @@ export class LoginComponent {
   loginForm!: FormGroup;
   loading: boolean = false;
   subAdminPermission: any;
+  subAdminPermissionNames: any[] = [];
+
 
   constructor(private route: Router, private apiService: SharedService, private authService: AuthService, private toastr: NzMessageService) {
     if (this.apiService.isLogedIn()) {
@@ -36,8 +38,6 @@ export class LoginComponent {
       password: new FormControl('', Validators.required),
     })
   }
-
-  subAdminPermissionNames: any[] = [];
 
   loginAndFetchData() {
     this.loginForm.markAllAsTouched();
@@ -95,7 +95,6 @@ export class LoginComponent {
       });
     }
   }
-
 
   togglePasswordVisibility() {
     this.isPasswordVisible = !this.isPasswordVisible;

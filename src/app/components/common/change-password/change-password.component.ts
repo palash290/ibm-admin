@@ -16,6 +16,10 @@ export class ChangePasswordComponent {
   form!: FormGroup;
   passwordMismatch = false;
   loading: boolean = false;
+  isPasswordVisible1: boolean = false;
+  isPasswordVisible2: boolean = false;
+  isPasswordVisible3: boolean = false;
+
 
   constructor(private service: SharedService, private toastr: NzMessageService) { }
 
@@ -29,7 +33,7 @@ export class ChangePasswordComponent {
       new_password: new FormControl('', [Validators.required, Validators.minLength(8)]),
       confirm_password: new FormControl('', Validators.required),
     });
-//, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
+    //, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)
     this.form.get('confirm_password')?.setValidators([
       Validators.required,
       this.passwordMatchValidator()
@@ -88,19 +92,16 @@ export class ChangePasswordComponent {
     };
   }
 
-  isPasswordVisible1: boolean = false;
 
   togglePasswordVisibility1() {
     this.isPasswordVisible1 = !this.isPasswordVisible1;
   }
 
-  isPasswordVisible2: boolean = false;
 
   togglePasswordVisibility2() {
     this.isPasswordVisible2 = !this.isPasswordVisible2;
   }
 
-  isPasswordVisible3: boolean = false;
 
   togglePasswordVisibility3() {
     this.isPasswordVisible3 = !this.isPasswordVisible3;

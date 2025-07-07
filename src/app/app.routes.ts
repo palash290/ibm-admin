@@ -7,48 +7,6 @@ export const routes: Routes = [
         path: 'set-password',
         loadComponent: () => import('./components/common/set-password/set-password.component').then(m => m.SetPasswordComponent)
     },
-    // {
-    //     path: 'home',
-    //     component: RootComponent,
-    //     children: [
-    //         {
-    //             path: 'dashboard',
-    //             loadComponent: () =>
-    //                 import('./components/main/dashboard/dashboard.component').then(m => m.DashboardComponent)
-    //         },
-    //         {
-    //             path: 'sub-admins',
-    //             loadComponent: () =>
-    //                 import('./components/main/sub-admins/sub-admins.component').then(m => m.SubAdminsComponent)
-    //         },
-    //         {
-    //             path: 'permissions',
-    //             loadComponent: () =>
-    //                 import('./components/main/sub-admins/permissions/permissions.component').then(m => m.PermissionsComponent)
-    //         },
-    //         {
-    //             path: 'agents',
-    //             loadComponent: () =>
-    //                 import('./components/main/agents/agents.component').then(m => m.AgentsComponent)
-    //         },
-    //         {
-    //             path: 'clients',
-    //             loadComponent: () =>
-    //                 import('./components/main/clients/clients.component').then(m => m.ClientsComponent)
-    //         },
-    //         {
-    //             path: 'compared-loans',
-    //             loadComponent: () =>
-    //                 import('./components/main/compared-loans/compared-loans.component').then(m => m.ComparedLoansComponent)
-    //         },
-    //         {
-    //             path: 'reports',
-    //             loadComponent: () =>
-    //                 import('./components/main/reports/reports.component').then(m => m.ReportsComponent)
-    //         },
-
-    //     ]
-    // },
     {
         path: 'admin', loadChildren: () => import('./components/admin/admin.routes').then(m => m.adminRoutes)
     },

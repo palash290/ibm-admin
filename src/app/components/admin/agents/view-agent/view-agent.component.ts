@@ -16,6 +16,8 @@ export class ViewAgentComponent {
   agentId: any;
   carFeaturesList: string[] = [];
   clientsList: any;
+  agentData: any;
+  userImg1: any;
 
   constructor(private service: SharedService, private route: ActivatedRoute, private location: Location) { }
 
@@ -24,8 +26,6 @@ export class ViewAgentComponent {
     this.getBuseSchedule(this.agentId);
     this.getAllClientsByAgentId();
   }
-
-  agentData: any;
 
   getBuseSchedule(agentId: any) {
     const formURlData = new URLSearchParams();
@@ -60,8 +60,6 @@ export class ViewAgentComponent {
   backClicked() {
     this.location.back();
   }
-
-  userImg1: any;
 
   showImg(url: any) {
     this.userImg1 = url;

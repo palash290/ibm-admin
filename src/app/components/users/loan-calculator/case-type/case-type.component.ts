@@ -23,6 +23,37 @@ export class CaseTypeComponent {
   userRole: any;
   selectedClientId: any;
 
+    caseOptions = [
+    {
+      id: '1',
+      value: 'mortgage',
+      title: 'Mortgage',
+      description: 'A property with a mortgage',
+      svg: `assets/img/mortage.png`
+    },
+    {
+      id: '2',
+      value: 'mortgage_heloc',
+      title: 'Mortgage + HELOC',
+      description: 'Mortgage plus a HELOC',
+      svg: `assets/img/heloc.png`
+    },
+    {
+      id: '3',
+      value: 'no_mortgage',
+      title: 'Property, No Mortgage',
+      description: 'Fully owned property',
+      svg: `assets/img/prop.png`
+    },
+    {
+      id: '4',
+      value: 'no_property',
+      title: 'No Property',
+      description: 'Renting or no real estate',
+      svg: `assets/img/mortage.png`
+    }
+  ];
+
   constructor(private router: Router, private sharedService: SharedService, private authService: AuthService, private toastr: NzMessageService) { }
 
   ngOnInit() {
@@ -68,37 +99,6 @@ export class CaseTypeComponent {
       }
     });
   }
-
-  caseOptions = [
-    {
-      id: '1',
-      value: 'mortgage',
-      title: 'Mortgage',
-      description: 'A property with a mortgage',
-      svg: `assets/img/mortage.png`
-    },
-    {
-      id: '2',
-      value: 'mortgage_heloc',
-      title: 'Mortgage + HELOC',
-      description: 'Mortgage plus a HELOC',
-      svg: `assets/img/heloc.png`
-    },
-    {
-      id: '3',
-      value: 'no_mortgage',
-      title: 'Property, No Mortgage',
-      description: 'Fully owned property',
-      svg: `assets/img/prop.png`
-    },
-    {
-      id: '4',
-      value: 'no_property',
-      title: 'No Property',
-      description: 'Renting or no real estate',
-      svg: `assets/img/mortage.png`
-    }
-  ];
 
   selectCase(value: string): void {
     this.selectedCaseType = value;

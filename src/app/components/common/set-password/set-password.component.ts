@@ -21,6 +21,8 @@ export class SetPasswordComponent {
   loading: boolean = false;
   userRole: any;
   id: any;
+  isPasswordVisible2: boolean = false;
+  isPasswordVisible3: boolean = false;
 
   constructor(private service: SharedService, private toastr: NzMessageService,
     private router: ActivatedRoute, private route: Router, private authService: AuthService) { }
@@ -101,13 +103,10 @@ export class SetPasswordComponent {
   }
 
 
-  isPasswordVisible2: boolean = false;
-
   togglePasswordVisibility2() {
     this.isPasswordVisible2 = !this.isPasswordVisible2;
   }
 
-  isPasswordVisible3: boolean = false;
 
   togglePasswordVisibility3() {
     this.isPasswordVisible3 = !this.isPasswordVisible3;

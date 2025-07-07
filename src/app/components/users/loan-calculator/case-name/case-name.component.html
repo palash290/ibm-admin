@@ -29,8 +29,8 @@
         }
 
 
+        @if(userRole == 'Agent'){
         <div class="form-group mb-4">
-           
             <div class="ct_upload_product_main ct_upload_product_main_180">
                 <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -70,14 +70,20 @@
                 </div>
             </div>
         </div>
+        }
+
     </div>
     <!-- routerLink="/user/loan-calculator/case-type" -->
+
     <button type="button" name="next" class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5"
         (click)="next()">Manually</button>
+    @if(userRole == 'Agent'){
     <label for="ct_manual_upload" class=" float-end" (click)="uploadCSVFile()">
         <span class=" ct_outline_btn ct_border_radius_5">Upload &
             Start</span>
     </label>
+    }
+
 </fieldset>
 
 <div class="ct_loader_main" *ngIf="loading">

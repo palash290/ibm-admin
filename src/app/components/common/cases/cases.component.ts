@@ -22,6 +22,9 @@ export class CasesComponent {
   searchQuery: any = '';
   status: any = '';
   userRole: any;
+  
+  caseId: any;
+  @ViewChild('closeModalDelete') closeModalDelete!: ElementRef;
 
   constructor(private authService: AuthService, private sharedService: SharedService, private router: Router, private toastr: NzMessageService) { }
 
@@ -106,9 +109,6 @@ export class CasesComponent {
       sessionStorage.setItem('client_case_id', caseId);
     }
   }
-
-  caseId: any;
-  @ViewChild('closeModalDelete') closeModalDelete!: ElementRef;
 
   getId(id: any) {
     this.caseId = id;
