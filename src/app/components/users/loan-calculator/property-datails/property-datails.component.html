@@ -207,7 +207,8 @@
 
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label for="" class="mb-2 ct_fw_600">Financed Amount (most recent renewal)</label>
+                                 <!-- (most recent renewal) -->
+                                <label for="" class="mb-2 ct_fw_600">Financed Amount</label>
                                 <input formControlName="financed_amount" type="number" class="form-control"
                                     placeholder="Financed Amount" />
                                 <div
@@ -299,7 +300,7 @@
                                     <label for="1" class="mb-2 ct_fw_600">Loan Percent (%)</label>
                                     <div class="position-relative">
                                         <select class="form-control ct_input ct_input_ps_30"
-                                            formControlName="heloc_interest_rate" >
+                                            formControlName="heloc_percent" >
                                             <option value="65.00" selected>65 %</option>
                                             <option value="80.00">80 %</option>
                                         </select>
@@ -320,6 +321,32 @@
                                     </div> -->
                                 </div>
                             </div>
+
+
+
+                             <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Interest Rate(%)</label>
+                                <input formControlName="heloc_interest_rate" type="number" class="form-control"
+                                    placeholder="Interest Rate" (ngModelChange)="updateHelocPayment(property)"/>
+                                <div
+                                    *ngIf="property.get('heloc_interest_rate')?.touched && property.get('heloc_interest_rate')?.invalid">
+                                    <small class="text-danger">Interest rate is required</small>
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="col-md-6">
+                            <div class="form-group mb-4">
+                                <label for="" class="mb-2 ct_fw_600">Payment</label>
+                                <input formControlName="heloc_monthly_payment" type="number" class="form-control"
+                                    placeholder="Interest Rate" />
+                                <div
+                                    *ngIf="property.get('heloc_monthly_payment')?.touched && property.get('heloc_monthly_payment')?.invalid">
+                                    <small class="text-danger">Interest rate is required</small>
+                                </div>
+                            </div>
+                        </div>
 
                             <div class="col-md-6">
                                 <div class="form-group mb-4">

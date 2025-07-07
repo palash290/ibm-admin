@@ -49,18 +49,13 @@ export class PeopleDatailsComponent {
         this.addAdult();
       }
     });
-
-    // if (this.apiPeopleData.length == 0) {
-    //   this.addAdult();
-    // }
-
-
   }
 
   populatePeople(data: any[]) {
     data.forEach((person: any) => {
       if (person.people_type == 'adult') {
         const group = this.fb.group({
+          id: [person.id || null],
           people_type: ['adult'],
           first_name: [person.first_name, Validators.required],
           last_name: [person.last_name, Validators.required],
@@ -89,6 +84,7 @@ export class PeopleDatailsComponent {
 
       } else if (person.people_type == 'child') {
         this.people.push(this.fb.group({
+          id: [person.id || null],
           people_type: ['child'],
           first_name: [person.first_name, Validators.required],
           last_name: [person.last_name, Validators.required],
@@ -96,8 +92,6 @@ export class PeopleDatailsComponent {
           notes: [person.notes]
         }));
       }
-
-
     });
   }
 
@@ -119,25 +113,9 @@ export class PeopleDatailsComponent {
     return this.form.get('people') as FormArray;
   }
 
-  // addAdult() {
-  //   this.people.push(this.fb.group({
-  //     people_type: ['adult'],
-  //     first_name: ['', Validators.required],
-  //     last_name: ['', Validators.required],
-  //     email: ['', Validators.required],
-  //     phone_number: ['', Validators.required],
-  //     date_of_birth: ['', Validators.required],
-  //     monthly_net_income: ['', Validators.required],
-  //     monthly_bonuses_dividends: ['', Validators.required],
-  //     monthly_other_incomes: ['', Validators.required],
-  //     increase_percent: ['3'],
-  //     projected_amount: [{ value: '', disabled: true }],
-  //     total_amount: [{ value: '', disabled: true }],
-  //     notes: ['']
-  //   }));
-  // }
   addAdult() {
     const group = this.fb.group({
+      id: [null],
       people_type: ['adult'],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -168,6 +146,7 @@ export class PeopleDatailsComponent {
 
   addChild(): void {
     this.people.push(this.fb.group({
+      id: [null],
       people_type: ['child'],
       first_name: ['', Validators.required],
       last_name: ['', Validators.required],
@@ -176,14 +155,39 @@ export class PeopleDatailsComponent {
     }));
   }
 
+  // removePerson(index: number): any {
+  //   //console.log('object==>', index, id);
+  //   this.people.removeAt(index);
+  // }
+
   removePerson(index: number): void {
-    this.people.removeAt(index);
+    //debugger
+    const personGroup = this.people.at(index) as FormGroup;
+    const personId = personGroup.get('id')?.value;
+
+    if (personId) {
+      // Call your delete API here
+      const formData = new URLSearchParams();
+      formData.append('id', personId);
+
+      this.service.postAPI(`delete-client-people`, formData).subscribe({
+        next: (resp: any) => {
+          console.log('Deleted from server:', resp);
+          // Remove from form array after successful deletion
+          this.people.removeAt(index);
+        },
+        error: error => {
+          console.error('Delete failed:', error.message);
+        }
+      });
+    } else {
+      // If no id, just remove from form array
+      this.people.removeAt(index);
+    }
   }
 
+
   submit(): void {
-    // this.router.navigateByUrl('/user/loan-calculator/property-details')
-    // return
-    // debugger
     this.form.markAllAsTouched();
     if (this.form.invalid) {
       return

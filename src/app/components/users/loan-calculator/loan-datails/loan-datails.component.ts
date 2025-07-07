@@ -54,13 +54,14 @@ export class LoanDatailsComponent {
         financed_amount: [credit.financed_amount || '', Validators.required],
         start_date: [this.formatDate(credit.start_date) || '', Validators.required],
         terms: [credit.terms || '', Validators.required],
-        interest_rate: [credit.interest_rate || '', Validators.required],
+        interest_rate: [credit.interest_rate || '', [Validators.required, Validators.min(0), Validators.max(100)]],
         current_balance: [{ value: credit.current_balance || '', disabled: true }, Validators.required],
         monthly_emi: [{ value: credit.monthly_emi || '', disabled: true }, Validators.required],
       });
       group.get('financed_amount')?.valueChanges.subscribe(() => this.updateLoanCalculations(group));
       group.get('interest_rate')?.valueChanges.subscribe(() => this.updateLoanCalculations(group));
       group.get('terms')?.valueChanges.subscribe(() => this.updateLoanCalculations(group));
+      group.get('start_date')?.valueChanges.subscribe(() => this.updateLoanCalculations(group));
 
       this.loans.push(group);
 
@@ -84,7 +85,7 @@ export class LoanDatailsComponent {
       financed_amount: ['', Validators.required],
       start_date: ['', Validators.required],
       terms: ['', Validators.required], // in months
-      interest_rate: ['', Validators.required], // annual %
+      interest_rate: ['', [Validators.required, Validators.min(0), Validators.max(100)]], // annual %
       current_balance: [{ value: '', disabled: true }, Validators.required],
       monthly_emi: [{ value: '', disabled: true }, Validators.required]
     });
@@ -93,36 +94,50 @@ export class LoanDatailsComponent {
     group.get('financed_amount')?.valueChanges.subscribe(() => this.updateLoanCalculations(group));
     group.get('interest_rate')?.valueChanges.subscribe(() => this.updateLoanCalculations(group));
     group.get('terms')?.valueChanges.subscribe(() => this.updateLoanCalculations(group));
+    group.get('start_date')?.valueChanges.subscribe(() => this.updateLoanCalculations(group));
 
     this.loans.push(group);
   }
 
-  updateLoanCalculations(group: FormGroup): void {
-    const principal = parseFloat(group.get('financed_amount')?.value || '0');
-    const annualInterestRate = parseFloat(group.get('interest_rate')?.value || '0');
-    const months = parseFloat(group.get('terms')?.value || '0'); // 🔄 terms in months directly
 
-    if (principal > 0 && annualInterestRate >= 0 && months > 0) {
-      const monthlyRate = annualInterestRate / 12 / 100;
+  updateLoanCalculations(group: any): void {
+    const principal = parseFloat(group.get('financed_amount')?.value) || 0;
+    const annualRate = parseFloat(group.get('interest_rate')?.value) || 0;
+    const tenure = parseInt(group.get('terms')?.value) || 0;
+    const startDate = new Date(group.get('start_date')?.value);
 
-      let monthlyEMI = 0;
-
-      if (monthlyRate > 0) {
-        const factor = Math.pow(1 + monthlyRate, months);
-        monthlyEMI = (principal * monthlyRate * factor) / (factor - 1);
-      } else {
-        monthlyEMI = principal / months;
-      }
-
-      const totalPayable = monthlyEMI * months;
-
-      group.get('monthly_emi')?.setValue(monthlyEMI.toFixed(2), { emitEvent: false });
-      group.get('current_balance')?.setValue(totalPayable.toFixed(2), { emitEvent: false });
-    } else {
+    if (principal <= 0 || annualRate <= 0 || tenure <= 0 || isNaN(startDate.getTime())) {
       group.get('monthly_emi')?.setValue('', { emitEvent: false });
       group.get('current_balance')?.setValue('', { emitEvent: false });
+      return;
     }
+
+    const monthlyRate = annualRate / 12 / 100;
+    const factor = Math.pow(1 + monthlyRate, tenure);
+    const monthlyEMI = (principal * monthlyRate * factor) / (factor - 1);
+
+    const today = new Date();
+    let monthsPassed =
+      (today.getFullYear() - startDate.getFullYear()) * 12 +
+      (today.getMonth() - startDate.getMonth());
+
+    if (today.getDate() < startDate.getDate()) {
+      monthsPassed++;
+    }
+
+    monthsPassed = Math.max(0, Math.min(monthsPassed, tenure));
+
+    const remainingBalance =
+      principal *
+      (Math.pow(1 + monthlyRate, tenure) - Math.pow(1 + monthlyRate, monthsPassed)) /
+      (Math.pow(1 + monthlyRate, tenure) - 1);
+
+    group.get('monthly_emi')?.setValue(monthlyEMI.toFixed(2), { emitEvent: false });
+    group.get('current_balance')?.setValue(remainingBalance.toFixed(2), { emitEvent: false });
   }
+
+
+
 
 
   removeLoan(index: number): void {
@@ -132,6 +147,7 @@ export class LoanDatailsComponent {
   submit(): void {
     // this.router.navigateByUrl('/user/loan-calculator/investment')
     // return
+    //debugger
     this.form.markAllAsTouched();
     if (this.form.invalid) {
       console.warn('Form is invalid');

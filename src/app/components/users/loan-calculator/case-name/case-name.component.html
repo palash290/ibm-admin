@@ -2,13 +2,15 @@
     <div class="ct_form-card">
         <div class="form-group mb-4">
             <label for="" class="mb-2 ct_fw_600">Case Name</label>
-            <input type="text" class="form-control ct_input" placeholder="Enter Case Name" [(ngModel)]="selectedCaseName">
+            <input type="text" class="form-control ct_input" placeholder="Enter Case Name"
+                [(ngModel)]="selectedCaseName">
         </div>
 
         @if(userRole == 'Client'){
         <div class="form-group mb-4">
             <label for="" class="mb-2 ct_fw_600">Full Name</label>
-            <input type="text" class="form-control ct_input" placeholder="Enter Full Name" [(ngModel)]="selectedClientName">
+            <input type="text" class="form-control ct_input" placeholder="Enter Full Name"
+                [(ngModel)]="selectedClientName">
         </div>
         }
 
@@ -28,6 +30,7 @@
 
 
         <div class="form-group mb-4">
+           
             <div class="ct_upload_product_main ct_upload_product_main_180">
                 <svg width="33" height="33" viewBox="0 0 33 33" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -35,16 +38,28 @@
                         stroke="#4880FF" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round">
                     </path>
                 </svg>
-                <p class="text-center ct_fs_18 ct_text_op_07 mb-0">Upload your image
-                    here</p>
-                <small>Supported formats: CSV, XLSX</small>
-                <label for="ct_upload_product">
-                    <input type="file" name="" id="ct_upload_product" class="d-none">
-                    <div class="ct_browse_btn mt-3">
-                        <span>Browse Files</span>
-                    </div>
-                </label>
+                <p class="text-center ct_fs_18 ct_text_op_07 mb-0">Upload your CSV here</p>
+                <small>Supported formats: CSV</small>
+
+                <!-- Select Case always shown -->
+                <div *ngIf="!caseType" class="ct_browse_btn mt-3" data-bs-toggle="modal" data-bs-target="#select_case">
+                    <span>Select Case</span>
+                </div>
+
+                <!-- Browse Files only appears after caseType -->
+                <div *ngIf="caseType" class="ct_browse_btn mt-3" (click)="fileInput.click()">
+                    <span>Browse Files</span>
+                </div>
+
+                <!-- Show selected file name -->
+                <div *ngIf="selectedFile" class="mt-2 text-center">
+                    <small class="ct_blue_text">{{ selectedFile.name }}</small>
+                </div>
+
+                <!-- hidden file input -->
+                <input #fileInput type="file" class="d-none" accept=".csv" (change)="onFileSelected($event)">
             </div>
+
 
             <div class="ct_multiple_img_div ct_custom_scroll d-none">
                 <div class="ct_uploaded_img123 position-relative ">
@@ -59,8 +74,7 @@
     <!-- routerLink="/user/loan-calculator/case-type" -->
     <button type="button" name="next" class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5"
         (click)="next()">Manually</button>
-    <label for="ct_manual_upload" class=" float-end">
-        <input type="file" class="d-none" id="ct_manual_upload">
+    <label for="ct_manual_upload" class=" float-end" (click)="uploadCSVFile()">
         <span class=" ct_outline_btn ct_border_radius_5">Upload &
             Start</span>
     </label>
@@ -77,5 +91,39 @@
         <div class="dot"></div>
         <div class="dot"></div>
         <div class="dot"></div>
+    </div>
+</div>
+
+
+
+
+
+<!-- Invite Subadmin Modal S -->
+<!-- Your modal -->
+<div class="modal fade" id="select_case" tabindex="-1" aria-labelledby="invite_agentLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header border-0 pb-2">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body border-0 pt-0">
+                <h4 class="ct_fs_20 ct_fw_700 mb-1">Select Case Type</h4>
+                <form class="ct_mt_30">
+                    <div class="d-flex align-items-center gap-2 ct_w_100_767">
+                        <select class="form-control ct_input ct_w_100_767" [(ngModel)]="caseType" name="caseType">
+                            <option value='' disabled>Select</option>
+                            <option value="1">Mortgage</option>
+                            <option value="2">Mortgage + HELOC</option>
+                            <option value="3">Property, No Mortgage</option>
+                            <option value="4">No Property</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4">
+                <button type="button" class="ct_outline_btn ct_btn_w_162" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="ct_blue_btn ct_btn_w_162" data-bs-dismiss="modal">Submit</button>
+            </div>
+        </div>
     </div>
 </div>

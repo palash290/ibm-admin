@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { SharedService } from '../../../services/shared.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-cases',
@@ -20,22 +21,39 @@ export class CasesComponent {
   p: any = 1;
   searchQuery: any = '';
   status: any = '';
+  userRole: any;
 
-  constructor(private authService: AuthService, private sharedService: SharedService, private router: Router) { }
+  constructor(private authService: AuthService, private sharedService: SharedService, private router: Router, private toastr: NzMessageService) { }
 
   ngOnInit() {
+    this.userRole = this.authService.getUserRole();
     this.userId = this.authService.getAgentId();
-    this.getAllAgents();
+    //if (this.userRole == 'Client') {
+    this.getSingleClientCases();
+    // }
+    // if (this.userRole == 'Agent') {
+    //   this.getAgentCases();
+    // }
+
   }
 
-  getAllAgents() {
+  getSingleClientCases() {
     this.p = 1;
     const trimmedSearch = this.searchQuery?.trim() || '';
 
     const formURlData = new URLSearchParams();
     formURlData.append('search', trimmedSearch);
     formURlData.append('status', this.status);
-    this.sharedService.postAPI(`get-client-cases`, formURlData).subscribe({
+    if (this.userRole == 'Client') {
+      formURlData.append('client_id', this.userId);
+    } else {
+      formURlData.append('agent_id', this.userId);
+    }
+
+
+    const apiEndpoint = this.userRole == 'Client' ? 'get-client-all-cases' : 'get-all-cases-of-agent';
+
+    this.sharedService.postAPI(apiEndpoint, formURlData).subscribe({
       next: (resp: any) => {
         this.caseList = resp.data;
       },
@@ -71,8 +89,45 @@ export class CasesComponent {
     } else if (completed_step == 'client_totals') {
       this.router.navigateByUrl('/user/loan-calculator/totals');
       sessionStorage.setItem('client_case_id', caseId);
+    } else if (completed_step == 'client_reduction') {
+      this.router.navigateByUrl('/user/loan-calculator/expense-reduction');
+      sessionStorage.setItem('client_case_id', caseId);
+    } else if (completed_step == 'client_final_totals') {
+      this.router.navigateByUrl('/user/loan-calculator/final-totals');
+      sessionStorage.setItem('client_case_id', caseId);
+    } else if (completed_step == 'client_case') {
+      this.router.navigateByUrl('/user/loan-calculator/case-type');
+      sessionStorage.setItem('client_case_id', caseId);
+    } else if (completed_step == 'client_policies') {
+      this.router.navigateByUrl('/user/loan-calculator/policies');
+      sessionStorage.setItem('client_case_id', caseId);
+    } else if (completed_step == 'final_report_completed') {
+      this.router.navigateByUrl('/user/final-report');
+      sessionStorage.setItem('client_case_id', caseId);
     }
+  }
 
+  caseId: any;
+  @ViewChild('closeModalDelete') closeModalDelete!: ElementRef;
+
+  getId(id: any) {
+    this.caseId = id;
+  }
+
+  deleteAgent() {
+    const formURlData = new URLSearchParams();
+    formURlData.set('case_id', this.caseId);
+
+    this.sharedService.postAPI(`delete-client-case`, formURlData).subscribe({
+      next: (resp: any) => {
+        this.getSingleClientCases();
+        this.closeModalDelete.nativeElement.click();
+        this.toastr.success('Agent deleted successfully!');
+      },
+      error: error => {
+        console.log(error.message);
+      }
+    });
   }
 
 

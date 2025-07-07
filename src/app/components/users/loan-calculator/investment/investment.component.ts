@@ -153,7 +153,9 @@ export class InvestmentComponent {
   calculateTotalIncome(group: any) {
     const monthly_allotment = parseFloat(group.get('monthly_allotment')?.value) || 0;
 
-    const projected_amount = monthly_allotment;
+    const projectionPercent = (monthly_allotment)*0.04;
+
+    const projected_amount = projectionPercent + monthly_allotment;
 
     group.get('projected_amount')?.setValue(projected_amount.toFixed(2), { emitEvent: false });
   }

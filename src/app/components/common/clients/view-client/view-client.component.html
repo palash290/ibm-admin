@@ -21,8 +21,8 @@
 
                     <div class="d-flex align-items-center gap-4 ct_flex_1 ">
                         <div class="">
-                            <img [src]="clientData?.profile_image ? clientData?.profile_image : 'assets/img/no_pro.png'" alt="" data-bs-toggle="modal"
-                                data-bs-target="#full_view_img" class="ct_img_w_100">
+                            <img [src]="clientData?.profile_image ? clientData?.profile_image : 'assets/img/no_pro.png'"
+                                alt="" data-bs-toggle="modal" data-bs-target="#full_view_img" class="ct_img_w_100">
                         </div>
                         <div class="ct_flex_1">
                             <div class="d-flex   gap-3 justify-content-between flex-wrap">
@@ -48,7 +48,7 @@
                             </li>
                             <li>
                                 <p class="mb-2 ct_fs_16">Reports Generated:</p>
-                                <p class="mb-2 ct_text_op_6 ">-</p>
+                                <p class="mb-2 ct_text_op_6 ">{{allCases.length}}</p>
                             </li>
                             <li>
                                 <p class="mb-2 ct_fs_16">Assigned Agent:</p>
@@ -68,58 +68,44 @@
                         <thead>
                             <tr>
                                 <th>S.No</th>
-                                <th>Report ID</th>
                                 <th>Case Name</th>
-                                <th>Date Generated</th>
-                                <th class="text-end">Action</th>
+                                <th>Type</th>
+                                <th>Created On</th>
+                                <th>Status</th>
+                                <th class="text-end">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>RPT-1042</td>
+                            <tr
+                                *ngFor="let item of allCases | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                                <td>{{(p - 1) * 10 + i + 1}}</td>
                                 <td>
-                                    <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
+                                    {{item.case_name}}
                                 </td>
-                                <td>02 Jun 2025</td>
+                                <td>{{item.type_name}}</td>
+                                <td>{{item.created_at | date:'dd-MMM-yyyy'}}</td>
                                 <td>
-                                    <div class="d-flex align-items-center gap-3 justify-content-end">
-                                        <a  class="ct_blue_text"><i
-                                                class="fa-regular fa-eye"></i></a>
-                                    </div>
+                                    <!-- <span class="ct_active_status ct_fw_700">Completed</span> -->
+                                    <span *ngIf="item.status == '0'" class="ct_pending_status ct_fw_700">Pending</span>
+                                    <span *ngIf="item.status == '1'" class="ct_active_status ct_fw_700">Completed</span>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>RPT-1042</td>
                                 <td>
-                                    <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
-                                </td>
-                                <td>02 Jun 2025</td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-3 justify-content-end">
-                                        <a  class="ct_blue_text"><i
-                                                class="fa-regular fa-eye"></i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>RPT-1042</td>
-                                <td>
-                                    <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
-                                </td>
-                                <td>02 Jun 2025</td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-3 justify-content-end">
-                                        <a  class="ct_blue_text"><i
-                                                class="fa-regular fa-eye"></i></a>
-                                    </div>
+                                   @if(item.status == '1') {
+                                        <div class="d-flex align-items-center gap-3 justify-content-end">
+                                            <a class="ct_blue_text"><i class="fa-regular fa-eye"
+                                                    [routerLink]="['/user/final-report']"
+                                                    [queryParams]="{ id: item.id }"></i></a>
+                                        </div>
+                                        } @else {
+                                        <div class="d-flex align-items-center gap-3 justify-content-end">
+                                            <a class="ct_blue_text ct_cursor_no_drop"><i
+                                                    class="fa-regular fa-eye"></i></a>
+                                        </div>
+                                        }
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-
                 </div>
             </div>
 
@@ -147,8 +133,7 @@
                                 <td>02 Jun 2025</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-3 justify-content-end">
-                                        <a  class="ct_blue_text"><i
-                                                class="fa-regular fa-eye"></i></a>
+                                        <a class="ct_blue_text"><i class="fa-regular fa-eye"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -161,8 +146,7 @@
                                 <td>02 Jun 2025</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-3 justify-content-end">
-                                        <a  class="ct_blue_text"><i
-                                                class="fa-regular fa-eye"></i></a>
+                                        <a class="ct_blue_text"><i class="fa-regular fa-eye"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -175,8 +159,7 @@
                                 <td>02 Jun 2025</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-3 justify-content-end">
-                                        <a  class="ct_blue_text"><i
-                                                class="fa-regular fa-eye"></i></a>
+                                        <a class="ct_blue_text"><i class="fa-regular fa-eye"></i></a>
                                     </div>
                                 </td>
                             </tr>

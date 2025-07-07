@@ -8,17 +8,18 @@
             <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767">
                 <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767 ">
                     <div class="form-group position-relative ct_search_w ct_w_100_767">
-                        <input type="text" class="form-control ct_input ct_input_ps_40"
-                            placeholder="Search">
+                        <input type="text" class="form-control ct_input ct_input_ps_40" placeholder="Search"
+                            [(ngModel)]="searchQuery" (ngModelChange)="getSingleClientCases()">
                         <i class="fa-solid fa-search ct_input_icon_left"></i>
                     </div>
                     <div class="d-flex align-items-center gap-2 ct_w_100_767">
                         <img src="assets/img/filter_question_icon.svg" alt="">
                         <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By</p>
-                        <select class="form-control ct_input ct_select_w_150 ct_w_100_767">
-                            <option value="">Latest</option>
-                            <option value="">Newest</option>
-                            <option value="">Oldest</option>
+                        <select class="form-control ct_input ct_select_w_150 ct_w_100_767" [(ngModel)]="status"
+                            (ngModelChange)="getSingleClientCases()">
+                            <option value="" selected>All</option>
+                            <option value="0">Pending</option>
+                            <option value="1">Completed</option>
                         </select>
                     </div>
                 </div>
@@ -31,34 +32,56 @@
                             <thead>
                                 <tr>
                                     <th>S.No</th>
-                                    <th>Report ID</th>
                                     <th>Case Name</th>
                                     <th>Client Name</th>
-                                    <th>Agent Name</th>
+                                    <th>Case Type</th>
+                                    <th>Status</th>
                                     <th>Date Generated</th>
                                     <th class="text-end">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>RPT-1042</td>
+                                <tr
+                                    *ngFor="let item of caseList | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                                    <td>{{(p - 1) * 10 + i + 1}}</td>
+                                    <td>{{item.case_name}}</td>
                                     <td>
-                                        <p class="mb-0 ct_overlay_text">IBC Financial Case</p>
+                                        <p class="mb-0 ct_overlay_text">{{item.full_name}}</p>
                                     </td>
-                                    <td>John Doe</td>
-                                    <td>Jane Cooper</td>
-                                    <td>02 Jun 2025</td>
+                                    <td>{{item.type_name}}</td>
+
+                                    <td>{{item.created_at | date:'dd-MMM-yyyy'}}</td>
                                     <td>
+                                        <!-- <span class="ct_active_status ct_fw_700">Completed</span> -->
+                                        <span *ngIf="item.status == '0'"
+                                            class="ct_pending_status ct_fw_700">Pending</span>
+                                        <span *ngIf="item.status == '1'"
+                                            class="ct_active_status ct_fw_700">Completed</span>
+                                    </td>
+                                    <td>
+                                        @if(item.status == '1') {
                                         <div class="d-flex align-items-center gap-3 justify-content-end">
-                                            <a class="ct_blue_text"><i
+                                            <a class="ct_blue_text"><i class="fa-regular fa-eye"
+                                                    [routerLink]="['/user/final-report']"
+                                                    [queryParams]="{ id: item.id }"></i></a>
+                                        </div>
+                                        } @else {
+                                        <div class="d-flex align-items-center gap-3 justify-content-end">
+                                            <a class="ct_blue_text ct_cursor_no_drop"><i
                                                     class="fa-regular fa-eye"></i></a>
                                         </div>
+                                        }
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    <div *ngIf="caseList?.length == 0" class="text-center">
+                        <p class="ct_fs_15 mt-5">No case found</p>
+                        <!-- Pagination Controls -->
+                    </div>
+                    <pagination-controls class="ct_pagination_div" *ngIf="!(caseList?.length == 0)"
+                        (pageChange)="p = $event"></pagination-controls>
                 </div>
             </div>
         </div>

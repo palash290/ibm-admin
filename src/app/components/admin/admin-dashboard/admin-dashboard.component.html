@@ -32,7 +32,8 @@
                     <div class="ct_dashboard_card">
                         <div>
                             <p class="ct_text_op_6">Total Reports</p>
-                            <h3 class="ct_fs_28 ct_fw_700 mt-3 mb-0">-</h3>
+                            <h3 class="ct_fs_28 ct_fw_700 mt-3 mb-0">{{data?.completedCaseCount ?
+                                data?.completedCaseCount : '0'}}</h3>
                         </div>
                         <div class="ct_dash_icon">
                             <img src="assets/img/report_icon.svg" alt="">
@@ -57,14 +58,10 @@
                     <div class="ct_white_bg">
                         <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-4">
                             <h4 class="mb-0 ct_fs_24 ct_fw_700">Reports Generated Over Time</h4>
-                            <!-- <a class="ct_blue_link_underline ct_fw_600">View All</a> -->
-                            <select class="form-control ct_input ct_h_40 w-auto">
-                                <option value="">January</option>
-                                <option value="">January</option>
-                                <option value="">January</option>
-                            </select>
+                            <!-- <input type="date" name="" id="" [(ngModel)]="startDate">
+                            <input type="date" name="" id="" [(ngModel)]="endDate"> -->
                         </div>
-                        <!-- <div id="chart"></div> -->
+
                         <div style="text-align:center">
                             <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
                                 [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"></apx-chart>

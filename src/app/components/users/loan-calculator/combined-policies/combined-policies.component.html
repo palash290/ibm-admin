@@ -2,19 +2,19 @@
     <div class="container-fluid"> -->
 <fieldset class="ct_white_bg">
     <div class="ct_form-card">
-        <div class="ct_inner_header_bg mt-4  mb-4">
+        <!-- <div class="ct_inner_header_bg mt-4  mb-4">
             <h4 class="ct_fs_28 ct_fw_700 mb-0 ct_black_text">Create New Case</h4>
-        </div>
+        </div> -->
 
         <div class="row ">
             <div class="col-md-12">
                 <div class="ct_white_bg">
                     <div>
                         <h4 class="ct_fs_24 ct_fw_700 mb-0">Combined Policy Projections</h4>
-                        <p class="mb-0 ct_text_op_6">This table displays combined policy values projected
+                        <!-- <p class="mb-0 ct_text_op_6">This table displays combined policy values projected
                             annually based on the
                             details you've entered. Scroll to view 10 years of data. Calculations continue
-                            up to age 100 (Canada) or 121 (U.S.).</p>
+                            up to age 100 (Canada) or 121 (U.S.).</p> -->
                     </div>
                     <div
                         class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767 py-4">
@@ -22,24 +22,22 @@
                             class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_767 ct_w_100_767 ">
 
                             <div class="d-flex align-items-center gap-2 ct_flex_column_767 ct_w_100_767">
-                                <div class="d-flex align-items-center gap-2">
+                                <!-- <div class="d-flex align-items-center gap-2">
                                     <img src="assets/img/filter_question_icon.svg" alt="">
                                     <p class="mb-0 ct_fs_18 ct_white_nowrap me-2">Filter By</p>
-                                </div>
-                                <select class="form-control ct_input ct_select_w_150 ct_w_100_767">
+                                </div> -->
+                                <!-- <select class="form-control ct_input ct_select_w_150 ct_w_100_767">
                                     <option value="">Show 10 years</option>
                                     <option value="">20 Years</option>
-
-                                </select>
-                                <select class="form-control ct_input ct_select_w_150 ct_w_100_767">
+                                </select> -->
+                                <!-- <select class="form-control ct_input ct_select_w_150 ct_w_100_767">
                                     <option value="">Canada</option>
                                     <option value="">Canada</option>
-
-                                </select>
+                                </select> -->
                             </div>
                         </div>
                         <div class="ct_w_100_767">
-                            <button class="ct_blue_btn ct_btn_h_48 ct_white_nowrap ct_w_100_767">
+                            <button (click)="downloadCSV()" class="ct_blue_btn ct_btn_h_48 ct_white_nowrap ct_w_100_767">
                                 <img src="assets/img/download_icon.png" alt="" class="me-1">
                                 Export
                                 CSV</button>
@@ -49,89 +47,55 @@
                         <table class="table ">
                             <thead>
                                 <tr>
-
-                                    <th>S.No</th>
-                                    <th>Year</th>
-                                    <th>Base Premium</th>
-                                    <th>PUA’S</th>
-                                    <th>Total Premium</th>
-                                    <th>Annual Increase($)</th>
-                                    <th>Total Cash</th>
-                                    <th class="text-end">Total Death Benefit</th>
+                                    <!-- <th>S.No</th> -->
+                                    <th>Year | Age</th>
+                                    <th>Base Premium
+                                    </th>
+                                    <th>EDO
+                                    </th>
+                                    <th>Total Premium
+                                    </th>
+                                    <th>Annual Increase
+                                    </th>
+                                    <th>Annual
+                                        Increase
+                                        in Total
+                                        Cash Value
+                                    </th>
+                                    <th>Total
+                                        Cash Value
+                                    </th>
+                                    <th class="text-end">Death Benefit
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2025</td>
-                                    <td>$5000</td>
-                                    <td>$1000</td>
-                                    <td>$6000</td>
-                                    <td>$4200</td>
-                                    <td>$4800</td>
-                                    <td class="text-end">$100,000</td>
+                                <tr
+                                    *ngFor="let item of combineData; let i = index">
+                                    <!-- <td>{{(p - 1) * 10 + i + 1}}</td> -->
+                                    <td>{{item.year}} | {{item.age}}</td>
+                                    <td>${{item.total_guaranteed_premium}}</td>
+                                    <td>${{item.total_deposit}}</td>
+                                    <td>${{item.total_cash_premiums}}</td>
+                                    <td>${{item.total_dividend}}</td>
+                                    <td>${{item.total_cash_increase}}</td>
+                                    <td>${{item.total_cash}}</td>
+                                    <td class="text-end">${{item.total_death}}</td>
                                 </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2025</td>
-                                    <td>$5000</td>
-                                    <td>$1000</td>
-                                    <td>$6000</td>
-                                    <td>$4200</td>
-                                    <td>$4800</td>
-                                    <td class="text-end">$100,000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2025</td>
-                                    <td>$5000</td>
-                                    <td>$1000</td>
-                                    <td>$6000</td>
-                                    <td>$4200</td>
-                                    <td>$4800</td>
-                                    <td class="text-end">$100,000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2025</td>
-                                    <td>$5000</td>
-                                    <td>$1000</td>
-                                    <td>$6000</td>
-                                    <td>$4200</td>
-                                    <td>$4800</td>
-                                    <td class="text-end">$100,000</td>
-                                </tr>
-                                <tr>
-                                    <td>1</td>
-                                    <td>2025</td>
-                                    <td>$5000</td>
-                                    <td>$1000</td>
-                                    <td>$6000</td>
-                                    <td>$4200</td>
-                                    <td>$4800</td>
-                                    <td class="text-end">$100,000</td>
-                                </tr>
-
-
-
-
                             </tbody>
-
-
                         </table>
                     </div>
-
+                    <div *ngIf="combineData?.length == 0" class="text-center">
+                        <p class="ct_fs_15 mt-5">No case found</p>
+                    </div>
+                    <!-- <pagination-controls class="ct_pagination_div" *ngIf="!(combineData?.length == 0)"
+                        (pageChange)="p = $event"></pagination-controls> -->
                 </div>
-
             </div>
-
         </div>
-
         <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
-            <a class="ct_outline_btn ct_btn_h_48"
-            routerLink="/user/loan-calculator/policies">Back</a>
-            <a routerLink="/user/loan-calculator/insurance-suggestions" class="ct_blue_btn ct_btn_h_48">Save & Next</a>
-
+            <a class="ct_outline_btn ct_btn_h_48" routerLink="/user/loan-calculator/policies">Back</a>
+            <a routerLink="/user/final-report" class="ct_blue_btn ct_btn_h_48">Save & Next</a>
         </div>
     </div>
 </fieldset>

@@ -109,5 +109,15 @@ pagination-controls.ct_pagination_div {
 }
 
 .cdk-overlay-container {
-  z-index: 9999999999999 !important;
+    z-index: 9999999999999 !important;
+}
+
+.ct_cursor_no_drop {
+    cursor: no-drop;
+}
+
+#ct_form_progressbar li{
+    display: flex;
+    align-items: start;
+    gap: 5px;
 }

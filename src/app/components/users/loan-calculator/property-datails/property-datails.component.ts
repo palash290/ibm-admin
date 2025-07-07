@@ -77,10 +77,13 @@ export class PropertyDatailsComponent {
         notes: [prop.notes || ''],
 
         // HELOC
-        heloc_interest_rate: [prop.heloc_interest_rate || '65.00', showHelocFields ? Validators.required : []],
+        heloc_percent: [prop.heloc_percent || '65.00', showHelocFields ? Validators.required : []],
         heloc_amount: [{ value: prop.heloc_amount || '', disabled: true }, showHelocFields ? Validators.required : []],
         heloc_current_debt_balance: [prop.heloc_current_debt_balance || '', showHelocFields ? Validators.required : []],
         heloc_room_abvailable: [{ value: prop.heloc_room_abvailable || '', disabled: true }, showHelocFields ? Validators.required : []],
+
+        heloc_interest_rate: [prop.heloc_interest_rate || '', showHelocFields ? Validators.required : []],
+        heloc_monthly_payment: [{ value: prop.heloc_monthly_payment || '', disabled: true }, showHelocFields ? Validators.required : []],
         //credit_available: [prop.credit_available || '', showHelocFields ? Validators.required : []],
 
         // Monthly Expenses
@@ -97,7 +100,7 @@ export class PropertyDatailsComponent {
       group.get('current_value')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
       group.get('interest_rate')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
       group.get('heloc_room_abvailable')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
-      group.get('heloc_interest_rate')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
+      group.get('heloc_percent')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
 
       this.properties.push(group);
 
@@ -147,10 +150,13 @@ export class PropertyDatailsComponent {
       notes: [''],
 
       // HELOC (conditionally shown)
-      heloc_interest_rate: ['65.00', showHelocFields ? Validators.required : []],
+      heloc_percent: ['65.00', showHelocFields ? Validators.required : []],
       heloc_amount: [{ value: '', disabled: true }, showHelocFields ? Validators.required : []],
       heloc_current_debt_balance: ['0', showHelocFields ? Validators.required : []],
       heloc_room_abvailable: [{ value: '', disabled: true }, showHelocFields ? Validators.required : []],
+
+      heloc_interest_rate: ['', showHelocFields ? Validators.required : []],
+      heloc_monthly_payment: [{ value: '', disabled: true }, showHelocFields ? Validators.required : []],
       //credit_available: ['', showHelocFields ? Validators.required : []],
 
       // Monthly Expenses (conditionally shown)
@@ -169,7 +175,7 @@ export class PropertyDatailsComponent {
     group.get('current_value')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
     group.get('interest_rate')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
     group.get('heloc_room_abvailable')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
-    group.get('heloc_interest_rate')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
+    group.get('heloc_percent')?.valueChanges.subscribe(() => this.calculateHelocFields(group));
 
     this.properties.push(group);
 
@@ -186,22 +192,35 @@ export class PropertyDatailsComponent {
 
   }
 
+  updateHelocPayment(group: any): void {
+    const heloc_current_debt_balance = parseFloat(group.get('heloc_current_debt_balance')?.value) || 0;
+    const heloc_interest_rate = parseFloat(group.get('heloc_interest_rate')?.value) || 0;
+
+    const monthlyRate = (heloc_current_debt_balance * heloc_interest_rate / 100) / 12;
+
+    group.get('heloc_monthly_payment')?.setValue(monthlyRate.toFixed(2), { emitEvent: false });
+  }
+
   calculateHelocFields(group: FormGroup) {
     const currentValue = parseFloat(group.get('current_value')?.value) || 0;
-    const loanPercent = parseFloat(group.get('heloc_interest_rate')?.value) || 0; // 65 or 80
+    const loanPercent = parseFloat(group.get('heloc_percent')?.value) || 0; // 65 or 80
     const currentLoanBalance = parseFloat(group.get('current_loan_balance')?.value) || 0;
+    const heloc_current_debt_balance = parseFloat(group.get('heloc_current_debt_balance')?.value) || 0;
 
     // 1. Calculate HELOC Amount
     const helocAmount = currentValue * (loanPercent / 100);
     group.get('heloc_amount')?.setValue(helocAmount.toFixed(2), { emitEvent: false });
 
     // 2. Calculate HELOC Room
-    const helocRoom = helocAmount - currentLoanBalance;
+    //const helocRoom = helocAmount - currentLoanBalance;
+    const helocRoom = helocAmount - currentLoanBalance - heloc_current_debt_balance;
     group.get('heloc_room_abvailable')?.setValue(helocRoom.toFixed(2), { emitEvent: false });
   }
 
 
   calculateCurrentEquity(group: any) {
+    this.calculateHelocFields(group);
+    this.updateHelocPayment(group);
     const current_value = parseFloat(group.get('current_value')?.value) || 0;
     const current_loan_balance = parseFloat(group.get('current_loan_balance')?.value) || 0;
     const heloc_current_debt_balance = parseFloat(group.get('heloc_current_debt_balance')?.value) || 0;
@@ -285,7 +304,6 @@ export class PropertyDatailsComponent {
         : null;
     };
   }
-
 
 
 }

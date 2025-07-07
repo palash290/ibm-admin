@@ -6,7 +6,7 @@
                     <h4 class="ct_fs_28 ct_fw_700 mb-0 ct_black_text">Dashboard</h4>
                     <div class="ct_w_100_575">
                         <button class="ct_blue_btn ct_btn_h_48 ct_white_nowrap ct_w_100_575"
-                        routerLink="/user/loan-calculator">+ Create New Case</button>
+                            routerLink="/user/loan-calculator">+ Create New Case</button>
                     </div>
                 </div>
             </div>
@@ -20,10 +20,7 @@
                         <div class="ct_dash_icon">
                             <img src="assets/img/user_icon.svg" alt="">
                         </div>
-
-
                     </div>
-
                 </div>
                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 mb-xxl-0">
                     <div class="ct_dashboard_card">
@@ -34,10 +31,7 @@
                         <div class="ct_dash_icon">
                             <img src="assets/img/report_icon.svg" alt="">
                         </div>
-
-
                     </div>
-
                 </div>
                 <div class="col-xxl-4 col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-4 mb-xxl-0">
                     <div class="ct_dashboard_card">
@@ -48,12 +42,8 @@
                         <div class="ct_dash_icon">
                             <img src="assets/img/sub-admin_icon.svg" alt="">
                         </div>
-
-
                     </div>
-
                 </div>
-
             </div>
 
             <div class="row ct_mt_30">
@@ -62,41 +52,37 @@
                         <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-4">
                             <h4 class="mb-0 ct_fs_24 ct_fw_700">Reports Generated Over Time</h4>
                             <!-- <a class="ct_blue_link_underline ct_fw_600">View All</a> -->
-                            <select class="form-control ct_input ct_h_40 w-auto">
+                            <!-- <select class="form-control ct_input ct_h_40 w-auto">
                                 <option value="">January</option>
                                 <option value="">January</option>
                                 <option value="">January</option>
-                            </select>
-
+                            </select> -->
                         </div>
-
                         <!-- <div id="chart"></div> -->
-
                         <div style="text-align:center">
-                            <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
-                                [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"></apx-chart>
+                            <!-- <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"></apx-chart> -->
+                            <apx-chart *ngIf="chartOptions" [series]="chartOptions.series" [chart]="chartOptions.chart"
+                                [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"
+                                [dataLabels]="chartOptions.dataLabels">
+                            </apx-chart>
+
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
             <div class="row ct_mt_30">
                 <div class="col-md-12">
                     <div class="ct_white_bg">
                         <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
                             <h4 class="mb-0 ct_fs_24 ct_fw_700">Recently Generated Reports</h4>
                             <a class="ct_blue_link_underline ct_fw_600">View All</a>
-
                         </div>
 
                         <div class="table-responsive mt-4 ct_custom_table">
                             <table class="table ">
                                 <thead>
                                     <tr>
-
                                         <th>S.No</th>
                                         <th>Report ID</th>
                                         <th>Case Name</th>
@@ -108,7 +94,6 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-
                                         <td>1</td>
                                         <td>RPT-1042</td>
                                         <td>
@@ -124,7 +109,6 @@
                                         </td>
                                     </tr>
                                     <tr>
-
                                         <td>1</td>
                                         <td>RPT-1042</td>
                                         <td>
@@ -140,7 +124,6 @@
                                         </td>
                                     </tr>
                                     <tr>
-
                                         <td>1</td>
                                         <td>RPT-1042</td>
                                         <td>

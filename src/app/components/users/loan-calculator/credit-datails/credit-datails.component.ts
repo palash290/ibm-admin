@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SharedService } from '../../../../services/shared.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -55,16 +55,24 @@ export class CreditDatailsComponent {
 
   populateCredits(data: any[]): void {
     data.forEach(credit => {
-      this.credits.push(this.fb.group({
+      const creditGroup = this.fb.group({
         credit_type: [credit.credit_type || '', Validators.required],
         credit_limit: [credit.credit_limit || '', Validators.required],
         balance: [credit.balance || '', Validators.required],
-        interest_rate: [credit.interest_rate || '', Validators.required],
+        interest_rate: [credit.interest_rate || '', [Validators.required, Validators.min(0), Validators.max(100)]],
         monthly_payment: [{ value: credit.monthly_payment || '', disabled: true }, Validators.required],
-        terms: [credit.terms || '', Validators.required],
+        terms: [credit.terms || '12', Validators.required],
         total_payable_amount: [{ value: credit.total_payable_amount || '', disabled: true }],
         other_credit: [credit.other_credit] // <-- new field
-      }));
+      });
+
+      this.credits.push(creditGroup);
+
+      creditGroup.get('balance')?.setValidators([
+        Validators.required,
+        this.helocDebtLimitValidator(creditGroup)
+      ]);
+
     });
   }
 
@@ -78,9 +86,9 @@ export class CreditDatailsComponent {
       credit_type: ['', Validators.required],
       credit_limit: ['', Validators.required],
       balance: ['', Validators.required],
-      interest_rate: ['', Validators.required],
+      interest_rate: ['', [Validators.required, Validators.min(0), Validators.max(100)]],
       monthly_payment: [{ value: '', disabled: true }, Validators.required],
-      terms: ['6', Validators.required],
+      terms: ['12', Validators.required],
       total_payable_amount: [{ value: '', disabled: true }],
       other_credit: [''] // <-- new field
     });
@@ -114,6 +122,11 @@ export class CreditDatailsComponent {
 
     this.credits.push(creditGroup);
 
+    creditGroup.get('balance')?.setValidators([
+      Validators.required,
+      this.helocDebtLimitValidator(creditGroup)
+    ]);
+
     creditGroup.get('credit_type')?.valueChanges.subscribe(value => {
       const customCardControl = creditGroup.get('custom_card_name');
 
@@ -130,34 +143,28 @@ export class CreditDatailsComponent {
   }
 
 
-  updateMonthlyPayment(group: any): void {
+updateMonthlyPayment(group: any): void {
     const remainingBalance = parseFloat(group.get('balance')?.value);
     const interestRate = parseFloat(group.get('interest_rate')?.value);
     const creditLimit = parseFloat(group.get('credit_limit')?.value);
-    const terms = parseFloat(group.get('terms')?.value); // in months
-
+    const terms = 12
+ 
     if (
       !isNaN(remainingBalance) &&
       !isNaN(interestRate) &&
       !isNaN(creditLimit) &&
-      !isNaN(terms) &&
       terms > 0
     ) {
-      const usedAmount = creditLimit - remainingBalance;
-
-      const monthlyPrincipal = usedAmount / terms;
-      const monthlyInterest = (usedAmount * interestRate) / 12 / 100;
-
-      const monthlyPayment = monthlyPrincipal + monthlyInterest;
+      const monthlyPayment = (remainingBalance * interestRate) / terms / 100;
       const totalPayble = monthlyPayment * terms
-
+ 
       group.get('monthly_payment')?.setValue(monthlyPayment.toFixed(2), { emitEvent: false });
       group.get('total_payable_amount')?.setValue(totalPayble.toFixed(2), { emitEvent: false });
     } else {
       group.get('monthly_payment')?.setValue('', { emitEvent: false });
       group.get('total_payable_amount')?.setValue('', { emitEvent: false });
     }
-  }
+}
 
 
   removeCredit(index: number): void {
@@ -206,6 +213,17 @@ export class CreditDatailsComponent {
     } else {
       this.router.navigateByUrl('/user/loan-calculator/property-details')
     }
+  }
+
+  helocDebtLimitValidator(group: FormGroup): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const helocDebt = parseFloat(control.value) || 0;
+      const helocAmount = parseFloat(group.get('credit_limit')?.value) || 0;
+
+      return helocDebt > helocAmount
+        ? { helocDebtExceedsLimit: true }
+        : null;
+    };
   }
 
 

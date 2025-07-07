@@ -76,15 +76,25 @@
                                 <div class="position-relative">
                                     <div class="position-relative">
                                         <input formControlName="interest_rate" type="number"
-                                            class="form-control ct_input ct_input_ps_30" placeholder="0.00">
+                                            class="form-control ct_input ct_input_ps_30" placeholder="0.00" [min]="0"
+                                            [max]="100">
                                         <span class="ct_input_icon_left">%</span>
                                     </div>
 
-
                                     <div
-                                        *ngIf="loan.get('interest_rate')?.touched && loan.get('interest_rate')?.invalid">
-                                        <small class="text-danger">Interest rate is required</small>
+                                        *ngIf="loan.get('interest_rate')?.touched && loan.get('interest_rate')?.errors">
+                                        <small class="text-danger"
+                                            *ngIf="loan.get('interest_rate')?.hasError('required')">
+                                            Interest rate is required
+                                        </small>
+                                        <small class="text-danger" *ngIf="loan.get('interest_rate')?.hasError('min')">
+                                            Interest rate must be at least 0%
+                                        </small>
+                                        <small class="text-danger" *ngIf="loan.get('interest_rate')?.hasError('max')">
+                                            Interest rate must not exceed 100%
+                                        </small>
                                     </div>
+
                                 </div>
                             </div>
                         </div>

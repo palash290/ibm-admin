@@ -485,7 +485,7 @@ textarea {
 }
 .ct_side_bar ul li a.active svg path,
 .ct_side_bar ul li a:hover svg path {
-  stroke: #fff;
+  filter: brightness(44);
 }
 
 .ct_right_panel {

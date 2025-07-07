@@ -1,21 +1,12 @@
 <div class="ct_right_panel">
     <div class="ct_px_30 mt-4 pb-4">
         <div class="container-fluid" id="pdfContent">
-            <!-- <fieldset class="ct_white_bg">
-    <div class="ct_form-card"> -->
-            <div class="ct_inner_header_bg mt-4 d-flex align-items-center gap-2">
-                <!-- <a href="dashbaord.html" class="ct_back_icon me-2 text-dark">
-                <i class="fa-solid fa-chevron-left"></i>
-            </a> -->
-                <!-- <h4 class="ct_fs_24 ct_fw_700 mb-0">Dashboard</h4>
-            <span>/</span>
-            <small class="ct_text_op_6"> View Report</small> -->
-            </div>
 
             <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap ct_mb_30">
                 <h4 class="ct_fs_28 ct_fw_700 mb-0">North Branch Financial Security Ltd.</h4>
                 <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_575 ct_w_100_575 ">
-                    <button class="ct_blue_btn ct_h_40 ct_fs_16 ct_border_radius_5 ct_white_nowrap ct_w_100_575">
+                    <!-- <button (click)="downloadAllDataAsCSV()"
+                        class="ct_blue_btn ct_h_40 ct_fs_16 ct_border_radius_5 ct_white_nowrap ct_w_100_575">
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" class="me-2"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -26,8 +17,9 @@
                                 fill="white" />
                         </svg>
                         Download CSV
-                    </button>
-                    <button (click)="downloadPDF()" class="ct_blue_btn ct_h_40 ct_fs_16 ct_border_radius_5 ct_white_nowrap ct_w_100_575">
+                    </button> -->
+                    <button (click)="downloadPDF()"
+                        class="ct_blue_btn ct_h_40 ct_fs_16 ct_border_radius_5 ct_white_nowrap ct_w_100_575">
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"
                             class="me-2">
                             <path
@@ -45,27 +37,622 @@
                 </div>
             </div>
 
-
             <div class="ct_light_blue_bg">
-                <img src="../assets/img/building_img.png" alt="">
+                <img src="../assets/img/building_img.png" alt="" />
                 <div class="d-flex align-items-center gap-2 flex-wrap justify-content-between">
                     <h4 class="ct_fs_24 ct_fw_700 mb-0">IBC Financial Report</h4>
-                    <div class="d-flex align-items-center gap-2">
-                        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M5.41189 12.4595C5.62616 12.4595 5.79986 12.2858 5.79986 12.0716C5.79986 11.8573 5.62616 11.6836 5.41189 11.6836C5.19763 11.6836 5.02393 11.8573 5.02393 12.0716C5.02393 12.2858 5.19763 12.4595 5.41189 12.4595Z"
-                                fill="#5086FF" />
-                            <path
-                                d="M5.4126 14.715V20.4279M8.0513 20.4279V11.8047H9.99115C10.9917 11.8047 11.9513 12.2022 12.6588 12.9097C13.3663 13.6172 13.7638 14.5767 13.7638 15.5773V16.6553C13.7638 17.6559 13.3663 18.6155 12.6588 19.323C11.9513 20.0305 10.9917 20.4279 9.99115 20.4279H8.0513Z"
-                                stroke="#5086FF" stroke-width="1.10294" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path
-                                d="M20.3446 3.39453H5.34309C4.20032 3.39453 3.27393 4.32093 3.27393 5.4637V20.4652C3.27393 21.6079 4.20032 22.5343 5.34309 22.5343H20.3446C21.4873 22.5343 22.4137 21.6079 22.4137 20.4652V5.4637C22.4137 4.32093 21.4873 3.39453 20.3446 3.39453Z"
-                                stroke="#5086FF" stroke-width="1.10294" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                        </svg>
-                        <p class="mb-0">Report ID: <span class="ct_text_op_6">REP-2024-001</span></p>
+                    
+                </div>
+                <div class="ct_mt_30">
+                    <ul>
+                        <li class="d-flex align-items-center gap-2 mb-3">
+                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21.1787 22.4176C21.1787 20.9739 21.1787 20.252 21.0005 19.6647C20.5993 18.3422 19.5644 17.3073 18.2419 16.9061C17.6546 16.7279 16.9327 16.7279 15.489 16.7279H10.3166C8.87292 16.7279 8.15108 16.7279 7.5637 16.9061C6.24122 17.3073 5.20631 18.3422 4.80513 19.6647C4.62695 20.252 4.62695 20.9739 4.62695 22.4176M17.558 8.45205C17.558 11.023 15.4738 13.1072 12.9028 13.1072C10.3318 13.1072 8.24764 11.023 8.24764 8.45205C8.24764 5.88107 10.3318 3.79688 12.9028 3.79688C15.4738 3.79688 17.558 5.88107 17.558 8.45205Z"
+                                    stroke="#5086FF" stroke-width="1.55172" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <p class="mb-0">
+                                Client Name: <span class="ct_text_op_6">John Smith</span>
+                            </p>
+                        </li>
+                        <li class="d-flex align-items-center gap-2 mb-3">
+                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M21.1787 22.4176C21.1787 20.9739 21.1787 20.252 21.0005 19.6647C20.5993 18.3422 19.5644 17.3073 18.2419 16.9061C17.6546 16.7279 16.9327 16.7279 15.489 16.7279H10.3166C8.87292 16.7279 8.15108 16.7279 7.5637 16.9061C6.24122 17.3073 5.20631 18.3422 4.80513 19.6647C4.62695 20.252 4.62695 20.9739 4.62695 22.4176M17.558 8.45205C17.558 11.023 15.4738 13.1072 12.9028 13.1072C10.3318 13.1072 8.24764 11.023 8.24764 8.45205C8.24764 5.88107 10.3318 3.79688 12.9028 3.79688C15.4738 3.79688 17.558 5.88107 17.558 8.45205Z"
+                                    stroke="#5086FF" stroke-width="1.55172" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <p class="mb-0">
+                                Agent Name:
+                                <span class="ct_text_op_6"> James Pollard</span>
+                            </p>
+                        </li>
+                        <li class="d-flex align-items-center gap-2 mb-3">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19.875 4.5H4.125C3.08947 4.5 2.25 5.33947 2.25 6.375V17.625C2.25 18.6605 3.08947 19.5 4.125 19.5H19.875C20.9105 19.5 21.75 18.6605 21.75 17.625V6.375C21.75 5.33947 20.9105 4.5 19.875 4.5Z"
+                                    stroke="#5086FF" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M5.25 7.5L12 12.75L18.75 7.5" stroke="#5086FF" stroke-width="1.5"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+
+                            <p class="mb-0">
+                                Email:
+                                <span class="ct_text_op_6">james.pollardinfineo.ai</span>
+                            </p>
+                        </li>
+                        <li class="d-flex align-items-center gap-2 mb-3">
+                            <svg width="24" height="24" viewBox="0 0 513 512" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_1234_9580)">
+                                    <path
+                                        d="M241.9 2.00003C231 5.80003 221.5 14.6 217.4 24.5L215.1 30H208C200 30 192 32 185.9 35.6C177.3 40.6 168.7 52.5 166.9 61.7L166.3 64.9L129.6 65.2L93 65.5L87.9 68.2C82.6 71 76.8 76.7 73.8 82.2C72.1 85.3 72 94.9 71.7 287.4L71.5 489.3L73.8 494.4C77.2 501.8 80.8 505.5 87.7 508.9L93.8 512H256.5H419.2L425.3 508.9C432.2 505.5 435.8 501.8 439.2 494.4L441.5 489.3L441.3 287.4C441 94.9 440.9 85.3 439.2 82.2C436.2 76.7 430.4 71 425.1 68.2L420 65.5L383.4 65.2L346.7 64.9L346 61.2C344.9 55 339.5 46.2 333.4 40.5C325.8 33.5 318.9 30.8 306.9 30.2L297.8 29.8L295.5 24.4C293 18.2 286 9.90003 280.2 6.30003C270.1 -0.0999695 253.1 -1.99997 241.9 2.00003ZM265.3 22.6C272.7 25.7 276.8 31.2 278 39.7C278.4 43.2 279.5 45.7 281.1 47.3C283.3 49.6 284.4 49.8 296.3 50.2C310.1 50.7 314.9 52.1 319.8 56.8C324 60.7 325.5 64.3 325.5 70C325.5 77.7 321.7 83.3 313.5 87.6C310.2 89.4 306.8 89.5 256.5 89.5C206.2 89.5 202.8 89.4 199.5 87.6C191.5 83.4 187.5 77.7 187.5 70.5C187.5 64.9 189.4 60.3 193.1 56.8C198.2 52.1 202.9 50.7 216.7 50.2C228.6 49.8 229.7 49.6 231.9 47.3C233.5 45.7 234.6 43.2 235 39.7C235.9 33.5 237.3 30.4 241.2 26.8C247.1 21.2 257.6 19.3 265.3 22.6ZM171.4 89.8C174.1 95.1 183.5 103.7 189.8 106.5C198.3 110.4 206.2 111 256.5 111C306.8 111 314.7 110.4 323.2 106.5C329.5 103.7 338.9 95 341.6 89.7L343.6 85.9L379.6 86.2L415.7 86.5L418 89.2C419.3 90.7 420.6 93.9 421 96.2C421.3 98.6 421.5 186.9 421.3 292.5C421 501 421.4 487.1 415.6 490.2C413.7 491.3 383.7 491.5 256.1 491.5C108.2 491.5 98.8 491.4 96.2 489.8C94.6 488.7 93.2 486.5 92.5 484.1C91.8 481.4 91.6 419.4 91.7 286.8C92 102.2 92.1 93.3 93.8 90.7C94.8 89.1 96.6 87.5 97.8 87C99 86.5 115.6 86.1 134.7 86.1L169.5 86L171.4 89.8Z"
+                                        fill="#5086FF" />
+                                    <path
+                                        d="M186.8 132.4C184.4 134.5 184 135.6 184 140C184 146.7 187.3 150 194 150C200.7 150 204 146.7 204 140C204 133.3 200.7 130 194 130C190.8 130 188.8 130.7 186.8 132.4Z"
+                                        fill="#5086FF" />
+                                    <path
+                                        d="M221.8 132.4C219.4 134.5 219 135.6 219 140C219 144.4 219.4 145.5 221.8 147.6L224.6 150H274H323.4L326.2 147.6C328.6 145.5 329 144.4 329 140C329 135.6 328.6 134.5 326.2 132.4L323.4 130H274H224.6L221.8 132.4Z"
+                                        fill="#5086FF" />
+                                    <path
+                                        d="M235.998 196.7C196.398 205.1 165.298 236.9 157.798 276.4C155.598 288 156.498 311.8 159.498 322C169.898 357.9 196.698 383.7 233.198 393.1C244.898 396.1 266.098 396.4 277.998 393.6C314.898 385.1 342.998 358.3 353.698 321.5C355.698 314.4 355.998 311.5 355.898 295C355.898 277.8 355.698 275.9 353.198 267.5C341.898 230.7 313.198 204.2 276.198 196.6C266.498 194.6 245.498 194.6 235.998 196.7ZM275.098 218C297.498 223.6 316.898 239.1 326.998 259.5C333.898 273.2 335.798 282.5 335.298 298.5C334.898 309.7 334.398 312.7 331.798 320.3C322.398 347.3 299.798 367.4 272.298 373C260.498 375.5 252.498 375.5 240.698 373C211.298 367 186.998 343.8 179.498 314.6C176.798 303.8 176.798 287.3 179.498 276.4C186.598 248.1 209.298 225.3 237.498 218C247.898 215.4 264.498 215.3 275.098 218Z"
+                                        fill="#5086FF" />
+                                    <path
+                                        d="M287 258.9C285.9 259.4 274.4 270.4 261.5 283.4L238.1 306.9L231.9 301C226.3 295.6 225.2 295 221.5 295C215.4 295 211.5 299.1 211.5 305.6C211.5 310.4 211.6 310.5 222.3 321.2L233.1 332H238H243L272.2 302.7L301.5 273.5V268.8C301.5 262.6 298.6 259 293 258.5C290.8 258.2 288.1 258.4 287 258.9Z"
+                                        fill="#5086FF" />
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_1234_9580">
+                                        <rect width="512" height="512" fill="white" transform="translate(0.5)" />
+                                    </clipPath>
+                                </defs>
+                            </svg>
+
+                            <p class="mb-0">
+                                Prepared for:
+                                <span class="ct_text_op_6">John Doe, Jane Doe</span>
+                            </p>
+                        </li>
+                        <li class="d-flex align-items-center gap-2 mb-3">
+                            <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M6.82523 4.46888C6.58516 4.46888 6.35493 4.56425 6.18518 4.734C6.01542 4.90376 5.92006 5.13399 5.92006 5.37406V22.5723H7.7304V19.8568C7.7304 19.5482 7.85301 19.2521 8.07127 19.0339C8.28952 18.8156 8.58554 18.693 8.89419 18.693H16.9114C17.2201 18.693 17.5161 18.8156 17.7344 19.0339C17.9526 19.2521 18.0752 19.5482 18.0752 19.8568V22.5723H19.8856V13.1327C19.8856 12.8926 19.7902 12.6624 19.6205 12.4926C19.4507 12.3229 19.2205 12.2275 18.9804 12.2275H16.3942C16.0373 12.2275 15.7476 11.9378 15.7476 11.581V5.37406C15.7476 5.25519 15.7242 5.13748 15.6787 5.02766C15.6333 4.91784 15.5666 4.81806 15.4825 4.734C15.3985 4.64995 15.2987 4.58328 15.1889 4.53779C15.079 4.4923 14.9613 4.46888 14.8425 4.46888H6.82523ZM5.2735 23.8654C4.91661 23.8654 4.62695 23.5758 4.62695 23.2189V5.37406C4.62695 4.79104 4.85856 4.2319 5.27081 3.81964C5.68307 3.40738 6.24221 3.17578 6.82523 3.17578H14.8425C15.4255 3.17578 15.9846 3.40738 16.3969 3.81964C16.8091 4.2319 17.0407 4.79104 17.0407 5.37406V10.9344H18.9804C19.5634 10.9344 20.1226 11.166 20.5348 11.5783C20.9471 11.9905 21.1787 12.5497 21.1787 13.1327V23.2189C21.1787 23.5758 20.889 23.8654 20.5321 23.8654H5.2735ZM9.0235 22.5723H12.2563V19.9861H9.0235V22.5723ZM13.5494 22.5723H16.7821V19.9861H13.5494V22.5723ZM9.79937 8.3482C9.79937 8.62256 9.69038 8.88568 9.49637 9.07968C9.30237 9.27369 9.03925 9.38268 8.76488 9.38268C8.49052 9.38268 8.2274 9.27369 8.03339 9.07968C7.83939 8.88568 7.7304 8.62256 7.7304 8.3482C7.7304 8.07383 7.83939 7.81071 8.03339 7.61671C8.2274 7.4227 8.49052 7.31371 8.76488 7.31371C9.03925 7.31371 9.30237 7.4227 9.49637 7.61671C9.69038 7.81071 9.79937 8.07383 9.79937 8.3482ZM8.76488 13.0034C9.03925 13.0034 9.30237 12.8944 9.49637 12.7004C9.69038 12.5064 9.79937 12.2432 9.79937 11.9689C9.79937 11.6945 9.69038 11.4314 9.49637 11.2374C9.30237 11.0434 9.03925 10.9344 8.76488 10.9344C8.49052 10.9344 8.2274 11.0434 8.03339 11.2374C7.83939 11.4314 7.7304 11.6945 7.7304 11.9689C7.7304 12.2432 7.83939 12.5064 8.03339 12.7004C8.2274 12.8944 8.49052 13.0034 8.76488 13.0034ZM9.79937 15.5896C9.79937 15.8639 9.69038 16.1271 9.49637 16.3211C9.30237 16.5151 9.03925 16.6241 8.76488 16.6241C8.49052 16.6241 8.2274 16.5151 8.03339 16.3211C7.83939 16.1271 7.7304 15.8639 7.7304 15.5896C7.7304 15.3152 7.83939 15.0521 8.03339 14.8581C8.2274 14.6641 8.49052 14.5551 8.76488 14.5551C9.03925 14.5551 9.30237 14.6641 9.49637 14.8581C9.69038 15.0521 9.79937 15.3152 9.79937 15.5896ZM12.9028 9.38268C13.1772 9.38268 13.4403 9.27369 13.6343 9.07968C13.8283 8.88568 13.9373 8.62256 13.9373 8.3482C13.9373 8.07383 13.8283 7.81071 13.6343 7.61671C13.4403 7.4227 13.1772 7.31371 12.9028 7.31371C12.6285 7.31371 12.3653 7.4227 12.1713 7.61671C11.9773 7.81071 11.8683 8.07383 11.8683 8.3482C11.8683 8.62256 11.9773 8.88568 12.1713 9.07968C12.3653 9.27369 12.6285 9.38268 12.9028 9.38268ZM13.9373 11.9689C13.9373 12.2432 13.8283 12.5064 13.6343 12.7004C13.4403 12.8944 13.1772 13.0034 12.9028 13.0034C12.6285 13.0034 12.3653 12.8944 12.1713 12.7004C11.9773 12.5064 11.8683 12.2432 11.8683 11.9689C11.8683 11.6945 11.9773 11.4314 12.1713 11.2374C12.3653 11.0434 12.6285 10.9344 12.9028 10.9344C13.1772 10.9344 13.4403 11.0434 13.6343 11.2374C13.8283 11.4314 13.9373 11.6945 13.9373 11.9689ZM12.9028 16.6241C13.1772 16.6241 13.4403 16.5151 13.6343 16.3211C13.8283 16.1271 13.9373 15.8639 13.9373 15.5896C13.9373 15.3152 13.8283 15.0521 13.6343 14.8581C13.4403 14.6641 13.1772 14.5551 12.9028 14.5551C12.6285 14.5551 12.3653 14.6641 12.1713 14.8581C11.9773 15.0521 11.8683 15.3152 11.8683 15.5896C11.8683 15.8639 11.9773 16.1271 12.1713 16.3211C12.3653 16.5151 12.6285 16.6241 12.9028 16.6241ZM18.0752 15.5896C18.0752 15.8639 17.9662 16.1271 17.7722 16.3211C17.5782 16.5151 17.3151 16.6241 17.0407 16.6241C16.7664 16.6241 16.5033 16.5151 16.3093 16.3211C16.1153 16.1271 16.0063 15.8639 16.0063 15.5896C16.0063 15.3152 16.1153 15.0521 16.3093 14.8581C16.5033 14.6641 16.7664 14.5551 17.0407 14.5551C17.3151 14.5551 17.5782 14.6641 17.7722 14.8581C17.9662 15.0521 18.0752 15.3152 18.0752 15.5896Z"
+                                    fill="#5086FF" />
+                            </svg>
+                            <p class="mb-0">
+                                Advisor Name:
+                                <span class="ct_text_op_6">Sarah Johnson</span>
+                            </p>
+                        </li>
+                        <li class="d-flex align-items-center gap-2 mb-0">
+                            <svg width="26" height="27" viewBox="0 0 26 27" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M22.2426 11.8079H3.62012M17.0697 2.98438V7.39614M8.79303 2.98438V7.39614M8.58612 25.0432H17.2766C19.0149 25.0432 19.884 25.0432 20.5479 24.6826C21.1319 24.3653 21.6068 23.8591 21.9043 23.2365C22.2426 22.5288 22.2426 21.6022 22.2426 19.7491V10.4844C22.2426 8.63126 22.2426 7.7047 21.9043 6.99691C21.6068 6.37431 21.1319 5.86813 20.5479 5.5509C19.884 5.19026 19.0149 5.19026 17.2766 5.19026H8.58612C6.84785 5.19026 5.97872 5.19026 5.31479 5.5509C4.73079 5.86813 4.25597 6.37431 3.95841 6.99691C3.62012 7.7047 3.62012 8.63126 3.62012 10.4844V19.7491C3.62012 21.6022 3.62012 22.5288 3.95841 23.2365C4.25597 23.8591 4.73079 24.3653 5.31479 24.6826C5.97872 25.0432 6.84785 25.0432 8.58612 25.0432Z"
+                                    stroke="#5086FF" stroke-width="1.54412" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                            </svg>
+                            <p class="mb-0">
+                                Generated On:
+                                <span class="ct_text_op_6">Jan 15, 2024</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="ct_mt_30 ct_white_bg">
+                <h5 class="ct_fs_20 ct_fw_600">
+                    The Information Set Out In This Personal Mortgage Minimizer
+                    Handbook Is Intended For General Guidance Only, And Does Not
+                    Constitute Financial, Legal Or Other Advice, Nor Is It To Be
+                    Interpreted To Be A Guarantee Of Results.
+                </h5>
+                <p>
+                    This Personal Mortgage Minimizer Handbook contains estimates of
+                    the effect a change in payment application practices can have on
+                    your mortgage and your finances generally. The estimates set out
+                    in this Personal Mortgage Minimizer Handbook are dependent upon
+                    the personal financial information inputs provided by you, as
+                    well as on personal financial decisions that are individual to
+                    you. It is your responsibility to review the Handbook and inputs
+                    for accuracy and completeness. You acknowledge that the results
+                    set out in this Handbook are for general and illustrative
+                    purposes only, and are not a replacement for professional
+                    financial and legal advice; we strongly recommend that you
+                    obtain that advice in order to be fully informed as to the terms
+                    of your mortgage and home equity line of credit, and the impact
+                    of decisions to be made by you. You agree that neither Infineo
+                    nor any of its employees, contractors or agents shall be deemed
+                    or otherwise considered to be providing financial, legal or
+                    other advice by permitting you to use this Handbook. This
+                    Personal Mortgage Minimizer Handbook is proprietary to Infineo
+                    and personal to you. You are not permitted to share or disclose
+                    this Personal Mortgage Minimizer Handbook except with your
+                    third-party professional advisors, and then only in connection
+                    with advice personal to you in connection with your personal
+                    financial decisions.
+                </p>
+                <h5 class="ct_fs_16 ct_fw_600">
+                    If You Do Not Agree To The Terms Of This Legal Notice, You Are
+                    Not Permitted To Access Or Use This Personal Mortgage Minimizer
+                    Handbook.
+                </h5>
+            </div>
+
+            <div class="ct_outline_border ct_mt_30 ct_mt_30">
+                <h4 class="ct_fs_20 ct_fw_600">
+                    A Personal Mortgage Minimizer Handbook Prepared by James Pollard
+                    For John Doe, Jane Doe
+                </h4>
+                <p class="mb-0">
+                    The principal on your mortgage will be paid out at the bank in 5
+                    years.
+                </p>
+                <div class="row mt-3">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="ct_grey_bg">
+                            <h5 class="ct_fw_600 ct_fs_20">5 Years</h5>
+                            <p class="ct_text_op_6 mb-0">
+                                Time taken with infineo schedule
+                            </p>
+                        </div>
                     </div>
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="ct_grey_bg">
+                            <h5 class="ct_fw_600 ct_fs_20">21 Years</h5>
+                            <p class="ct_text_op_6 mb-0">
+                                Time taken with your current schedule
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4 ct_light_blue_head_bg">
+                    <p class="mb-0 ct_fs_20 ct_fw_600">Time saved</p>
+                    <p class="mb-0 ct_fw_700">16 Years</p>
+                </div>
+                <div class="text-center mt-3">
+                    <h4 class="ct_fs_24 ct_fw_700">
+                        Your Mortgage Balance Over Time
+                    </h4>
+                    <h5 class="ct_fs_20 ct_fw_700">
+                        <span class="ct_blue_text">infineo's Payment Plan</span> vs
+                        Current Payment Plan
+                    </h5>
+                </div>
+                <!-- <div id="ct_bugget_summary2" class="mt-4"></div> -->
+
+                <div style="text-align:center">
+                    <apx-chart [series]="paymentChart.series" [chart]="paymentChart.chart"
+                        [colors]="paymentChart.colors" [stroke]="paymentChart.stroke" [fill]="paymentChart.fill"
+                        [dataLabels]="paymentChart.dataLabels" [xaxis]="paymentChart.xaxis" [yaxis]="paymentChart.yaxis"
+                        [legend]="paymentChart.legend">
+                    </apx-chart>
+                </div>
+
+                <div class="mt-4">
+                    <p>
+                        The HELOC will be paid out in 8 years, meaning you have a
+                        clear title on your home 17 years earlier. Note, if you choose
+                        to spend a portion of the HELOC roomon other things, this may
+                        delay how quickly you pay out the HELOC, but will not
+                        seriously hinder the long termeffectiveness of implementing
+                        the mortgage minimizer.
+                    </p>
+                    <div class="row mt-3">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="ct_grey_bg">
+                                <h5 class="ct_fw_600 ct_fs_20">8 Years</h5>
+                                <p class="ct_text_op_6 mb-0">Home free and clear</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="ct_grey_bg">
+                                <h5 class="ct_fw_600 ct_fs_20">17 Years</h5>
+                                <p class="ct_text_op_6 mb-0">Years earlier</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4 ct_light_blue_head_bg">
+                        <p class="mb-0 ct_fs_20 ct_fw_600">
+                            Cash value accumulated during the same period
+                        </p>
+                        <p class="mb-0 ct_fw_700">$ 349,031</p>
+                    </div>
+                    <div class="text-center mt-3">
+                        <h5 class="ct_fs_20 ct_fw_700">
+                            Mortgage vs <span class="ct_blue_text">HELOC</span> vs
+                            <span class="ct_orange_text"> Policy Loan</span> vs
+                            <span class="ct_green_text">Cash Value</span>
+                        </h5>
+                    </div>
+                    <!-- <div id="ct_bugget_summary3" class="mt-4"></div> -->
+
+                    <div style="text-align:center">
+                        <apx-chart [series]="compareChart.series" [chart]="compareChart.chart"
+                            [colors]="compareChart.colors" [plotOptions]="compareChart.plotOptions"
+                            [xaxis]="compareChart.xaxis" [yaxis]="compareChart.yaxis" [legend]="compareChart.legend"
+                            [dataLabels]="compareChart.dataLabels">
+                        </apx-chart>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <p>All credit and loan items are paid out in 2 years.</p>
+                        <p class="mb-2">
+                            By year 3, your annual budget surplus increases to over
+                            <span class="ct_fw_700 ct_blue_text">$58,921</span> , as
+                            your debts and associated payments are eliminated. That
+                            money, less your annual policy premium(s) is used to pay
+                            down your HELOC.
+                        </p>
+                        <p>
+                            By year 10 when all your debts are paid (including policy
+                            loans), your net worth will have increased from
+                        </p>
+                        <h6>
+                            <span class="ct_blue_text ct_fw_700">$643,632</span> to
+                            <span class="ct_blue_text ct_fw_700">$1,657,689</span>
+                        </h6>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="ct_grey_bg">
+                                <h5 class="ct_fw_600 ct_fs_20">$643,632</h5>
+                                <p class="ct_text_op_6 mb-0">
+                                    Net worth at start of the plan
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="ct_grey_bg">
+                                <h5 class="ct_fw_600 ct_fs_20">$1,657,689</h5>
+                                <p class="ct_text_op_6 mb-0">
+                                    Net worth at end of the plan
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4 ct_light_blue_head_bg">
+                        <p class="mb-0 ct_fs_20 ct_fw_600">Net worth increased
+                        </p>
+                        <p class="mb-0 ct_fw_700">$1,014,057</p>
+                    </div>
+                    <div class="text-center mt-3">
+                        <h5 class="ct_fs_20 ct_fw_700">
+                            Your <span class="ct_blue_text">Net Worth </span> Over Time via <br>
+                            <span class="ct_orange_text">Assets</span> and Liabilities
+                        </h5>
+                    </div>
+                    <!-- <div id="ct_bugget_summary5" class="mt-4"></div> -->
+
+                    <div style="text-align:center">
+                        <apx-chart [series]="netWorthChart.series" [chart]="netWorthChart.chart"
+                            [colors]="netWorthChart.colors" [fill]="netWorthChart.fill" [stroke]="netWorthChart.stroke"
+                            [xaxis]="netWorthChart.xaxis" [yaxis]="netWorthChart.yaxis" [legend]="netWorthChart.legend"
+                            [dataLabels]="netWorthChart.dataLabels" [tooltip]="netWorthChart.tooltip">
+                        </apx-chart>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <p class="mb-2">The longer you actively engage in the mortgage minimizer, the more places you
+                            willfind to benefit from
+                            your spending. For example, you will understand how best to trade your next car, pay
+                            property
+                            taxes, kid's
+                            tuition, income taxes, etc., the list is endless.
+                        </p>
+                        <p>
+                            During retirement, you will have multiple options to access cash value in your policies, and
+                            what you don't
+                            use during your lifetime will be paid out tax free to your beneficiaries. An incredible
+                            life-time plan and
+                            legacy.
+                        </p>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="ct_grey_bg">
+                                <h5 class="ct_fw_600 ct_fs_20">$2,188,388</h5>
+                                <p class="ct_text_op_6 mb-0">
+                                    Total cash deposited ( at maturity )
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="ct_grey_bg">
+                                <h5 class="ct_fw_600 ct_fs_20">$8,764,692</h5>
+                                <p class="ct_text_op_6 mb-0">
+                                    Total cash value ( at maturity )
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4 ct_light_blue_head_bg">
+                        <p class="mb-0 ct_fs_20 ct_fw_600">Projected growth
+                        </p>
+                        <p class="mb-0 ct_fw_700">$ 6,576,304</p>
+                    </div>
+                    <div class="text-center mt-3">
+                        <h5 class="ct_fs_20 ct_fw_700">
+                            <span class="ct_blue_text">Total Cash Value </span> vs Total Premiums Paid
+                        </h5>
+                    </div>
+                    <!-- <div id="ct_bugget_summary6" class="mt-4"></div> -->
+
+                    <div style="text-align:center">
+                        <apx-chart [series]="growthChart.series" [chart]="growthChart.chart"
+                            [colors]="growthChart.colors" [fill]="growthChart.fill" [stroke]="growthChart.stroke"
+                            [xaxis]="growthChart.xaxis" [yaxis]="growthChart.yaxis" [legend]="growthChart.legend"
+                            [dataLabels]="growthChart.dataLabels" [tooltip]="growthChart.tooltip">
+                        </apx-chart>
+                    </div>
+
+                    <div class="mt-3">
+                        <p class="text-center">The total surplus budget identified by you was determined to be the
+                            following numbers:</p>
+                        <div class="row mt-3">
+                            <div class="col-md-4 mb-4 mb-md-0">
+                                <div class="ct_grey_bg">
+                                    <h5 class="ct_fw_600 ct_fs_20">$15,000
+                                    </h5>
+                                    <p class="ct_text_op_6 mb-0">
+                                        Total monthly income
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4 mb-md-0">
+                                <div class="ct_grey_bg">
+                                    <h5 class="ct_fw_600 ct_fs_20">$12,369
+                                    </h5>
+                                    <p class="ct_text_op_6 mb-0">
+                                        Total monthly expense
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4 mb-md-0">
+                                <div class="ct_grey_bg">
+                                    <h5 class="ct_fw_600 ct_fs_20">$2,631
+                                    </h5>
+                                    <p class="ct_text_op_6 mb-0">
+                                        Total monthly surplus budget
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-4 ">
+                                <div class="ct_grey_bg">
+                                    <h5 class="ct_fw_600 ct_fs_20">$31,572
+                                    </h5>
+                                    <p class="ct_text_op_6 mb-0">
+                                        Annual surplus budget
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-4 ">
+                                <div class="ct_grey_bg">
+                                    <h5 class="ct_fw_600 ct_fs_20">$11,246
+                                    </h5>
+                                    <p class="ct_text_op_6 mb-0">
+                                        Principal payment for year 1
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-3">
+                            <p class="text-center">Total surplus budget</p>
+                            <div class="row mt-3">
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <div class="ct_grey_bg">
+                                        <h5 class="ct_fw_600 ct_fs_20">$3,568
+                                        </h5>
+                                        <p class="ct_text_op_6 mb-0">
+                                            Monthly
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4 mb-md-0">
+                                    <div class="ct_grey_bg">
+                                        <h5 class="ct_fw_600 ct_fs_20">$42,822</h5>
+                                        <p class="ct_text_op_6 mb-0">
+                                            Annually
+                                        </p>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                            <p class="text-center mt-3">Of the Annual amount, we are only using a combined total of
+                                $40,000 as the annual
+                                deposit into the Mortgage Minimizer System.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ct_outline_border ct_mt_30">
+                <h4 class="ct_fs_22 ct_fw_700">Policy(s) Setup & Initial Funding</h4>
+                <p class="mb-0">The initial total deposit of$40,000 will come from a withdrawal from your HELOC</p>
+                <ul class="mt-4 ct_policy_list">
+                    <li>
+                        <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 1</span>
+                        <p class="mt-3">Make your normal mortgage payments. The room accumulated in the HELOC will
+                            increase each year as shown below.</p>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 1 - $11,246</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 2 - $11,880</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 3 - $12,550</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 4 - $13,258</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 5 - $14,006</span>
+
+                        </div>
+                    </li>
+                    <li>
+                        <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 2</span>
+                        <p class="mt-3">
+                            Deposit the surplus monthly budget identified below for each year onto the HELOC. The
+                            adjustments in the amount each year reflects the assumed increase in your income and
+                            the elimination of debt payments over time. The amount identified each year is paid
+                            towards your HELOC balance and if your HELOC balance reaches zero during the
+                            current year, apply the same payment to your policy loan for the remainder of that year.
+                            Once the HELOC is paid in full, your annual premium will be paid from income. This
+                            explain the decrease in your surplus budget in that year.
+
+                        </p>
+                        <p>Preferably this is broken down to correspond to your paydays.</p>
+                        <div class="d-flex align-items-center gap-2 flex-wrap">
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 1 - $2,631</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 2 - $3,081</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 3 - $3,545</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 4 - $4,022</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 5 - $7,277</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 6 - $7,784</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 7 - $8,306</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 8 - $5,509</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 9 - $6,063</span>
+                            <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 10 - $6,633</span>
+
+                        </div>
+                    </li>
+                    <li>
+                        <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 3</span>
+                        <p class="mt-3">
+                            Each year on the anniversary, <span class="ct_blue_text">$40,000</span> will be withdrawn
+                            from the HELOC and deposited into the policy(s).
+
+                        </p>
+                        <h5 class="ct_fs_20 mt-3"><span class="ct_fw_700">Note:</span> Both your income and the
+                            principal portion of mortgage payments will increase each
+                            year, but the policy funding stays at $40,000
+                        </h5>
+                        <div class="ct_grey_bg mt-3">
+                            <h5 class="ct_fw_700 ct_fs_20">Key Point
+                            </h5>
+                            <p class="ct_text_op_6 mb-0">This entire system is designed to provide financial flexibility
+                                and peace of mind. Your money remains available to you
+                                should you need it for any other important reason. Every step needs to be done manually
+                                by
+                                you. Cash management
+                                with Whole Life Insurance is an active process, the more you engage with your system the
+                                more you will see ways to
+                                use it.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="ct_outline_border ct_mt_30">
+                <h4 class="ct_fs_22 ct_fw_700">Steps to OPERATE your Mortgage Minimizer</h4>
+
+                <div class="mt-4">
+                    <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Instructions</span>
+                    <p class="mt-4 mb-2">
+                        <span class="ct_fw_700">One week after making the annual premium payment</span> into your
+                        policy(s), take the
+                        maximum available policy loan(s) and use that money to make an early payment on your
+                        mortgage principal.
+
+                    </p>
+                    <p>
+                        Dollar for dollar that amount will become available in the HELOC. Withdraw that amount
+                        and use it to pay off your other debts as directed below.
+
+                    </p>
+                    <p class="ct_fw_700">Note, you are not making any additional payments, only changing who receives
+                        them.
+                        You borrowed money from the insurance carrier who placed a lien on your policy. Every
+                        payment to your policy loan reduces the lien, and increases the amount immediately
+                        available to be used for another purpose. For each credit and loan item paid out, the
+                        payments you were making will now be made to the policy loan. For example, if you were
+                        making a monthly payment towards your credit card, now that it is paid off, that same
+                        payment must be paid towards the policy loan.</p>
+                </div>
+
+                <ul class="mt-4 ct_policy_list">
+                    <li>
+                        <span class="ct_custom_badge text-white" style="background-color: #000;">In year 1</span>
+                        <p class="mt-3">Completely pay off Credit Card with a balance of $9,000.00. Completely
+                            pay off Credit Card with a balance of $7,000.00. Reduce your Car Loan by
+                            $8,049.63. Your redirected monthly payment towards the policy loan is
+                            now $241.53</p>
+
+                    </li>
+                    <li>
+                        <span class="ct_custom_badge text-white" style="background-color: #000;">In year 2</span>
+                        <p class="mt-3">Completely pay off Car Loan with a balance of $256.69. Your redirected
+                            monthly payment towards the policy loan is now $1,365.28. The left-over
+                            $30,638.04 from your HELOC draw now also goes towards your policy
+                            loan. Once the policy loan balance reaches zero, the $1,365.28 you
+                            redirected towards your policy loan now just increases your monthly surplus
+                            budget to $3,996.61 and is paid towards the HELOC balance each month
+                            instead.</p>
+
+                    </li>
+                    <li>
+                        <span class="ct_custom_badge text-white" style="background-color: #000;">From year 3 to year 7
+                        </span>
+                        <p class="mt-3">Now that all credit and loan items are paid, put the full available policy loan
+                            annually towards the mortgage until it's paid in full. The policy loan amount
+                            put on the mortgage is immediately available in the HELOC, withdraw this
+                            amount from the HELOC and pay back the policy loan. Complete this step
+                            within a one week period.
+                        </p>
+
+                    </li>
+                    <li>
+                        <span class="ct_custom_badge text-white" style="background-color: #000;">In year 2</span>
+                        <p class="mt-3">Completely pay off Car Loan with a balance of $256.69. Your redirected
+                            monthly payment towards the policy loan is now $1,365.28. The left-over
+                            $30,638.04 from your HELOC draw now also goes towards your policy
+                            loan. Once the policy loan balance reaches zero, the $1,365.28 you
+                            redirected towards your policy loan now just increases your monthly surplus
+                            budget to $3,996.61 and is paid towards the HELOC balance each month
+                            instead.</p>
+
+                    </li>
+                    <li>
+                        <span class="ct_custom_badge text-white" style="background-color: #000;">In year 8
+
+                        </span>
+                        <p class="mt-3">Continue to fund the policy(s) until the policy loan available exceeds the
+                            HELOC debt. Once that occurs, take a policy loan to pay off the entire
+                            HELOC balance in full. Now, your annual premium will be paid from your
+                            income and then use the balance of your surplus dollars to pay the policy
+                            loan until it is paid in full.
+
+                        </p>
+
+                    </li>
+                    <li>
+                        <span class="ct_custom_badge text-white" style="background-color: #000;">In year 10
+                        </span>
+                        <p class="mt-3">If you have followed the plan as designed, your final policy loan payment
+                            will be made this year, and you will be 100% debt free. The next chapter in
+                            controlling your cash and expanding your personal financial system is now
+                            an option. It's time to look towards future generations.
+
+                        </p>
+                    </li>
+                </ul>
+            </div>
+
+            
+
+
+            <!-- Old Report -->
+            <div class="ct_light_blue_bg mt-3">
+                <img src="../assets/img/building_img.png" alt="">
+                <div class="d-flex align-items-center gap-2 flex-wrap justify-content-between">
+                    <h4 class="ct_fs_24 ct_fw_700 mb-0">{{caseDetails?.case_name}}</h4>
                 </div>
 
                 <div class="ct_mt_30">
@@ -78,7 +665,8 @@
                                     stroke="#5086FF" stroke-width="1.55172" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
-                            <p class="mb-0">Client Name: <span class="ct_text_op_6">John Smith</span></p>
+                            <p class="mb-0">Client Name: <span class="ct_text_op_6">{{caseDetails?.full_name}}</span>
+                            </p>
                         </li>
                         <li class="d-flex align-items-center gap-2 mb-3">
                             <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
@@ -88,7 +676,8 @@
                                     fill="#5086FF" />
                             </svg>
 
-                            <p class="mb-0">Advisor Name: <span class="ct_text_op_6">Sarah Johnson</span></p>
+                            <p class="mb-0">Advisor Name: <span class="ct_text_op_6">{{caseDetails?.agent_name}}</span>
+                            </p>
                         </li>
                         <li class="d-flex align-items-center gap-2 mb-0">
                             <svg width="26" height="27" viewBox="0 0 26 27" fill="none"
@@ -98,290 +687,276 @@
                                     stroke="#5086FF" stroke-width="1.54412" stroke-linecap="round"
                                     stroke-linejoin="round" />
                             </svg>
-                            <p class="mb-0">Generated On: <span class="ct_text_op_6">Jan 15, 2024</span></p>
+                            <p class="mb-0">Generated On: <span class="ct_text_op_6">{{caseDetails?.created_at |
+                                    date:'dd-MMM-yyyy'}}</span></p>
                         </li>
                     </ul>
                 </div>
             </div>
 
-            <div class="ct_outline_border ct_mt_30">
+            <div class="ct_outline_border ct_mt_30" *ngIf="adultsData.length || childrenData.length">
                 <h4 class="ct_fs_22 ct_fw_700">People</h4>
-                <div class="ct_mt_20">
+
+                <div class="ct_mt_20" *ngIf="adultsData.length">
                     <h5 class="ct_fs_20 ct_fw_600 mb-3">Adults</h5>
                     <div class="row">
-                        <div class="col-md-12 mb-4">
+                        <div class="col-md-12 mb-4" *ngFor="let adult of adultsData">
                             <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">John Doe</h5>
-                                <p class="ct_text_op_6 mb-1">DOB: 01/01/1980</p>
-                                <p class="ct_text_op_6 mb-1">Monthly Net Income: $1,00,000</p>
-                                <p class="ct_text_op_6 mb-1">Bonus: $5,000</p>
-                                <p class="ct_blue_text mb-1">Growth: 3%</p>
+                                <h5 class="ct_fw_600 ct_fs_20">{{ adult.first_name }} {{ adult.last_name }}</h5>
+                                <p class="ct_text_op_6 mb-1">DOB: {{ adult.date_of_birth | date:'dd/MM/yyyy' }}</p>
+                                <p class="ct_text_op_6 mb-1">Monthly Net Income: ${{ adult.monthly_net_income }}</p>
+                                <p class="ct_text_op_6 mb-1">Bonus: ${{ adult.monthly_bonuses_dividends }}</p>
+                                <p class="ct_blue_text mb-1">Growth: {{ adult.increase_percent }}%</p>
                             </div>
-
                         </div>
-                        <div class="col-md-12 mb-4">
-                            <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">John Doe</h5>
-                                <p class="ct_text_op_6 mb-1">DOB: 01/01/1980</p>
-                                <p class="ct_text_op_6 mb-1">Monthly Net Income: $1,00,000</p>
-                                <p class="ct_text_op_6 mb-1">Bonus: $5,000</p>
-                                <p class="ct_blue_text mb-1">Growth: 3%</p>
-                            </div>
+                    </div>
+                </div>
 
-                        </div>
-                        <div class="col-md-12">
-                            <h5 class="ct_fs_20 ct_fw_600 mb-3">Children</h5>
+                <div class="ct_mt_20" *ngIf="childrenData.length">
+                    <h5 class="ct_fs_20 ct_fw_600 mb-3">Children</h5>
+                    <div class="row">
+                        <div class="col-md-12 mb-4" *ngFor="let child of childrenData">
                             <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">Mia Doe</h5>
-                                <p class="ct_text_op_6 mb-1">DOB: 01/01/1980</p>
+                                <h5 class="ct_fw_600 ct_fs_20">{{ child.first_name }} {{ child.last_name }}</h5>
+                                <p class="ct_text_op_6 mb-1">DOB: {{ child.date_of_birth | date:'dd/MM/yyyy' }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="ct_outline_border ct_mt_30">
+            <!-- Property -->
+            @if (case_type_id == '2' || case_type_id == '1' || case_type_id == '3') {
+            <div class="ct_outline_border ct_mt_30" *ngIf="apiPropertyData?.length">
                 <h4 class="ct_fs_22 ct_fw_700">Property & Mortgage/HELOC</h4>
-                <div class="ct_mt_20">
-                    <h5 class="ct_fs_20 ct_fw_600 mb-3">Home – Maple Street</h5>
+
+                <div class="ct_mt_20" *ngFor="let property of apiPropertyData">
+                    <h5 class="ct_fs_20 ct_fw_600 mb-3">
+                        {{ property.property_name }} – {{ property.property_address }}
+                    </h5>
+
                     <div class="ct_grey_bg">
                         <div class="ct_grid_3">
                             <div class="text-center">
                                 <p class="ct_text_op_6 mb-1">Current Value</p>
-                                <p class="ct_blue_text mb-0">$1.2 Cr</p>
+                                <p class="ct_blue_text mb-0">${{ property.current_value }}</p>
                             </div>
                             <div class="text-center">
                                 <p class="ct_text_op_6 mb-1">Equity</p>
-                                <p class="ct_blue_text mb-0">$40 L</p>
+                                <p class="ct_blue_text mb-0">${{ property.equity }}</p>
                             </div>
-                            <div class="text-center">
+                            <div *ngIf="case_type_id == '2' || case_type_id == '1'" class="text-center">
                                 <p class="ct_text_op_6 mb-1">Mortgage</p>
-                                <p class="ct_blue_text mb-0">$80 L</p>
+                                <p class="ct_blue_text mb-0">${{ property.financed_amount }}</p>
                             </div>
-                            <div class="text-center">
-                                <p class="ct_text_op_6 mb-1">HELOC Eligible</p>
-                                <p class="ct_blue_text mb-0">$80 L</p>
+                            <div *ngIf="case_type_id == '2'" class="text-center">
+                                <p class="ct_text_op_6 mb-1">HELOC Amount</p>
+                                <p class="ct_blue_text mb-0">${{ property.heloc_amount }}</p>
                             </div>
-                            <div class="text-center">
-                                <p class="ct_text_op_6 mb-1">Used</p>
-                                <p class="ct_blue_text mb-0">$10 L</p>
+                            <div *ngIf="case_type_id == '2'" class="text-center">
+                                <p class="ct_text_op_6 mb-1">HELOC Current Debt</p>
+                                <p class="ct_blue_text mb-0">${{ property.heloc_current_debt_balance }}</p>
                             </div>
-                            <div class="text-center">
-                                <p class="ct_text_op_6 mb-1">Available</p>
-                                <p class="ct_blue_text mb-0">$68 L</p>
+                            <div *ngIf="case_type_id == '2'" class="text-center">
+                                <p class="ct_text_op_6 mb-1">HELOC Room Available</p>
+                                <p class="ct_blue_text mb-0">${{ property.heloc_room_abvailable }}</p>
                             </div>
-
                         </div>
-                        <div class="pt-4 ct_border_top_1 mt-4">
 
+                        <div class="pt-4 ct_border_top_1 mt-4">
                             <h5 class="ct_fw_600 ct_fs_18">Expenses</h5>
                             <div class="ct_grid_4">
                                 <div class="text-center">
                                     <p class="ct_text_op_6 mb-1">Tax</p>
-                                    <p class="ct_blue_text mb-0">$5K</p>
+                                    <p class="ct_blue_text mb-0">${{ property.monthly_property_tax_expense }}</p>
                                 </div>
                                 <div class="text-center">
                                     <p class="ct_text_op_6 mb-1">Insurance</p>
-                                    <p class="ct_blue_text mb-0">$3K</p>
+                                    <p class="ct_blue_text mb-0">${{ property.monthly_property_insurance_expense }}</p>
                                 </div>
                                 <div class="text-center">
                                     <p class="ct_text_op_6 mb-1">Utilities</p>
-                                    <p class="ct_blue_text mb-0">$5K</p>
+                                    <p class="ct_blue_text mb-0">${{ property.monthly_utility_expense }}</p>
                                 </div>
                                 <div class="text-center">
                                     <p class="ct_text_op_6 mb-1">Condo</p>
-                                    <p class="ct_blue_text mb-0">$2K</p>
+                                    <p class="ct_blue_text mb-0">${{ property.community_condo_fees_expense }}</p>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
+            }
 
-
-            <div class="ct_outline_border ct_mt_30">
+            <!-- Credit -->
+            <div class="ct_outline_border ct_mt_30" *ngIf="apiCreditData?.length">
                 <h5 class="ct_fs_20 ct_fw_600 mb-3">Credit Cards</h5>
-                <div class="ct_grey_bg">
-                    <h5 class="ct_fs_18">HDFC Platinum</h5>
+
+                <div class="ct_grey_bg" *ngFor="let credit of apiCreditData">
+                    <h5 class="ct_fs_18">
+                        {{ credit.credit_type }}
+                        <span *ngIf="credit.other_credit">– {{ credit.other_credit }}</span>
+                    </h5>
+
                     <div class="ct_grid_3">
                         <div class="text-center">
                             <p class="ct_text_op_6 mb-1">Limit</p>
-                            <p class="ct_blue_text mb-0">$2L</p>
+                            <p class="ct_blue_text mb-0">${{ credit.credit_limit }}</p>
                         </div>
                         <div class="text-center">
-                            <p class="ct_text_op_6 mb-1">Balance</p>
-                            <p class="ct_blue_text mb-0">$50K</p>
+                            <p class="ct_text_op_6 mb-1">Debt Balance</p>
+                            <p class="ct_blue_text mb-0">${{ credit.balance }}</p>
                         </div>
                         <div class="text-center">
-                            <p class="ct_text_op_6 mb-1">Interest</p>
-                            <p class="ct_blue_text mb-0">18%</p>
+                            <p class="ct_text_op_6 mb-1">Annual Interest Rate (%)</p>
+                            <p class="ct_blue_text mb-0">{{ credit.interest_rate }}%</p>
                         </div>
                     </div>
-                    <h5 class="ct_fs_18 ct_fw_600 mt-4">Min Monthly Payment: $5,000 (Auto)</h5>
 
+                    <h5 class="ct_fs_18 ct_fw_600 mt-4">
+                        Monthly Payment: ${{ credit.monthly_payment }}
+                    </h5>
                 </div>
             </div>
 
-            <div class="ct_outline_border ct_mt_30">
+            <!-- Loan -->
+            <div class="ct_outline_border ct_mt_30" *ngIf="apiLoanData?.length">
                 <h5 class="ct_fs_20 ct_fw_600 mb-3">Loans</h5>
-                <div class="ct_grey_bg">
-                    <h5 class="ct_fs_18">Car Loan</h5>
+
+                <div class="ct_grey_bg" *ngFor="let loan of apiLoanData">
+                    <h5 class="ct_fs_18">{{ loan.loan_name }}</h5>
+
                     <div class="ct_grid_3">
                         <div class="text-center">
                             <p class="ct_text_op_6 mb-1">Financed</p>
-                            <p class="ct_blue_text mb-0">$10L</p>
+                            <p class="ct_blue_text mb-0">${{ loan.financed_amount }}</p>
                         </div>
                         <div class="text-center">
                             <p class="ct_text_op_6 mb-1">Current Balance</p>
-                            <p class="ct_blue_text mb-0">$7L</p>
+                            <p class="ct_blue_text mb-0">${{ loan.current_balance }}</p>
                         </div>
                         <div class="text-center">
                             <p class="ct_text_op_6 mb-1">Interest</p>
-                            <p class="ct_blue_text mb-0">9%</p>
+                            <p class="ct_blue_text mb-0">{{ loan.interest_rate }}%</p>
                         </div>
                     </div>
-                    <h5 class="ct_fs_18 ct_fw_600 mt-4">Min Monthly Payment: $18K (Auto)</h5>
 
+                    <h5 class="ct_fs_18 ct_fw_600 mt-4">
+                        Monthly Payment: ${{ loan.monthly_emi }}
+                    </h5>
                 </div>
             </div>
 
-            <div class="ct_outline_border ct_mt_30">
+            <!-- Investment -->
+            <div class="ct_outline_border ct_mt_30" *ngIf="apiinvestmentsData?.length">
                 <h5 class="ct_fs_20 ct_fw_600 mb-3">Investments</h5>
+
                 <div class="row">
-                    <div class="col-lg-12 mb-4 mb-lg-0">
+                    <div class="col-lg-12 mb-4 mb-lg-0" *ngFor="let investment of apiinvestmentsData">
                         <div class="ct_grey_bg">
-                            <h5 class="ct_fs_18">Mutual Fund</h5>
-                            <div class="ct_grid_3">
-                                <div class="text-center">
-                                    <p class="ct_text_op_6 mb-1">Value</p>
-                                    <p class="ct_blue_text mb-0">$5L</p>
-                                </div>
-                                <div class="text-center">
-                                    <p class="ct_text_op_6 mb-1">Monthly</p>
-                                    <p class="ct_blue_text mb-0">$10K</p>
-                                </div>
-                                <div class="text-center">
-                                    <p class="ct_text_op_6 mb-1">Growth</p>
-                                    <p class="ct_blue_text mb-0">8%</p>
-                                </div>
-                            </div>
+                            <h5 class="ct_fs_18">{{ investment.investment_name }}</h5>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-12 mb-4 mb-lg-0">
-                        <div class="ct_grey_bg">
-                            <h5 class="ct_fs_18">PPF</h5>
                             <div class="ct_grid_3">
                                 <div class="text-center">
-                                    <p class="ct_text_op_6 mb-1">Value</p>
-                                    <p class="ct_blue_text mb-0">$3L</p>
+                                    <p class="ct_text_op_6 mb-1">Balance</p>
+                                    <p class="ct_blue_text mb-0">${{ investment.balance_amount }}</p>
                                 </div>
                                 <div class="text-center">
-                                    <p class="ct_text_op_6 mb-1">Monthly</p>
-                                    <p class="ct_blue_text mb-0">₹10K</p>
+                                    <p class="ct_text_op_6 mb-1">Monthly Allotment</p>
+                                    <p class="ct_blue_text mb-0">${{ investment.monthly_allotment }}</p>
                                 </div>
                                 <div class="text-center">
                                     <p class="ct_text_op_6 mb-1">Growth</p>
-                                    <p class="ct_blue_text mb-0">8%</p>
+                                    <p class="ct_blue_text mb-0">{{ investment.increase_percent }}%</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
+            <!-- Monthly Expenses -->
             <div class="ct_outline_border ct_mt_30">
                 <h5 class="ct_fs_20 ct_fw_600 mb-3">Monthly Expenses</h5>
                 <div class="row align-items-center">
-                    <div class="col-lg-7 mb-4 mb-lg-0">
+                    <div class="col-lg-7 mb-4 mb-lg-0" *ngIf="apiExpData">
                         <ul class="ct_monthly_expence_list ct_custom_scroll">
-                            <li>
-                                <p class="mb-0 ct_fs_18">Food</p>
-                                <p class="mb-0 ct_fs_18 ct_white_nowrap">$ 1,500,000</p>
+                            <li *ngFor="let item of apiExpData">
+                                <p class="mb-0 ct_fs_18">{{ item.name }}</p>
+                                <p class="mb-0 ct_fs_18 ct_white_nowrap">
+                                    $ {{ item.amount | number: '1.2-2' }}
+                                </p>
                             </li>
-                            <li>
-                                <p class="mb-0 ct_fs_18">Travel</p>
-                                <p class="mb-0 ct_fs_18 ct_white_nowrap">$ 60,000</p>
-                            </li>
-                            <li>
-                                <p class="mb-0 ct_fs_18">Clothing</p>
-                                <p class="mb-0 ct_fs_18 ct_white_nowrap">$ 45,000</p>
-                            </li>
-                            <li>
-                                <p class="mb-0 ct_fs_18">Insurance</p>
-                                <p class="mb-0 ct_fs_18 ct_white_nowrap">$ 15,000</p>
-                            </li>
-                            <li>
-                                <p class="mb-0 ct_fs_18">Gym</p>
-                                <p class="mb-0 ct_fs_18 ct_white_nowrap">$ 1,500,000</p>
-                            </li>
-                            <li>
-                                <p class="mb-0 ct_fs_18">Tax</p>
-                                <p class="mb-0 ct_fs_18 ct_white_nowrap">$ 25,000</p>
-                            </li>
-
                         </ul>
+
                         <div class="ct_total_expence_bg">
                             <p class="mb-0 ct_fs_18 ct_blue_text">Total</p>
-                            <p class="mb-0 ct_fs_18 ct_blue_text ct_fw_700 ct_white_nowrap">$ 1,725,000</p>
+                            <p class="mb-0 ct_fs_18 ct_blue_text ct_fw_700 ct_white_nowrap">
+                                ${{ getTotalExpenses() | number: '1.2-2' }}
+                            </p>
                         </div>
-
                     </div>
+
                     <div class="col-lg-5 mb-4 mb-lg-0">
-                        <div id="ct__monthly_expence"></div>
+                        <apx-chart [series]="chartOptions?.series" [chart]="chartOptions?.chart"
+                            [labels]="chartOptions?.labels" [colors]="chartOptions?.colors"
+                            [legend]="chartOptions?.legend" [dataLabels]="chartOptions?.dataLabels"
+                            [plotOptions]="chartOptions?.plotOptions">
+                        </apx-chart>
                     </div>
 
                 </div>
             </div>
 
+            <!-- Total Budget Summary -->
             <div class="ct_outline_border ct_mt_30">
                 <h5 class="ct_fs_20 ct_fw_600 mb-3">Budget Summary</h5>
                 <div class="row align-items-center">
                     <div class="col-lg-7 mb-4 mb-lg-0">
-                        <div class="ct_grey_bg mb-3">
+                        <div class="ct_grey_bg mb-3" *ngIf="totalCalculations">
                             <h5 class="ct_fs_18 mb-3">Income vs Expense</h5>
                             <ul>
                                 <li class="d-flex align-items-center justify-content-between gap-2 mb-2">
                                     <p class="ct_text_939393 mb-0">Total Income</p>
-                                    <p class="mb-0">$1.80L</p>
+                                    <p class="mb-0">${{ totalCalculations.total_income }}</p>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between gap-2 mb-2">
                                     <p class="ct_text_939393 mb-0">Total Investment</p>
-                                    <p class="mb-0">$15K</p>
+                                    <p class="mb-0">${{ totalCalculations.total_investment }}</p>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between gap-2 mb-2">
                                     <p class="ct_text_939393 mb-0">Total Expenses</p>
-                                    <p class="mb-0">$1.20L</p>
+                                    <p class="mb-0">${{ totalCalculations.total_expense }}</p>
                                 </li>
                                 <li class="d-flex align-items-center justify-content-between gap-2 mb-2">
                                     <p class="ct_blue_text mb-0">Preliminary Surplus</p>
-                                    <p class="mb-0 ct_blue_text ct_fw_600">$45K</p>
+                                    <p class="mb-0 ct_blue_text ct_fw_600">${{ totalCalculations.preliminary_surplus
+                                        }}</p>
                                 </li>
                             </ul>
-
                         </div>
-                        <div class="ct_grey_bg">
+
+                        <div class="ct_grey_bg" *ngIf="finalotalCalculations">
                             <h5 class="ct_fs_18 mb-3">Reductions</h5>
                             <ul>
                                 <li class="d-flex align-items-center justify-content-between gap-2 mb-2">
-                                    <p class="ct_text_939393 mb-0">Reduce Investments</p>
-                                    <p class="mb-0">-$5K</p>
-                                </li>
-                                <li class="d-flex align-items-center justify-content-between gap-2 mb-2">
-                                    <p class="ct_text_939393 mb-0">Reduce Expenses</p>
-                                    <p class="mb-0">-$10K</p>
+                                    <p class="ct_text_939393 mb-0">Total Expense Reductions</p>
+                                    <p class="mb-0">-${{ finalotalCalculations.total_expense_reduction }}</p>
                                 </li>
 
                                 <li class="d-flex align-items-center justify-content-between gap-2 mb-2">
-                                    <p class="ct_blue_text mb-0">Final Surplus</p>
-                                    <p class="mb-0 ct_blue_text ct_fw_600">$60K</p>
+                                    <p class="ct_text_939393 mb-0">Annual Budget Available</p>
+                                    <p class="mb-0">-${{ finalotalCalculations.annual_budget_available }}</p>
+                                </li>
+
+                                <li class="d-flex align-items-center justify-content-between gap-2 mb-2">
+                                    <p class="ct_blue_text mb-0">Final Monthly Surplus Budget</p>
+                                    <p class="mb-0 ct_blue_text ct_fw_600">${{
+                                        finalotalCalculations.final_monthly_surplus_budget }}</p>
                                 </li>
                             </ul>
-
                         </div>
-
                     </div>
                     <div class="col-lg-5 mb-4 mb-lg-0">
                         <div id="ct_bugget_summary"></div>
@@ -390,86 +965,75 @@
                 </div>
             </div>
 
-            <div class="ct_outline_border ct_mt_30">
-                <h5 class="ct_fs_20 ct_fw_600 mb-3">Policy Summary</h5>
+            <!-- Policy -->
+            <div class="ct_outline_border ct_mt_30" *ngFor="let policy of apiPolicyDetails">
+                <h5 class="ct_fs_20 ct_fw_600 mb-3">
+                    Policy Summary for {{ policy.first_name }} {{ policy.last_name }}
+                </h5>
+
                 <div class="ct_grey_bg mb-3">
-                    <h5 class="ct_fs_18">LIC Term Plan</h5>
+                    <h5 class="ct_fs_18">{{ policy.insurance_carrier }}</h5>
                     <div class="ct_grid_3">
                         <div class="text-center">
                             <p class="ct_text_op_6 mb-1">Coverage</p>
-                            <p class="ct_blue_text mb-0">$1 Cr</p>
-                        </div>
-                        <div class="text-center">
-                            <p class="ct_text_op_6 mb-1">Premium</p>
-                            <p class="ct_blue_text mb-0">$12K/year</p>
+                            <p class="ct_blue_text mb-0">${{ policy.minimum_recommended_life_coverage }}</p>
                         </div>
                         <div class="text-center">
                             <p class="ct_text_op_6 mb-1">Interest Rate</p>
-                            <p class="ct_blue_text mb-0">6%</p>
+                            <p class="ct_blue_text mb-0">{{ policy.policy_interest_rate }}%</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="ct_text_op_6 mb-1">Premium File</p>
+                            <p class="ct_blue_text mb-0">{{ policy.policy_file_name }}</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="table-responsive ct_custom_table">
+                <div class="table-responsive ct_custom_table" *ngIf="policy.policy_details?.length">
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>S.No</th>
-                                <th>Year</th>
+                                <th>Year | Age</th>
                                 <th>Base Premium</th>
-                                <th>PUA’S</th>
+                                <th>EDO</th>
                                 <th>Total Premium</th>
                                 <th>Annual Increase($)</th>
-                                <th>Total Cash</th>
-                                <th>Total Death Benefit</th>
+                                <th>Annual Increase in Total Cash Value</th>
+                                <th>Death Benefit</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>2025</td>
-                                <td>$5000</td>
-                                <td>$1000</td>
-                                <td>$6000</td>
-                                <td>$4200</td>
-                                <td>$4800</td>
-                                <td>$100,000</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>2025</td>
-                                <td>$5000</td>
-                                <td>$1000</td>
-                                <td>$6000</td>
-                                <td>$4200</td>
-                                <td>$4800</td>
-                                <td>$100,000</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>2025</td>
-                                <td>$5000</td>
-                                <td>$1000</td>
-                                <td>$6000</td>
-                                <td>$4200</td>
-                                <td>$4800</td>
-                                <td>$100,000</td>
-                            </tr>
-                            <tr>
-                                <td>1</td>
-                                <td>2025</td>
-                                <td>$5000</td>
-                                <td>$1000</td>
-                                <td>$6000</td>
-                                <td>$4200</td>
-                                <td>$4800</td>
-                                <td>$100,000</td>
+                            <tr
+                                *ngFor="let detail of policy.policy_details | paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+                                <td>{{ detail.year }} | {{ detail.age }}</td>
+                                <td>${{ detail.guaranteed_premium }}</td>
+                                <td>${{ detail.deposit }}</td>
+                                <td>${{ detail.cash_premiums }}</td>
+                                <td>${{ detail.dividend }}</td>
+                                <td>${{ detail.cash_increase }}</td>
+                                <td>${{ detail.total_death }}</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
+                <pagination-controls class="ct_pagination_div" *ngIf="!(policy.policy_details?.length == 0)"
+                    (pageChange)="p = $event"></pagination-controls>
             </div>
 
         </div>
+    </div>
+</div>
+
+<div class="ct_loader_main" *ngIf="loading">
+    <div class="loader-1">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
     </div>
 </div>

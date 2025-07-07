@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SharedService } from '../../../../services/shared.service';
@@ -97,7 +97,56 @@ export class CaseNameComponent {
       sessionStorage.setItem('selectedCaseName', this.selectedCaseName ? this.selectedCaseName : '');
       this.loading = false;
     }
-
   }
+
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
+  caseType: any = '';
+  selectedFile: File | null = null;
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+
+  uploadCSVFile() {
+    if (!this.caseType || !this.selectedFile) {
+      this.toastr.warning('Please select file.');
+      return;
+    }
+    if (!this.selectedClientId) {
+      this.toastr.warning('Please select client.');
+      return;
+    }
+    this.loading = true;
+    const formData = new FormData();
+    formData.append('file', this.selectedFile);
+    if (this.userRole == 'Client') {
+      formData.append('client_id', this.agentId);
+    } else {
+      formData.append('client_id', this.selectedClientId);
+    }
+
+    formData.append('case_type_id', this.caseType);
+    if (this.userRole == 'Agent') {
+      formData.append('agent_id', this.agentId);
+    } else {
+      formData.append('agent_id', '0');
+    }
+
+    this.service.postAPIFormData('upload-bulk-case-by-csv', formData).subscribe({
+      next: (response) => {
+        console.log('Upload success', response);
+        this.loading = false;
+        this.selectedFile = null;
+      },
+      error: (error) => {
+        this.loading = false;
+        console.error('Upload failed', error);
+      }
+    });
+  }
+
 
 }

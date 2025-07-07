@@ -31,7 +31,7 @@ export class TotalsComponent {
     };
     this.service.postData(`get-client-totals`, payload).subscribe({
       next: (resp: any) => {
-        this.totalCalculations = resp.data[0];
+        this.totalCalculations = resp.data;
       },
       error: error => {
         console.log(error.message);

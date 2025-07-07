@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 
@@ -10,6 +10,8 @@ export class SharedService {
 
   baseUrl = 'http://192.168.29.76:8000/api/';
   //baseUrl = 'http://89.116.21.92:4010/api/';
+  //baseUrl = 'http://localhost:8000/api/';
+  caseId = signal<any | null>(null);
 
   constructor(private http: HttpClient, private route: Router) { }
 
@@ -128,6 +130,23 @@ export class SharedService {
 
   triggerRefresh() {
     this.refreshSidebarSource.next(null);
+  }
+
+
+
+
+
+
+  private selectedCaseTypeSubject = new BehaviorSubject<number | null>(null);
+  selectedCaseType$ = this.selectedCaseTypeSubject.asObservable();
+
+  setSelectedCaseType(value: number) {
+    this.selectedCaseTypeSubject.next(value);
+    sessionStorage.setItem('selectedCaseType', value.toString()); // still store
+  }
+
+  getSelectedCaseType() {
+    return this.selectedCaseTypeSubject.getValue();
   }
 
 

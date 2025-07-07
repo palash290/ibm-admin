@@ -43,7 +43,7 @@ export class SidebarComponent {
     sessionStorage.setItem('selectedClientName', '');
     sessionStorage.setItem('selectedClientId', '');
     sessionStorage.setItem('selectedCaseType', '');
-    sessionStorage.setItem('client_case_id', '');
+    sessionStorage.removeItem('client_case_id');
     this.toggleEvent.emit(false);
   }
 

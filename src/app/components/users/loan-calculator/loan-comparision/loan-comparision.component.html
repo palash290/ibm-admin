@@ -14,44 +14,24 @@
                     <thead>
                         <tr>
                             <th>S.No</th>
-                            <th>Loan Type</th>
+                            <th>Loan Name</th>
                             <th>Terms</th>
                             <th>EMI</th>
+                            <th>Start Date</th>
                             <th class="text-end">Interest Rate</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Home Loan</td>
+                        <tr *ngFor="let item of apiLoanData; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.loan_name}}</td>
                             <td>
-                                30 Years
+                                {{item.terms}} Months
                             </td>
-                            <td>$2,048</td>
+                            <td>${{item.monthly_emi}}</td>
+                            <td>{{item.start_date | date:'dd-MM-yyyy'}}</td>
                             <td class="text-end">
-                                3.5%
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Home Loan</td>
-                            <td>
-                                30 Years
-                            </td>
-                            <td>$2,048</td>
-                            <td class="text-end">
-                                3.5%
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Home Loan</td>
-                            <td>
-                                30 Years
-                            </td>
-                            <td>$2,048</td>
-                            <td class="text-end">
-                                3.5%
+                                {{item.interest_rate}}%
                             </td>
                         </tr>
                     </tbody>
@@ -60,7 +40,13 @@
         </div>
         <div class="ct_mt_30 ct_case_select_card mb-4">
             <h4 class="ct_fs_24 ct_fw_700 ">Monthly Outflow Comparison</h4>
-            <div id="ct_bugget_summary"></div>
+            <!-- <div id="ct_bugget_summary"></div> -->
+
+            <div style="text-align:center">
+                <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+                    [title]="chartOptions.title"></apx-chart>
+            </div>
+
         </div>
     </div>
     <button type="button" name="next" routerLink="/user/loan-calculator/policies"

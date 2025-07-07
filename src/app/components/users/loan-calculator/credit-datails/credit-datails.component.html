@@ -16,7 +16,7 @@
                                     <option value="Visa">Visa</option>
                                     <option value="MasterCard">MasterCard</option>
                                     <option value="AmericanExpress">American Express</option>
-                                    <option value="other">Other</option>
+                                    <option value="Other">Other</option>
                                 </select>
 
                                 <div *ngIf="credit.get('credit_type')?.touched && credit.get('credit_type')?.invalid">
@@ -27,14 +27,13 @@
 
 
                         <!-- 👇 Shown only when 'other' is selected -->
-                        <div class="col-md-12" *ngIf="credit.get('credit_type')?.value === 'other'">
+                        <div class="col-md-12" *ngIf="credit.get('credit_type')?.value == 'Other'">
                             <div class="form-group mb-4">
                                 <label class="mb-2 ct_fw_600">Card Name</label>
                                 <input type="text" class="form-control ct_input" formControlName="other_credit"
                                     placeholder="Enter Card Name" />
 
-                                <div
-                                    *ngIf="credit.get('other_credit')?.touched && credit.get('other_credit')?.invalid">
+                                <div *ngIf="credit.get('other_credit')?.touched && credit.get('other_credit')?.invalid">
                                     <small class="text-danger">Card name is required</small>
                                 </div>
                             </div>
@@ -57,16 +56,28 @@
 
                         <div class="col-md-6">
                             <div class="form-group mb-4">
-                                <label class="mb-2 ct_fw_600">Balance</label>
+                                <label class="mb-2 ct_fw_600">Debt Balance</label>
                                 <div class="position-relative">
                                     <input formControlName="balance" type="number"
                                         class="form-control ct_input ct_input_ps_30" placeholder="0.00"
                                         (ngModelChange)="updateMonthlyPayment(credit)">
                                     <span class="ct_input_icon_left">$</span>
                                 </div>
-                                <div *ngIf="credit.get('balance')?.touched && credit.get('balance')?.invalid">
+
+                                <!-- <div *ngIf="credit.get('balance')?.touched && credit.get('balance')?.invalid">
                                     <small class="text-danger">Balance is required</small>
+                                </div> -->
+
+                                <div *ngIf="credit.get('balance')?.touched && credit.get('balance')?.errors">
+                                    <small class="text-danger" *ngIf="credit.get('balance')?.hasError('required')">
+                                        Balance is required
+                                    </small>
+                                    <small class="text-danger"
+                                        *ngIf="credit.get('balance')?.hasError('helocDebtExceedsLimit')">
+                                        Balance cannot exceed Credit limit amount
+                                    </small>
                                 </div>
+
                             </div>
                         </div>
 
@@ -76,17 +87,29 @@
                                 <div class="position-relative">
                                     <input formControlName="interest_rate" type="number"
                                         class="form-control ct_input ct_input_ps_30" placeholder="0.00"
-                                        (ngModelChange)="updateMonthlyPayment(credit)">
+                                        (ngModelChange)="updateMonthlyPayment(credit)" >
                                     <span class="ct_input_icon_left">%</span>
                                 </div>
+                          
+
                                 <div
-                                    *ngIf="credit.get('interest_rate')?.touched && credit.get('interest_rate')?.invalid">
-                                    <small class="text-danger">Interest Rate is required</small>
-                                </div>
+                                        *ngIf="credit.get('interest_rate')?.touched && credit.get('interest_rate')?.errors">
+                                        <small class="text-danger"
+                                            *ngIf="credit.get('interest_rate')?.hasError('required')">
+                                            Interest rate is required
+                                        </small>
+                                        <small class="text-danger" *ngIf="credit.get('interest_rate')?.hasError('min')">
+                                            Interest rate must be at least 0%
+                                        </small>
+                                        <small class="text-danger" *ngIf="credit.get('interest_rate')?.hasError('max')">
+                                            Interest rate must not exceed 100%
+                                        </small>
+                                    </div>
+
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <!-- <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label for="" class="mb-2 ct_fw_600">Tenure (Months)</label>
                                 <div class="position-relative">
@@ -101,9 +124,9 @@
                                     </select>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <div class="col-md-6 mt-3">
+                        <div class="col-md-6">
                             <div class="form-group mb-4">
                                 <label class="mb-2 ct_fw_700">Monthly Payment</label>
                                 <div class="position-relative">
@@ -116,17 +139,17 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6 mt-3">
+                        <!-- <div class="col-md-6 mt-3">
                             <div class="form-group mb-4">
                                 <label class="mb-2 ct_fw_700">Total Payable Amount</label>
                                 <div class="position-relative">
                                     <input formControlName="total_payable_amount" type="number"
                                         class="form-control ct_input ct_input_ps_30" placeholder="0.00">
                                     <span class="ct_input_icon_left">$</span>
-                                    <!-- <span class="ct_show_eye">$ 300</span> -->
+                                    
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- Remove button only for items after the first -->
                         <div class="col-12 text-end mt-2" *ngIf="i > 0">
@@ -136,16 +159,12 @@
                     </div>
                 </div>
             </div>
-
             <div class="d-flex align-items-center gap-3 mb-4">
                 <button type="button" class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addCredit()">+ Add
                     Credit</button>
             </div>
 
         </form>
-
-
-
     </div>
     <button type="button" name="next" class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5"
         (click)="submit()">Save

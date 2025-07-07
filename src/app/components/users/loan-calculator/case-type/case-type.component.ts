@@ -17,19 +17,44 @@ export class CaseTypeComponent {
   selectedCaseType: any = '';
   caseName: any;
   name: any;
-  clientId: any;
+  loginUserId: any;
   client_case_id: any;
   loading: boolean = false;
+  userRole: any;
+  selectedClientId: any;
 
   constructor(private router: Router, private sharedService: SharedService, private authService: AuthService, private toastr: NzMessageService) { }
 
   ngOnInit() {
     this.client_case_id = sessionStorage.getItem('client_case_id');
-    this.caseName = sessionStorage.getItem('selectedCaseName');
-    this.name = sessionStorage.getItem('selectedClientName');
-    this.selectedCaseType = sessionStorage.getItem('selectedCaseType');
-    this.clientId = this.authService.getAgentId();
+    this.userRole = this.authService.getUserRole();
+
+    const formURlData = new URLSearchParams();
+    formURlData.append('case_id', this.client_case_id);
+
+    this.sharedService.postAPI(`get-client-case`, formURlData).subscribe({
+      next: (resp: any) => {
+        if (resp.success) {
+          sessionStorage.setItem('selectedCaseName', resp.data.case_name);
+          sessionStorage.setItem('selectedClientName', resp.data.full_name);
+          sessionStorage.setItem('selectedCaseType', resp.data.case_type_id);
+        }
+      },
+      error: error => {
+        console.log(error.message);
+      }
+    });
+
+    setTimeout(() => {
+      this.caseName = sessionStorage.getItem('selectedCaseName');
+      this.name = sessionStorage.getItem('selectedClientName');
+      this.selectedCaseType = sessionStorage.getItem('selectedCaseType');
+      this.selectedClientId = sessionStorage.getItem('selectedClientId');
+      this.loginUserId = this.authService.getAgentId();
+    }, 100);
+
     //this.getAllAgents();
+
   }
 
   getAllAgents() {
@@ -84,15 +109,23 @@ export class CaseTypeComponent {
       this.toastr.error('Please select case type.');
       return
     }
-    sessionStorage.setItem('selectedCaseType', this.selectedCaseType);
+    // sessionStorage.setItem('selectedCaseType', this.selectedCaseType);
+    this.sharedService.setSelectedCaseType(this.selectedCaseType);
 
     this.loading = true;
 
     const formURlData = new URLSearchParams();
-    formURlData.append('client_id', this.clientId);
+    if (this.userRole == 'Client') {
+      formURlData.append('client_id', this.loginUserId);
+      formURlData.append('full_name', this.name);
+    }
+    if (this.userRole == 'Agent') {
+      formURlData.append('agent_id', this.loginUserId);
+      formURlData.append('client_id', this.selectedClientId);
+    }
+
     formURlData.append('case_type_id', this.selectedCaseType);
     formURlData.append('case_name', this.caseName);
-    formURlData.append('full_name', this.name);
     formURlData.append('completed_step', 'client_case');
     if (this.client_case_id) {
       formURlData.append('client_case_id', this.client_case_id);
@@ -104,6 +137,7 @@ export class CaseTypeComponent {
       next: (resp: any) => {
         this.client_case_id = resp.client_case_id;
         sessionStorage.setItem('client_case_id', this.client_case_id);
+        this.sharedService.caseId.set(this.client_case_id);
         this.router.navigate(['/user/loan-calculator/people-details']);
         this.loading = false;
       },

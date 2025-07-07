@@ -1,0 +1,33 @@
+.ct_custom_badge{
+  padding: 5px 18px;
+  border-radius: 100px;
+}
+.ct_policy_list li{
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 20px;
+}
+.ct_policy_list li:last-child{
+  border-bottom: 0px;
+  border-bottom: 0px;
+  margin-bottom: 0px;
+}
+ 
+ 
+.ct_light_blue_head_bg{
+  background-color: #75abfe;
+    padding: 10px;
+    color: #fff;
+    border-radius: 10px;
+}
+ 
+.ct_footer_report img {
+    margin-bottom: 20px;
+    width: 200px;
+}
+ 
+.ct_footer_report{
+  background-color: var(--light_blue);
+  padding: 40px 20px;
+  border-radius: 20px;
+}

@@ -8,24 +8,23 @@
                     <div class="row">
                         <div class="col-md-6" *ngIf="person.get('first_name')">
                             <div class="form-group mb-4">
-                                <label class="mb-2 ct_fw_600">First Name</label>
+                                <label class="mb-2 ct_fw_600" for="first_name">First Name</label>
                                 <div class="position-relative">
-                                    <input formControlName="first_name" type="text" class="form-control ct_input"
-                                        placeholder="First Name" />
+                                    <input formControlName="first_name" id="first_name" type="text"
+                                        class="form-control ct_input" placeholder="First Name" />
                                 </div>
                                 <div *ngIf="person.get('first_name')?.touched && person.get('first_name')?.invalid">
                                     <small class="text-danger">First name is required</small>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="col-md-6" *ngIf="person.get('last_name')">
                             <div class="form-group mb-4">
-                                <label class="mb-2 ct_fw_600">Last Name</label>
+                                <label class="mb-2 ct_fw_600" for="last_name">Last Name</label>
                                 <div class="position-relative">
-                                    <input formControlName="last_name" type="text" class="form-control ct_input"
-                                        placeholder="Last Name" />
+                                    <input formControlName="last_name" id="last_name" type="text"
+                                        class="form-control ct_input" placeholder="Last Name" />
                                 </div>
                                 <div *ngIf="person.get('last_name')?.touched && person.get('last_name')?.invalid">
                                     <small class="text-danger">Last name is required</small>
@@ -146,14 +145,14 @@
                             </div>
                         </div>
 
-
                         <div class="row mb-4">
                             <div class="col-md-12" *ngIf="person.get('increase_percent')">
                                 <div class="ct_case_select_card py-4">
                                     <h4 class="ct_fs_20 ct_fw_700 mb-3">Annual Income Growth</h4>
                                     <div class="form-group mb-0">
-                                        <input type="range" class="custom-range" min="0" max="100" formControlName="increase_percent"
-                                              [formControl]="getFormControl(person, 'increase_percent')" />
+                                        <input type="range" class="custom-range" min="0" max="100"
+                                            formControlName="increase_percent"
+                                            [formControl]="getFormControl(person, 'increase_percent')" />
                                         <span class="ct_text_op_07 d-block text-end">
                                             {{ person.get('increase_percent')?.value }}%
                                         </span>
@@ -163,16 +162,17 @@
                         </div>
 
 
-
                         <div class="col-12" *ngIf="person.get('notes')">
                             <label class="mb-2 ct_fw_600">Notes</label>
                             <textarea formControlName="notes" rows="4" class="ct_input form-control h-auto"
                                 placeholder="Add Any Additional Notes Here..."></textarea>
                         </div>
+
                         <div class="col-12 text-end mt-2" *ngIf="i > 0">
                             <button type="button" class="btn btn-danger btn-sm"
                                 (click)="removePerson(i)">Remove</button>
                         </div>
+
                     </div>
                 </div>
             </div>

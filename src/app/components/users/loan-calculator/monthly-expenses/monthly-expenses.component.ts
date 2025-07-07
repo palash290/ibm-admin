@@ -82,17 +82,17 @@ export class MonthlyExpensesComponent {
   }
 
   populateExpenses(apiData: any): void {
-  this.expenses.controls.forEach(expenseControl => {
-    const key = expenseControl.get('key')?.value;
-    if (apiData.hasOwnProperty(key)) {
-      const rawValue = apiData[key];
-      const numericValue = parseFloat(rawValue);
-      if (!isNaN(numericValue) && numericValue > 0) {
-        expenseControl.get('amount')?.setValue(numericValue);
+    this.expenses.controls.forEach(expenseControl => {
+      const key = expenseControl.get('key')?.value;
+      if (apiData.hasOwnProperty(key)) {
+        const rawValue = apiData[key];
+        const numericValue = parseFloat(rawValue);
+        if (!isNaN(numericValue) && numericValue > 0) {
+          expenseControl.get('amount')?.setValue(numericValue);
+        }
       }
-    }
-  });
-}
+    });
+  }
 
 
   addCustomExpense(): void {
