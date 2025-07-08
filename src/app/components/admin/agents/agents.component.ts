@@ -42,7 +42,6 @@ export class AgentsComponent {
   assignments: { [key: string]: any[] } = {};
   @ViewChild('dropdown') dropdownRef!: ElementRef;
 
-
   constructor(private service: SharedService, private toastr: NzMessageService, private authService: AuthService) { }
 
   ngOnInit() {
@@ -63,7 +62,6 @@ export class AgentsComponent {
       email: new FormControl('', [Validators.required, Validators.email]),
     });
   }
-
 
   getAllAgents() {
     this.p = 1;
