@@ -22,7 +22,6 @@ export class CaseWizardStepsComponent {
 
 
   buildSteps() {
-    // Your full step list
     const allSteps = [
       { path: '', label: 'Case Name', icon: 'assets/img/case_name_icon.png' },
       { path: 'case-type', label: 'Select Case Type', icon: 'assets/img/select_case_icon.png' },
@@ -72,7 +71,6 @@ export class CaseWizardStepsComponent {
   }
 
   ngOnInit(): void {
-    // this.selectedCaseType = sessionStorage.getItem('selectedCaseType');
     this.userRole = this.authService.getUserRole();
     this.service.selectedCaseType$.subscribe(type => {
       this.selectedCaseType = type || parseInt(sessionStorage.getItem('selectedCaseType') || '');
@@ -86,11 +84,6 @@ export class CaseWizardStepsComponent {
     this.buildSteps();
 
     this.setCurrentStepFromUrl(this.router.url);
-    // this.router.events.subscribe(() => {
-    //   const fullUrl = this.router.url;
-    //   const stepPath = fullUrl.split('/loan-calculator/')[1] || '';
-    //   this.currentStep = stepPath.trim();
-    // });
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.setCurrentStepFromUrl(event.urlAfterRedirects);

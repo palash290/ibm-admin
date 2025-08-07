@@ -21,6 +21,7 @@ export class PoliciesComponent {
   submitted = false;
   existingFileNames: string[] = [];
   selectedFiles: (File | null)[] = [];
+  minDate: any;
   //existingFileNames: any = '';
 
   constructor(private fb: FormBuilder, private router: Router, private sharedService: SharedService) { }
@@ -32,7 +33,8 @@ export class PoliciesComponent {
     });
 
     this.getPeoplePolicies();
-
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
   }
 
 
@@ -72,7 +74,9 @@ export class PoliciesComponent {
               client_people_id: [parseFloat(policy.client_people_id) || null],
               minimum_recommended_life_coverage: [parseFloat(policy.minimum_recommended_life_coverage) || '', Validators.required],
               insurance_carrier: [policy.insurance_carrier || '', Validators.required],
-              policy_interest_rate: [parseFloat(policy.policy_interest_rate) || '', Validators.required]
+              policy_interest_rate: [parseFloat(policy.policy_interest_rate) || '', Validators.required],
+              policy_start_date: [this.formatDate(policy.policy_start_date) || '', Validators.required],
+              actual_policy_start_date: [this.formatDate(policy.actual_policy_start_date) || '', Validators.required],
             }));
 
             // Fill existing file name if it comes
@@ -89,6 +93,11 @@ export class PoliciesComponent {
     });
   }
 
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toISOString().split('T')[0]; // Outputs YYYY-MM-DD
+  }
 
 
   get policies(): FormArray {
@@ -100,22 +109,23 @@ export class PoliciesComponent {
       client_people_id: [null],
       minimum_recommended_life_coverage: ['', Validators.required],
       insurance_carrier: ['', Validators.required],
-      policy_interest_rate: ['', Validators.required]
+      policy_interest_rate: ['', Validators.required],
+      policy_start_date: ['', Validators.required],
+      actual_policy_start_date: ['', Validators.required],
     });
   }
 
 
   submit(): void {
-    debugger
     this.submitted = true;
 
     // File required validation
     const missingFiles = this.policies.value.some((policy: any, i: number) => {
-      // if policy requires a file (e.g. has minimum life coverage), then check file
-      if (policy.minimum_recommended_life_coverage || policy.insurance_carrier || policy.policy_interest_rate) {
+      if (policy.minimum_recommended_life_coverage || policy.insurance_carrier || policy.policy_interest_rate
+        || policy.policy_start_date || policy.actual_policy_start_date
+      ) {
         return !this.selectedFiles[i] && !this.existingFileNames[i];
       }
-      // else no file needed
       return false;
     });
 
@@ -139,7 +149,7 @@ export class PoliciesComponent {
           policy_id: this.apiPeopleData[index]?.policy_id
         };
       })
-      .filter((p: { client_people_id: any; minimum_recommended_life_coverage: any; insurance_carrier: any; policy_interest_rate: any; }) => p.client_people_id || p.minimum_recommended_life_coverage || p.insurance_carrier || p.policy_interest_rate);
+      .filter((p: { client_people_id: any; minimum_recommended_life_coverage: any; insurance_carrier: any; policy_interest_rate: any; policy_start_date: any; actual_policy_start_date: any }) => p.client_people_id || p.minimum_recommended_life_coverage || p.insurance_carrier || p.policy_interest_rate || p.policy_start_date || p.actual_policy_start_date);
 
     const payload = {
       case_id: this.client_case_id,
@@ -184,48 +194,6 @@ export class PoliciesComponent {
       }
     });
   }
-
-
-  //   this.router.navigateByUrl('/user/loan-calculator/combined-policies');
-  //   const filledPolicies = this.policies.value.filter((p: any) =>
-  //     p.type || p.carrier || p.interestRate
-  //   );
-  //   console.log('Policies:', filledPolicies);
-  // }
-
-
-
-
-
-
-
-
-
-
-
-
-  //form: FormGroup;
-
-  // onFileChange(event: any): void {
-  //   const file = event.target.files[0];
-
-  //   if (file) {
-  //     Papa.parse(file, {
-  //       header: true,
-  //       skipEmptyLines: true,
-  //       complete: (result: any) => {
-  //         const csvData = result.data;
-  //         console.log('Parsed CSV:', csvData);
-
-  //         // ✅ Call your API with parsed data
-  //         this.sharedService.postData('https://your-api-url.com/submit-csv', csvData).subscribe({
-  //           next: (res) => console.log('Data submitted successfully', res),
-  //           error: (err) => console.error('Submission error', err)
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
 
 
 }

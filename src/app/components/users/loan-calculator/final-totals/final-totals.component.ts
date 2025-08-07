@@ -3,6 +3,7 @@ import { Router, RouterLink } from '@angular/router';
 import { SharedService } from '../../../../services/shared.service';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../services/auth.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-final-totals',
@@ -19,7 +20,7 @@ export class FinalTotalsComponent {
   selectedCaseType: any;
   userRole: any;
 
-  constructor(private service: SharedService, private router: Router, private authService: AuthService) { }
+  constructor(private service: SharedService, private router: Router, private authService: AuthService, private toastr: NzMessageService) { }
 
   ngOnInit() {
     this.userRole = this.authService.getUserRole();
@@ -53,6 +54,9 @@ export class FinalTotalsComponent {
         this.loading = false;
         if (this.userRole == 'Agent') {
           this.router.navigateByUrl('/user/loan-calculator/policies');
+        } else {
+          this.router.navigateByUrl('/user/cases');
+          this.toastr.success('Submission successful. Your agent will assist you with the next steps.');
         }
       },
       error: error => {

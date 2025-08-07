@@ -56,7 +56,6 @@ export class ChangePasswordComponent {
       const formURlData = new URLSearchParams();
       formURlData.set('old_password', this.form.value.current_password);
       formURlData.set('new_password', this.form.value.new_password);
-      //formURlData.set('confirm_password', this.form.value.confirm_password);
       this.service.postAPI('change-password', formURlData).subscribe({
         next: (resp) => {
           if (resp.success) {

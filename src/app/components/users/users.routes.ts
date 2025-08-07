@@ -77,10 +77,6 @@ export const usersRoutes: Routes = [
                         path: 'insurance-suggestions',
                         loadComponent: () => import('../users/loan-calculator/insurance-suggestions/insurance-suggestions.component').then(m => m.InsuranceSuggestionsComponent)
                     },
-                    // {
-                    //     path: 'final-report',
-                    //     loadComponent: () => import('../users/loan-calculator/final-report/final-report.component').then(m => m.FinalReportComponent)
-                    // },
                 ]
             },
             {

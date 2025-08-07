@@ -84,6 +84,30 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group mb-4">
+                                            <label for="" class="mb-2 ct_fw_600">Policy Start Date</label>
+                                            <input formControlName="policy_start_date" type="date" class="form-control"
+                                                [attr.max]="minDate" />
+                                            <div
+                                                *ngIf="policy.get('policy_start_date')?.touched && policy.get('policy_start_date')?.invalid">
+                                                <small class="text-danger">This field is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
+                                            <label for="" class="mb-2 ct_fw_600">Actual Policy Start Date</label>
+                                            <input formControlName="actual_policy_start_date" type="date"
+                                                class="form-control" [attr.max]="minDate" />
+                                            <div
+                                                *ngIf="policy.get('actual_policy_start_date')?.touched && policy.get('actual_policy_start_date')?.invalid">
+                                                <small class="text-danger">This field is required</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group mb-4">
                                             <label class="mb-2 ct_fw_600">Policy Intrest Rate %</label>
                                             <input type="number" formControlName="policy_interest_rate"
                                                 class="form-control ct_input" placeholder="Policy Intrest Rate" />
@@ -93,6 +117,7 @@
                                             </div>
                                         </div>
                                     </div>
+
 
                                     <div class="col-md-6">
                                         <div class="form-group mb-4">
@@ -111,8 +136,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>

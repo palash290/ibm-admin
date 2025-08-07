@@ -23,7 +23,7 @@ export class CaseTypeComponent {
   userRole: any;
   selectedClientId: any;
 
-    caseOptions = [
+  caseOptions = [
     {
       id: '1',
       value: 'mortgage',

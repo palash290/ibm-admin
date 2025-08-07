@@ -93,21 +93,7 @@ export class CreditDatailsComponent {
       other_credit: [''] // <-- new field
     });
 
-    // Watch for credit_type value changes
-    // creditGroup.get('credit_type')?.valueChanges.subscribe(value => {
-    //   const requiredFields = ['credit_limit', 'balance', 'interest_rate', 'monthly_payment'];
-    //   requiredFields.forEach(field => {
-    //     const control = creditGroup.get(field);
-    //     if (value) {
-    //       control?.setValidators([Validators.required]);
-    //     } else {
-    //       control?.clearValidators();
-    //     }
-    //     control?.updateValueAndValidity();
-    //   });
-    // });
-
-    // // Auto-calculate monthly_payment when balance or interest_rate changes
+    // Auto-calculate monthly_payment when balance or interest_rate changes
     const balanceControl = creditGroup.get('balance');
     const interestControl = creditGroup.get('interest_rate');
     const creditLimitControl = creditGroup.get('credit_limit');
@@ -129,26 +115,16 @@ export class CreditDatailsComponent {
 
     creditGroup.get('credit_type')?.valueChanges.subscribe(value => {
       const customCardControl = creditGroup.get('custom_card_name');
-
-      // if (value === 'other') {
-      //   customCardControl?.setValidators([Validators.required]);
-      // } else {
-      //   customCardControl?.clearValidators();
-      //   customCardControl?.setValue('');
-      // }
-
       customCardControl?.updateValueAndValidity();
     });
-
   }
 
-
-updateMonthlyPayment(group: any): void {
+  updateMonthlyPayment(group: any): void {
     const remainingBalance = parseFloat(group.get('balance')?.value);
     const interestRate = parseFloat(group.get('interest_rate')?.value);
     const creditLimit = parseFloat(group.get('credit_limit')?.value);
     const terms = 12
- 
+
     if (
       !isNaN(remainingBalance) &&
       !isNaN(interestRate) &&
@@ -157,14 +133,14 @@ updateMonthlyPayment(group: any): void {
     ) {
       const monthlyPayment = (remainingBalance * interestRate) / terms / 100;
       const totalPayble = monthlyPayment * terms
- 
+
       group.get('monthly_payment')?.setValue(monthlyPayment.toFixed(2), { emitEvent: false });
       group.get('total_payable_amount')?.setValue(totalPayble.toFixed(2), { emitEvent: false });
     } else {
       group.get('monthly_payment')?.setValue('', { emitEvent: false });
       group.get('total_payable_amount')?.setValue('', { emitEvent: false });
     }
-}
+  }
 
 
   removeCredit(index: number): void {
@@ -172,13 +148,6 @@ updateMonthlyPayment(group: any): void {
   }
 
   submit(): void {
-    // this.router.navigateByUrl('/user/loan-calculator/loan-details')
-    // return
-
-    // if (this.form.value.credit_type == '' || this.form.value.credit_type == undefined) {
-    //   this.toastr.warning('Please select a credit type');
-    //   return
-    // }
     this.form.markAllAsTouched();
     if (this.form.invalid) {
       console.warn('Form is invalid');

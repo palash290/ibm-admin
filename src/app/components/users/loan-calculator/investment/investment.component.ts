@@ -20,8 +20,6 @@ export class InvestmentComponent {
 
   constructor(private fb: FormBuilder, private router: Router, private service: SharedService) {
     this.form = this.fb.group({
-      // credits: this.fb.array([]),
-      // loans: this.fb.array([]),
       investments: this.fb.array([]),
     });
   }

@@ -19,77 +19,7 @@ export class LoanComparisionComponent {
   client_case_id: any;
   apiLoanData: any[] = [];
 
-  constructor(private authService: AuthService, private sharedService: SharedService) {
-    // this.chartOptions = {
-    //   series: [
-    //     {
-    //       name: "Reports",
-    //       data: [
-    //         10000, 20000, 30000, 40000, 50000, 60000
-    //       ],
-    //     },
-    //   ],
-    //   chart: {
-    //     type: "bar",
-    //     height: 300,
-    //     toolbar: {
-    //       show: true,
-    //       tools: {
-    //         zoom: true,
-    //         zoomin: true,
-    //         zoomout: true,
-    //         pan: true,
-    //         reset: true,
-    //       }
-    //     },
-    //     zoom: {
-    //       enabled: true,
-    //       type: 'x',
-    //       autoScaleYaxis: true,
-    //     },
-    //   },
-    //   xaxis: {
-    //     categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-    //     labels: { show: true },
-    //   },
-    //   yaxis: {
-    //     max: 100,
-    //     labels: {
-    //       formatter: function (val: number) {
-    //         return val + "%";
-    //       },
-    //     },
-    //   },
-    //   dataLabels: {
-    //     enabled: false,
-    //   },
-    //   stroke: {
-    //     curve: "smooth",
-    //   },
-    //   tooltip: {
-    //     y: {
-    //       formatter: function (val: number) {
-    //         return val + " Reports";
-    //       },
-    //     },
-    //   },
-    //   fill: {
-    //     type: "gradient",
-    //     gradient: {
-    //       shadeIntensity: 1,
-    //       opacityFrom: 0.4,
-    //       opacityTo: 0,
-    //       stops: [0, 90, 100],
-    //     },
-    //   },
-    //   colors: ['#00BFFF'], // Optional
-    //   grid: {
-    //     strokeDashArray: 4,
-    //     xaxis: { lines: { show: true } },
-    //     yaxis: { lines: { show: true } },
-    //   },
-    // };
-  }
+  constructor(private authService: AuthService, private sharedService: SharedService) {}
 
   ngOnInit(): void {
     this.client_case_id = sessionStorage.getItem('client_case_id');

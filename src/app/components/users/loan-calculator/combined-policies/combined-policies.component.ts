@@ -17,7 +17,6 @@ export class CombinedPoliciesComponent {
 
   combineData: any[] = [];
   client_case_id: any;
-  // p: any = 1;
 
   constructor(private router: Router, private sharedService: SharedService) { }
 
@@ -27,7 +26,6 @@ export class CombinedPoliciesComponent {
   }
 
   getPeoplesDetails() {
-    //this.p = 1;
     const formURlData = new URLSearchParams();
     formURlData.append('case_id', this.client_case_id);
 

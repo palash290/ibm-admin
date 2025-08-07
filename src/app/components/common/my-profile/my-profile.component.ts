@@ -42,7 +42,6 @@ export class MyProfileComponent {
   loadUserProfile() {
     this.service.getApi('get-profile').subscribe({
       next: (resp) => {
-        //debugger
         this.userEmail = resp.user.email;
         this.first_name = resp.user.name;
         this.phone = resp.user.phone_number;
@@ -74,7 +73,6 @@ export class MyProfileComponent {
       this.loading = true;
       const formURlData = new FormData();
       formURlData.append('name', this.profileForm.value.name);
-      // formURlData.append('email', this.userEmail);
       formURlData.append('phone_number', this.profileForm.value.phone);
 
       if (this.selectedFile) {
@@ -106,10 +104,6 @@ export class MyProfileComponent {
     }
   }
 
-
-  //previewImageAdd: string | ArrayBuffer | null = null;
-
-  // Handle File Upload and Show Preview for Add and Edit Modals
   onFileSelected(event: any) {
     if (event.target.files.length > 0) {
       this.selectedFile = event.target.files[0];

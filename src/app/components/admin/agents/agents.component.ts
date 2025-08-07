@@ -109,7 +109,6 @@ export class AgentsComponent {
     });
   }
 
-
   addAgent() {
     this.profileForm.markAllAsTouched();
 
@@ -210,7 +209,6 @@ export class AgentsComponent {
     }
   }
 
-
   getId(id: any) {
     this.agentId = id;
   }
@@ -232,41 +230,9 @@ export class AgentsComponent {
     });
   }
 
-
   showImg(url: any) {
     this.userImg1 = url;
   }
-
-  // selectedAgentId: number | null = null;
-
-  // assignAgent() {
-  //   if (!this.selectedAgentId) {
-  //     alert('Please select an agent to reassign.');
-  //     return;
-  //   }
-
-  //   const formData = new URLSearchParams();
-  //   formData.append('agent_id', this.selectedAgentId.toString());
-
-  //   this.service.postAPI('assign-agent', formData).subscribe({
-  //     next: (resp) => {
-  //       console.log('Agent assigned successfully:', resp);
-  //       // Optionally close modal or show a toast
-  //     },
-  //     error: (error) => {
-  //       console.error('Failed to assign agent:', error.message);
-  //       // Optionally show an error message
-  //     }
-  //   });
-  // }
-
-
-  // agents = [
-  //   { id: 1, name: 'agent1' },
-  //   { id: 2, name: 'agent2' },
-  //   { id: 3, name: 'agent3' }
-  // ];
-
 
   getSingleAgentClients(agentId: any) {
     const formURlData = new URLSearchParams();

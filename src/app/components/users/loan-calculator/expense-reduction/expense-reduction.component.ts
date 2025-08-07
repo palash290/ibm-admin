@@ -77,8 +77,8 @@ export class ExpenseReductionComponent {
         Array.isArray(value) && parseFloat(value[0] ?? '0') > 0
       )
       .map(([key, value]: [string, any]) => ({
-        expense_name: key, // original key for API payload
-        display_name: this.formatExpenseKey(key), // pretty name for UI
+        expense_name: key,
+        display_name: this.formatExpenseKey(key),
         amount: parseFloat(value[0] ?? '0'),
         selected: value[1] == 1
       }));

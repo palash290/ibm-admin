@@ -19,7 +19,6 @@ export class PeopleDatailsComponent {
   client_case_id: any;
   loading: boolean = false;
   selectedCaseType: any = '';
-  //annualIncomeGrowth = 3;
 
   constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private service: SharedService) {
     this.form = this.fb.group({
@@ -155,10 +154,6 @@ export class PeopleDatailsComponent {
     }));
   }
 
-  // removePerson(index: number): any {
-  //   //console.log('object==>', index, id);
-  //   this.people.removeAt(index);
-  // }
 
   removePerson(index: number): void {
     //debugger

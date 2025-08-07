@@ -279,6 +279,7 @@ export class SubAdminsComponent {
   }
 
   @HostListener('document:click', ['$event'])
+  
   onClickOutside(event: MouseEvent): void {
     const target = event.target as HTMLElement;
     if (!target.closest('.custom-dropdown')) {

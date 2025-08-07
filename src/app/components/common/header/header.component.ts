@@ -36,7 +36,6 @@ export class HeaderComponent {
   loadUserProfile() {
     this.service.getApi('get-profile').subscribe({
       next: (resp) => {
-        //debugger
         this.userEmail = resp.user.email;
         this.first_name = resp.user.name;
         this.phone = resp.user.phone_number;

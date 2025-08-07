@@ -279,19 +279,6 @@
                     Assign
                 </button> -->
 
-
-
-                <!-- Display Assignments -->
-                <!-- <h3>Current Assignments:</h3>
-                <div *ngFor="let agent of agentsListModal">
-                    <strong>{{ agent.name }}:</strong>
-                    <span *ngIf="assignments[agent.name]?.length; else noUsers">
-                        {{ getAssignedUserNames(agent.name) }}
-                    </span>
-                    <ng-template #noUsers>None</ng-template>
-                </div> -->
-
-
             </div>
             <div class="modal-footer border-0 pt-0 pb-4">
                 <button type="button" class="ct_outline_btn " data-bs-dismiss="modal">Cancel</button>
@@ -303,7 +290,7 @@
                     Assign
                 </button>
                 <button hidden type="button" class="btn btn-secondary" #closeModalAsign
-                            data-bs-dismiss="modal">Close</button>
+                    data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
@@ -364,7 +351,6 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-
                         </div>
                         <figcaption class="mt-4 text-center">
                             <h4 class="ct_fs_24 ct_fw_700">Are you sure?</h4>
@@ -405,7 +391,6 @@
                     <img [src]="userImg1 ? userImg1 : 'assets/img/no_pro.png'" alt="">
                 </div>
             </div>
-
         </div>
     </div>
 </div>
