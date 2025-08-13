@@ -13,14 +13,13 @@ import { RouterOutlet } from '@angular/router';
 })
 export class LoanCalculatorComponent {
 
-
   constructor(private location: Location) { }
 
   dropdownVisible = false;
   searchText = '';
-  clients = ['John Doe', 'Jane Smith', 'Another Client']; // Example data
+  clients = ['John Doe', 'Jane Smith', 'Another Client'];
 
-  caseTypes = ['Mortgage', 'Tenancy', 'Litigation']; // Example case types
+  caseTypes = ['Mortgage', 'Tenancy', 'Litigation'];
   selectedCase: string = '';
 
   showDropdown() {
@@ -37,6 +36,7 @@ export class LoanCalculatorComponent {
 
   // Optional: Hide dropdown when clicking outside
   @HostListener('document:click', ['$event'])
+
   onClickOutside(event: MouseEvent) {
     const target = event.target as HTMLElement;
     if (!target.closest('.position-relative')) {

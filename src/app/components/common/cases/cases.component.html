@@ -56,7 +56,6 @@
                                     </td>
                                     <td>{{item.created_at | date:'dd-MMM-yyyy'}}</td>
                                     <td>
-                                        <!-- <span class="ct_active_status ct_fw_700">Completed</span> -->
                                         <span *ngIf="item.status == '0'"
                                             class="ct_pending_status ct_fw_700">Pending</span>
                                         <span *ngIf="item.status == '1'"
@@ -64,12 +63,6 @@
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center gap-3 justify-content-end">
-                                            <!-- @if(item.status == '1'){
-                                                <a class="ct_blue_text"><i class="fa-regular fa-eye"></i></a>
-                                            }
-                                             @if(item.status == '0'){
-                                                <a class="ct_blue_text"><i class="fa-regular fa-pen-to-square"></i></a>
-                                            } -->
                                             @if(item.status == '1') {
                                             <a class="ct_blue_text"><i class="fa-regular fa-eye"
                                                     [routerLink]="['/user/final-report']"
@@ -80,6 +73,7 @@
                                             <a class="ct_blue_text"><i class="fa-regular fa-solid fa-trash"
                                                     (click)="getId(item.id)" data-bs-toggle="modal"
                                                     data-bs-target="#ct_delete_modal_post"></i></a>
+                                            <a class="ct_blue_text"><i class="fa-regular fa-solid fa-clone"></i></a>
                                             }
                                             @if(item.status == '0') {
                                             <a class="ct_blue_text ct_cursor_no_drop"><i
@@ -90,8 +84,8 @@
                                             <a class="ct_blue_text"><i class="fa-regular fa-solid fa-trash"
                                                     (click)="getId(item.id)" data-bs-toggle="modal"
                                                     data-bs-target="#ct_delete_modal_post"></i></a>
+                                            <a class="ct_blue_text"><i class="fa-regular fa-solid fa-clone"></i></a>
                                             }
-
                                         </div>
                                     </td>
                                 </tr>
@@ -288,7 +282,8 @@
                     <div class="d-flex justify-content-center border-0 gap-3 ct_modal_footer mt-4">
                         <button type="button" class="ct_outline_btn  w-100 ct_fw_600 ct_border_radius_5"
                             data-bs-dismiss="modal">No</button>
-                        <a (click)="deleteAgent()" class="ct_blue_btn ct_red_btn w-100 ct_border_radius_5 ct_fw_600 text-center">Yes</a>
+                        <a (click)="deleteAgent()"
+                            class="ct_blue_btn ct_red_btn w-100 ct_border_radius_5 ct_fw_600 text-center">Yes</a>
                         <button hidden type="button" class="btn btn-secondary" #closeModal
                             data-bs-dismiss="modal">Close</button>
                         <button hidden type="button" class="btn btn-secondary" #closeModalDelete
