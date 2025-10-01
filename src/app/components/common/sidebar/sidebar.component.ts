@@ -44,6 +44,7 @@ export class SidebarComponent {
     sessionStorage.setItem('selectedClientId', '');
     sessionStorage.setItem('selectedCaseType', '');
     sessionStorage.removeItem('client_case_id');
+    sessionStorage.setItem('isCopy', '0');
     this.toggleEvent.emit(false);
   }
 

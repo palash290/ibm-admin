@@ -143,8 +143,8 @@
                                     <div class="position-relative">
                                         <select class="form-control ct_input ct_input_ps_30"
                                             formControlName="heloc_percent">
-                                            <option value="65.00" selected>65 %</option>
-                                            <option value="80.00">80 %</option>
+                                            <option value="65" selected>65 %</option>
+                                            <option value="80">80 %</option>
                                         </select>
                                     </div>
                                 </div>
@@ -306,20 +306,27 @@
                             </div>
                         </div>
                     </div>
+                    
+                    @if(isCopy == '0') {
                     <div class="text-end mt-2" *ngIf="i > 0">
                         <button type="button" class="btn btn-danger btn-sm" (click)="removeProperty(i)">
                             Remove Property
                         </button>
                     </div>
+                    }
+
                 </div>
             </div>
 
+            @if(isCopy == '0') {
             <!-- Add Property Button -->
             <div class="d-flex align-items-center gap-3 mb-4">
                 <button type="button" class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addProperty()">+
                     Add
                     Property</button>
             </div>
+            }
+
         </form>
 
 

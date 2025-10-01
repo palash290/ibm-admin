@@ -19,6 +19,8 @@ export class PeopleDatailsComponent {
   client_case_id: any;
   loading: boolean = false;
   selectedCaseType: any = '';
+  isCopy: any;
+  today: any;
 
   constructor(private fb: FormBuilder, private router: Router, private route: ActivatedRoute, private service: SharedService) {
     this.form = this.fb.group({
@@ -27,9 +29,11 @@ export class PeopleDatailsComponent {
   }
 
   ngOnInit(): void {
+    this.today = new Date().toISOString().split('T')[0];
     this.caseType = this.route.snapshot.queryParamMap.get('caseType');
     this.selectedCaseType = sessionStorage.getItem('selectedCaseType');
     this.client_case_id = sessionStorage.getItem('client_case_id');
+    this.isCopy = sessionStorage.getItem('isCopy');
     const formURlData = new URLSearchParams();
     formURlData.append('case_id', this.client_case_id);
 

@@ -48,7 +48,7 @@
                             </li>
                             <li>
                                 <p class="mb-2 ct_fs_16">Reports Generated:</p>
-                                <p class="mb-2 ct_text_op_6 ">{{allCases.length}}</p>
+                                <p class="mb-2 ct_text_op_6 ">{{allCases?.length}}</p>
                             </li>
                             <li>
                                 <p class="mb-2 ct_fs_16">Assigned Agent:</p>
@@ -107,9 +107,13 @@
                         </tbody>
                     </table>
                 </div>
+                 <div *ngIf="allCases?.length == 0" class="text-center">
+                        <p class="ct_fs_15 mt-5">No case found</p>
+                        <!-- Pagination Controls -->
+                    </div>
             </div>
 
-            <div class="ct_mt_30 ct_white_bg">
+            <!-- <div class="ct_mt_30 ct_white_bg">
                 <h4 class="ct_fs_24 ct_fw_700 mb-0 mb-4">Loans Compared</h4>
                 <div class="table-responsive ct_custom_table">
                     <table class="table">
@@ -167,7 +171,7 @@
                     </table>
 
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </div>

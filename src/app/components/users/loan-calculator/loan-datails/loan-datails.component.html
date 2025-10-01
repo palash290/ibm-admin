@@ -122,20 +122,25 @@
                             </div>
                         </div>
 
+                        @if(isCopy == '0') {
                         <!-- Remove button (hidden for first item) -->
                         <div class="col-12 text-end mt-2" *ngIf="i > 0">
                             <button type="button" class="btn btn-danger btn-sm" (click)="removeLoan(i)">Remove</button>
                         </div>
+                        }
+
                     </div>
                 </div>
             </div>
         </form>
 
-
+        @if(isCopy == '0') {
         <div class="d-flex align-items-center gap-3 mb-4">
             <button class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addLoan()">+ Add
                 Loan</button>
         </div>
+        }
+
 
     </div>
     <button type="button" name="next" (click)="submit()"

@@ -87,24 +87,24 @@
                                 <div class="position-relative">
                                     <input formControlName="interest_rate" type="number"
                                         class="form-control ct_input ct_input_ps_30" placeholder="0.00"
-                                        (ngModelChange)="updateMonthlyPayment(credit)" >
+                                        (ngModelChange)="updateMonthlyPayment(credit)">
                                     <span class="ct_input_icon_left">%</span>
                                 </div>
-                          
+
 
                                 <div
-                                        *ngIf="credit.get('interest_rate')?.touched && credit.get('interest_rate')?.errors">
-                                        <small class="text-danger"
-                                            *ngIf="credit.get('interest_rate')?.hasError('required')">
-                                            Interest rate is required
-                                        </small>
-                                        <small class="text-danger" *ngIf="credit.get('interest_rate')?.hasError('min')">
-                                            Interest rate must be at least 0%
-                                        </small>
-                                        <small class="text-danger" *ngIf="credit.get('interest_rate')?.hasError('max')">
-                                            Interest rate must not exceed 100%
-                                        </small>
-                                    </div>
+                                    *ngIf="credit.get('interest_rate')?.touched && credit.get('interest_rate')?.errors">
+                                    <small class="text-danger"
+                                        *ngIf="credit.get('interest_rate')?.hasError('required')">
+                                        Interest rate is required
+                                    </small>
+                                    <small class="text-danger" *ngIf="credit.get('interest_rate')?.hasError('min')">
+                                        Interest rate must be at least 0%
+                                    </small>
+                                    <small class="text-danger" *ngIf="credit.get('interest_rate')?.hasError('max')">
+                                        Interest rate must not exceed 100%
+                                    </small>
+                                </div>
 
                             </div>
                         </div>
@@ -151,18 +151,24 @@
                             </div>
                         </div> -->
 
+                        @if(isCopy == '0') {
                         <!-- Remove button only for items after the first -->
                         <div class="col-12 text-end mt-2" *ngIf="i > 0">
                             <button type="button" class="btn btn-danger btn-sm"
                                 (click)="removeCredit(i)">Remove</button>
                         </div>
+                        }
+
                     </div>
                 </div>
             </div>
+            @if(isCopy == '0') {
             <div class="d-flex align-items-center gap-3 mb-4">
                 <button type="button" class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addCredit()">+ Add
                     Credit</button>
             </div>
+            }
+
 
         </form>
     </div>

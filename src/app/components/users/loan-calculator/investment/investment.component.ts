@@ -17,6 +17,7 @@ export class InvestmentComponent {
   client_case_id: any;
   apiinvestmentsData: any[] = [];
   loading: boolean = false;
+  isCopy: any;
 
   constructor(private fb: FormBuilder, private router: Router, private service: SharedService) {
     this.form = this.fb.group({
@@ -26,6 +27,7 @@ export class InvestmentComponent {
 
   ngOnInit(): void {
     this.client_case_id = sessionStorage.getItem('client_case_id');
+    this.isCopy = sessionStorage.getItem('isCopy');
 
     const formURlData = new URLSearchParams();
     formURlData.append('case_id', this.client_case_id);

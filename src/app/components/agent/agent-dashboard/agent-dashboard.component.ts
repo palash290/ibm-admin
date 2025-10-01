@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, ViewChild } from '@angular/core';
 import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
 import { AuthService } from '../../../services/auth.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SharedService } from '../../../services/shared.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class AgentDashboardComponent {
   userRole: any;
   graphData: any;
 
-  constructor(private authService: AuthService, private service: SharedService) {}
+  constructor(private authService: AuthService, private service: SharedService, private route: Router) {}
 
   ngOnInit() {
     this.userRole = this.authService.getUserRole();
@@ -80,6 +80,11 @@ export class AgentDashboardComponent {
     if (chartElement && chartElement.contains(event.target as Node)) {
       event.preventDefault();
     }
+  }
+
+  createCase() {
+    this.route.navigateByUrl('/user/loan-calculator');
+    sessionStorage.setItem('isCopy', '0');
   }
 
 

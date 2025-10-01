@@ -1,5 +1,5 @@
 <div class="ct_light_grey_bg3">
-    <h4 class="ct_fs_20 ct_fw_700 mb-3">Case Wizard</h4>
+    <h4 class="ct_fs_20 ct_fw_700 mb-3">{{isCopy == '1' ? 'Case Wizard (Copy)' : 'Case Wizard'}}</h4>
     <ul id="ct_form_progressbar">
         <li *ngFor="let step of steps" [class.active]="isActiveStep(step.path)" (click)="goToStep(step.path)">
             <img class="me-2" [src]="step.icon" alt="" />

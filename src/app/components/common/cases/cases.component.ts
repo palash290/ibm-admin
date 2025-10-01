@@ -22,9 +22,11 @@ export class CasesComponent {
   searchQuery: any = '';
   status: any = '';
   userRole: any;
-  
+
   caseId: any;
   @ViewChild('closeModalDelete') closeModalDelete!: ElementRef;
+  @ViewChild('closeModalCopy') closeModalCopy!: ElementRef;
+  @ViewChild('closeModalCopy1') closeModalCopy1!: ElementRef;
 
   constructor(private authService: AuthService, private sharedService: SharedService, private router: Router, private toastr: NzMessageService) { }
 
@@ -67,16 +69,19 @@ export class CasesComponent {
     });
   }
 
-  goToForm(completed_step: any, caseId: any) {
+  goToForm(completed_step: any, caseId: any, isCopy: any, caseTypeId: any) {
     if (completed_step == 'client_loan') {
       this.router.navigateByUrl('/user/loan-calculator/loan-details');
       sessionStorage.setItem('client_case_id', caseId);
+      sessionStorage.setItem('selectedCaseType', caseTypeId);
     } else if (completed_step == 'client_property') {
       this.router.navigateByUrl('/user/loan-calculator/property-details');
       sessionStorage.setItem('client_case_id', caseId);
+      sessionStorage.setItem('selectedCaseType', caseTypeId);
     } else if (completed_step == 'client_people') {
       this.router.navigateByUrl('/user/loan-calculator/people-details');
       sessionStorage.setItem('client_case_id', caseId);
+      sessionStorage.setItem('selectedCaseType', caseTypeId);
     } else if (completed_step == 'client_credit') {
       this.router.navigateByUrl('/user/loan-calculator/credit-details');
       sessionStorage.setItem('client_case_id', caseId);
@@ -108,6 +113,7 @@ export class CasesComponent {
       this.router.navigateByUrl('/user/final-report');
       sessionStorage.setItem('client_case_id', caseId);
     }
+    sessionStorage.setItem('isCopy', isCopy);
   }
 
   getId(id: any) {
@@ -122,7 +128,24 @@ export class CasesComponent {
       next: (resp: any) => {
         this.getSingleClientCases();
         this.closeModalDelete.nativeElement.click();
-        this.toastr.success('Agent deleted successfully!');
+        this.toastr.success('Case deleted successfully!');
+      },
+      error: error => {
+        console.log(error.message);
+      }
+    });
+  }
+
+  copyCase() {
+    const formURlData = new URLSearchParams();
+    formURlData.set('case_id', this.caseId);
+
+    this.sharedService.postAPI(`copy-case-data`, formURlData).subscribe({
+      next: (resp: any) => {
+        this.getSingleClientCases();
+        this.closeModalCopy.nativeElement.click();
+        this.closeModalCopy1.nativeElement.click();
+        this.toastr.success('Case copy successfully!');
       },
       error: error => {
         console.log(error.message);

@@ -43,12 +43,13 @@ export class ViewClientComponent {
 
   getBuseSchedule1(clientId: any) {
     const formURlData = new URLSearchParams();
-    formURlData.set('client_id', '14');
+    formURlData.set('client_id', clientId);
     this.service.postAPI(`get-client-all-cases`, formURlData).subscribe({
       next: (resp: any) => {
         this.allCases = resp.data;
       },
       error: error => {
+        this.allCases = [];
         console.log(error.message);
       }
     });

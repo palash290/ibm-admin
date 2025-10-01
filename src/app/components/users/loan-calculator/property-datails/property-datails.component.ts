@@ -20,6 +20,7 @@ export class PropertyDatailsComponent {
   apiPropertyData: any[] = [];
   loading: boolean = false;
   minDate: any;
+  isCopy: any;
 
   constructor(private fb: FormBuilder, private router: Router, private service: SharedService) {
     this.form = this.fb.group({
@@ -30,6 +31,7 @@ export class PropertyDatailsComponent {
   ngOnInit(): void {
     this.client_case_id = sessionStorage.getItem('client_case_id');
     this.selectedCaseType = sessionStorage.getItem('selectedCaseType');
+    this.isCopy = sessionStorage.getItem('isCopy');
 
     const formURlData = new URLSearchParams();
     formURlData.append('case_id', this.client_case_id);
@@ -77,7 +79,7 @@ export class PropertyDatailsComponent {
         notes: [prop.notes || ''],
 
         // HELOC
-        heloc_percent: [prop.heloc_percent || '65.00', showHelocFields ? Validators.required : []],
+        heloc_percent: [prop.heloc_percent || '65', showHelocFields ? Validators.required : []],
         heloc_amount: [{ value: prop.heloc_amount || '', disabled: true }, showHelocFields ? Validators.required : []],
         heloc_current_debt_balance: [prop.heloc_current_debt_balance || '', showHelocFields ? Validators.required : []],
         heloc_room_abvailable: [{ value: prop.heloc_room_abvailable || '', disabled: true }, showHelocFields ? Validators.required : []],
@@ -87,12 +89,12 @@ export class PropertyDatailsComponent {
         //credit_available: [prop.credit_available || '', showHelocFields ? Validators.required : []],
 
         // Monthly Expenses
-        monthly_mortgage_insurance_expense: [prop.monthly_mortgage_insurance_expense || '', Validators.required],
-        monthly_mortgage_extra_expense: [prop.monthly_mortgage_extra_expense || '', Validators.required],
-        monthly_property_tax_expense: [prop.monthly_property_tax_expense || '', Validators.required],
-        monthly_property_insurance_expense: [prop.monthly_property_insurance_expense || '', Validators.required],
-        monthly_utility_expense: [prop.monthly_utility_expense || '', Validators.required],
-        community_condo_fees_expense: [prop.community_condo_fees_expense || '', Validators.required],
+        monthly_mortgage_insurance_expense: [prop.monthly_mortgage_insurance_expense || 0, Validators.required],
+        monthly_mortgage_extra_expense: [prop.monthly_mortgage_extra_expense || 0, Validators.required],
+        monthly_property_tax_expense: [prop.monthly_property_tax_expense || 0, Validators.required],
+        monthly_property_insurance_expense: [prop.monthly_property_insurance_expense || 0, Validators.required],
+        monthly_utility_expense: [prop.monthly_utility_expense || 0, Validators.required],
+        community_condo_fees_expense: [prop.community_condo_fees_expense || 0, Validators.required],
         // extra_payment_made: [prop.extra_payment_made || '', Validators.required]
       });
 
@@ -133,7 +135,7 @@ export class PropertyDatailsComponent {
 
     const isRequired = this.selectedCaseType !== '3';
     const showHelocFields = this.selectedCaseType !== '1' && this.selectedCaseType !== '3';
-    //const showMonthlyExpenses = this.selectedCaseType !== '1';
+    // const showMonthlyExpenses = this.selectedCaseType !== '1';
 
     const group = this.fb.group({
       property_name: ['', Validators.required],
@@ -150,7 +152,7 @@ export class PropertyDatailsComponent {
       notes: [''],
 
       // HELOC (conditionally shown)
-      heloc_percent: ['65.00', showHelocFields ? Validators.required : []],
+      heloc_percent: ['65', showHelocFields ? Validators.required : []],
       heloc_amount: [{ value: '', disabled: true }, showHelocFields ? Validators.required : []],
       heloc_current_debt_balance: ['0', showHelocFields ? Validators.required : []],
       heloc_room_abvailable: [{ value: '', disabled: true }, showHelocFields ? Validators.required : []],
@@ -168,7 +170,6 @@ export class PropertyDatailsComponent {
       community_condo_fees_expense: ['', Validators.required],
       // extra_payment_made: ['', Validators.required]
     });
-
 
 
     // Subscribe for calculation
@@ -202,19 +203,27 @@ export class PropertyDatailsComponent {
   }
 
   calculateHelocFields(group: FormGroup) {
-    const currentValue = parseFloat(group.get('current_value')?.value) || 0;
-    const loanPercent = parseFloat(group.get('heloc_percent')?.value) || 0; // 65 or 80
-    const currentLoanBalance = parseFloat(group.get('current_loan_balance')?.value) || 0;
-    const heloc_current_debt_balance = parseFloat(group.get('heloc_current_debt_balance')?.value) || 0;
+    if (this.selectedCaseType == '2') {
+      const currentValue = parseFloat(group.get('current_value')?.value) || 0;
+      const loanPercent = parseFloat(group.get('heloc_percent')?.value) || 0; // 65 or 80
+      const currentLoanBalance = parseFloat(group.get('current_loan_balance')?.value) || 0;
+      const heloc_current_debt_balance = parseFloat(group.get('heloc_current_debt_balance')?.value) || 0;
 
-    // 1. Calculate HELOC Amount
-    const helocAmount = currentValue * (loanPercent / 100);
-    group.get('heloc_amount')?.setValue(helocAmount.toFixed(2), { emitEvent: false });
+      // 1. Calculate HELOC Amount
+      const helocAmount = currentValue * (loanPercent / 100);
+      group.get('heloc_amount')?.setValue(helocAmount.toFixed(2), { emitEvent: false });
 
-    // 2. Calculate HELOC Room
-    //const helocRoom = helocAmount - currentLoanBalance;
-    const helocRoom = helocAmount - currentLoanBalance - heloc_current_debt_balance;
-    group.get('heloc_room_abvailable')?.setValue(helocRoom.toFixed(2), { emitEvent: false });
+      // 2. Calculate HELOC Room
+      //const helocRoom = helocAmount - currentLoanBalance;
+      const helocRoom = helocAmount - currentLoanBalance - heloc_current_debt_balance;
+      group.get('heloc_room_abvailable')?.setValue(helocRoom.toFixed(2), { emitEvent: false });
+    } else {
+      group.get('heloc_current_debt_balance')?.setValue(0, { emitEvent: false });
+      group.get('heloc_percent')?.setValue('0', { emitEvent: false });
+      group.get('heloc_amount')?.setValue(0, { emitEvent: false });
+      group.get('heloc_room_abvailable')?.setValue(0, { emitEvent: false });
+    }
+
   }
 
 

@@ -16,21 +16,21 @@ export class SharedService {
   constructor(private http: HttpClient, private route: Router) { }
 
   setToken(token: string) {
-    sessionStorage.setItem('ibsAdminToken', token)
+    sessionStorage.setItem('ibsAdminToken', token);
   }
 
   getToken() {
-    return sessionStorage.getItem('ibsAdminToken')
+    return sessionStorage.getItem('ibsAdminToken');
   }
 
   isLogedIn() {
-    return this.getToken() !== null
+    return this.getToken() !== null;
   }
 
   logout() {
-    sessionStorage.removeItem('ibsAdminToken');
-    sessionStorage.removeItem('userRole');
-    sessionStorage.removeItem('agentId');
+    // sessionStorage.removeItem('ibsAdminToken');
+    // sessionStorage.removeItem('userRole');
+    // sessionStorage.removeItem('agentId');
     localStorage.clear();
     sessionStorage.clear();
     this.route.navigateByUrl('');
@@ -52,7 +52,7 @@ export class SharedService {
   }
 
   postAPI(url: any, data: any): Observable<any> {
-    const authToken = sessionStorage.getItem('ibsAdminToken')
+    const authToken = sessionStorage.getItem('ibsAdminToken');
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: `Bearer ${authToken}`
@@ -61,7 +61,7 @@ export class SharedService {
   }
 
   postData(url: any, data: any): Observable<any> {
-    const authToken = sessionStorage.getItem('ibsAdminToken')
+    const authToken = sessionStorage.getItem('ibsAdminToken');
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${authToken}`
@@ -70,7 +70,7 @@ export class SharedService {
   }
 
   postAPIFormData(url: any, data: any): Observable<any> {
-    const authToken = sessionStorage.getItem('ibsAdminToken')
+    const authToken = sessionStorage.getItem('ibsAdminToken');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     })
@@ -78,7 +78,7 @@ export class SharedService {
   }
 
   putAPIFormData(url: any, data: any): Observable<any> {
-    const authToken = sessionStorage.getItem('ibsAdminToken')
+    const authToken = sessionStorage.getItem('ibsAdminToken');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${authToken}`
     })
@@ -93,6 +93,7 @@ export class SharedService {
     return this.http.delete(this.baseUrl + url, { headers: headers })
   };
 
+  
   //start//
   private getHeaders(contentType: string): HttpHeaders {
     const authToken = sessionStorage.getItem('ibsAdminToken') || '';
@@ -133,7 +134,7 @@ export class SharedService {
 
   setSelectedCaseType(value: number) {
     this.selectedCaseTypeSubject.next(value);
-    sessionStorage.setItem('selectedCaseType', value.toString()); // still store
+    sessionStorage.setItem('selectedCaseType', value.toString());
   }
 
   getSelectedCaseType() {

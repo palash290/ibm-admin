@@ -29,7 +29,8 @@
                                         class="form-control ct_input ct_input_ps_30" placeholder="0.00">
                                     <span class="ct_input_icon_left">$</span>
                                 </div>
-                                <div *ngIf="investment.get('balance_amount')?.touched && investment.get('balance_amount')?.invalid">
+                                <div
+                                    *ngIf="investment.get('balance_amount')?.touched && investment.get('balance_amount')?.invalid">
                                     <small class="text-danger">Balance is required</small>
                                 </div>
                             </div>
@@ -40,7 +41,8 @@
                                 <label class="mb-2 ct_fw_600">Monthly Allotment</label>
                                 <div class="position-relative">
                                     <input formControlName="monthly_allotment" type="number"
-                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00" (ngModelChange)="calculateTotalIncome(investment)">
+                                        class="form-control ct_input ct_input_ps_30" placeholder="0.00"
+                                        (ngModelChange)="calculateTotalIncome(investment)">
                                     <span class="ct_input_icon_left">$</span>
                                 </div>
                                 <div
@@ -77,24 +79,26 @@
                             </div>
                         </div>
 
+                        @if(isCopy == '0') {
                         <!-- Remove button (hidden on first item) -->
                         <div class="col-12 text-end" *ngIf="i > 0">
                             <button type="button" class="btn btn-danger btn-sm"
                                 (click)="removeInvestment(i)">Remove</button>
                         </div>
-
-
+                        }
 
                     </div>
                 </div>
             </div>
         </form>
 
-
+        @if(isCopy == '0') {
         <div class="d-flex align-items-center gap-3 mb-4">
             <button class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addInvestment()">+ Add
                 Investment</button>
         </div>
+        }
+
 
     </div>
     <button type="button" name="next" (click)="submit()"

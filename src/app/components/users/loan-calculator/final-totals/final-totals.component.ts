@@ -19,11 +19,13 @@ export class FinalTotalsComponent {
   loading: boolean = false;
   selectedCaseType: any;
   userRole: any;
+  isCopy: any;
 
   constructor(private service: SharedService, private router: Router, private authService: AuthService, private toastr: NzMessageService) { }
 
   ngOnInit() {
     this.userRole = this.authService.getUserRole();
+    this.isCopy = sessionStorage.getItem('isCopy');
     this.selectedCaseType = sessionStorage.getItem('selectedCaseType');
     this.client_case_id = sessionStorage.getItem('client_case_id');
     this.getFinalTotals(this.client_case_id);
@@ -64,6 +66,11 @@ export class FinalTotalsComponent {
         console.log(error.message);
       }
     });
+  }
+
+  submitCopy() {
+    this.router.navigateByUrl('/agent/cases');
+    // this.toastr.success('Submission successful. Your agent will assist you with the next steps.');
   }
 
 

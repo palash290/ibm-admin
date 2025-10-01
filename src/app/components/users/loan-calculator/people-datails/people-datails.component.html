@@ -63,7 +63,7 @@
                             <div class="form-group mb-4">
                                 <label class="mb-2 ct_fw_600">Date of Birth</label>
                                 <div class="position-relative">
-                                    <input formControlName="date_of_birth" type="date" class="form-control ct_input" />
+                                    <input [max]="today" formControlName="date_of_birth" type="date" class="form-control ct_input" />
                                 </div>
                                 <div
                                     *ngIf="person.get('date_of_birth')?.touched && person.get('date_of_birth')?.invalid">
@@ -168,21 +168,26 @@
                                 placeholder="Add Any Additional Notes Here..."></textarea>
                         </div>
 
+                        @if(isCopy == '0') {
                         <div class="col-12 text-end mt-2" *ngIf="i > 0">
                             <button type="button" class="btn btn-danger btn-sm"
                                 (click)="removePerson(i)">Remove</button>
                         </div>
+                        }
 
                     </div>
                 </div>
             </div>
 
+            @if(isCopy == '0') {
             <div class="d-flex align-items-center gap-3 my-2">
                 <button type="button" class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addAdult()">+ Add
                     Adult</button>
                 <button type="button" class="ct_outline_btn ct_btn_h_48 ct_border_radius_5" (click)="addChild()">+ Add
                     Child</button>
             </div>
+            }
+
         </form>
 
 

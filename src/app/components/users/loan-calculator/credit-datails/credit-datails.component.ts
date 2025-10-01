@@ -19,6 +19,7 @@ export class CreditDatailsComponent {
   apiCreditData: any[] = [];
   loading: boolean = false;
   selectedCaseType: any = '';
+  isCopy: any;
 
   constructor(private fb: FormBuilder, private router: Router, private service: SharedService, private toastr: NzMessageService) {
     this.form = this.fb.group({
@@ -29,6 +30,8 @@ export class CreditDatailsComponent {
   ngOnInit(): void {
     this.client_case_id = sessionStorage.getItem('client_case_id');
     this.selectedCaseType = sessionStorage.getItem('selectedCaseType');
+    this.isCopy = sessionStorage.getItem('isCopy');
+
     const formURlData = new URLSearchParams();
     formURlData.append('case_id', this.client_case_id);
 

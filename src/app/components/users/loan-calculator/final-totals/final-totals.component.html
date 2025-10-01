@@ -57,9 +57,12 @@
         </div>
     </div>
 
-    <button *ngIf="userRole == 'Agent'" type="button" name="next" (click)="submit()"
+    <button *ngIf="userRole == 'Agent' && isCopy !== '1'" type="button" name="next" (click)="submit()"
         class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5">Save
         & Next</button>
+
+    <button *ngIf="userRole == 'Agent' && isCopy == '1'" type="button" name="next" (click)="submitCopy()"
+        class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5">Save</button>
 
     <button *ngIf="userRole == 'Client'" type="button" name="next" (click)="submit()"
         class="ct_form_next action-button ct_blue_btn float-end ms-2 ct_border_radius_5">Submit</button>

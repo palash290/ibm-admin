@@ -16,7 +16,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
 })
 export class FinalReportComponent {
 
-
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: any;
   client_case_id: any;
@@ -41,6 +40,8 @@ export class FinalReportComponent {
   finalotalCalculations: any;
   apiPolicyDetails: any;
   loading: boolean = false;
+
+  networthOvertime: any;
 
   constructor(private sharedService: SharedService, private route: ActivatedRoute) {
     this.paymentChart = {
@@ -140,58 +141,7 @@ export class FinalReportComponent {
       }
     };
 
-    this.netWorthChart = {
-      chart: {
-        type: "area",
-        height: 400,
-        toolbar: { show: false }
-      },
-      series: [
-        {
-          name: "Assets",
-          data: [1100000, 1150000, 1200000, 1250000, 1300000, 1350000, 1400000, 1500000, 1600000, 1700000, 1720000]
-        },
-        {
-          name: "Net Worth",
-          data: [650000, 700000, 750000, 800000, 900000, 1000000, 1100000, 1200000, 1400000, 1600000, 1650000]
-        },
-        {
-          name: "Liabilities",
-          data: [400000, 390000, 380000, 370000, 340000, 300000, 250000, 180000, 100000, 20000, 10000]
-        }
-      ],
-      colors: ["#ff7f0e", "#1f77b4", "#000000"],
-      fill: {
-        type: "solid",
-        opacity: [0.3, 0, 0.3]
-      },
-      stroke: {
-        curve: "smooth",
-        width: [2, 4, 2]
-      },
-      xaxis: {
-        categories: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11"],
-        title: { text: "Year" }
-      },
-      yaxis: {
-        labels: {
-          formatter: (val: { toLocaleString: () => any; }) => `$${val.toLocaleString()}`
-        }
-      },
-      legend: {
-        position: "top",
-        horizontalAlign: "left"
-      },
-      dataLabels: {
-        enabled: false
-      },
-      tooltip: {
-        y: {
-          formatter: (val: { toLocaleString: () => any; }) => `$${val.toLocaleString()}`
-        }
-      }
-    };
-
+    
     this.growthChart = {
       chart: {
         type: "area",
@@ -239,14 +189,103 @@ export class FinalReportComponent {
         }
       }
     };
-
   }
 
   ngOnInit(): void {
     this.client_case_id = sessionStorage.getItem('client_case_id') ? sessionStorage.getItem('client_case_id') : this.route.snapshot.queryParamMap.get('id');;
     this.getPeoplesDetails();
     this.getClientCase();
+    this.graphCalc();
   }
+
+  graphCalc() {
+    const formURlData = new URLSearchParams();
+    formURlData.append('case_id', this.client_case_id);
+
+    this.sharedService.postAPI(`create-plan`, formURlData).subscribe({
+      next: (resp: any) => {
+        if (resp.success) {
+          this.networthOvertime = resp.report.networthOvertime;
+
+          this.netWorthChart = {
+            chart: {
+              type: "area",
+              height: 400,
+              toolbar: {
+                show: true,                // show toolbar with zoom buttons
+                tools: {
+                  zoom: true,              // enable zoom
+                  zoomin: true,            // enable zoom in button
+                  zoomout: true,           // enable zoom out button
+                  pan: true,               // enable pan
+                  reset: true              // enable reset zoom button
+                }
+              },
+              zoom: {
+                enabled: true,
+                type: "x",                 // zoom along x-axis
+                autoScaleYaxis: true       // adjust y-axis automatically
+              }
+            },
+            series: [
+              {
+                name: "Assets",
+                data: this.networthOvertime.assets
+              },
+              {
+                name: "Net Worth",
+                data: this.networthOvertime.worth
+              },
+              {
+                name: "Liabilities",
+                data: this.networthOvertime.liabilities
+              }
+            ],
+            colors: ["#ff7f0e", "#1f77b4", "#000000"],
+            fill: {
+              type: "solid",
+              opacity: [0.3, 0, 0.3]
+            },
+            stroke: {
+              curve: "smooth",
+              width: [2, 4, 2]
+            },
+            xaxis: {
+              categories: this.networthOvertime.years,
+              title: { text: "Year" },
+              tickAmount: 10,   // shows ~10 evenly spaced ticks
+              labels: {
+                rotate: -45,    // optional: tilt labels for readability
+              }
+            },
+            yaxis: {
+              labels: {
+                formatter: (val: number) => {
+                  return `$${val.toLocaleString()}`;
+                }
+              }
+            },
+            legend: {
+              position: "top",
+              horizontalAlign: "left"
+            },
+            dataLabels: {
+              enabled: false
+            },
+            tooltip: {
+              y: {
+                formatter: (val: number) => {
+                  return `$${val.toLocaleString()}`;
+                }
+              }
+            }
+          };
+
+        }
+      }
+    });
+  }
+
 
   getClientCase() {
     const formURlData = new URLSearchParams();
@@ -367,7 +406,6 @@ export class FinalReportComponent {
   }
 
 
-
   getTotals(id: any) {
     const payload = {
       case_id: id
@@ -480,8 +518,6 @@ export class FinalReportComponent {
       },
     };
   }
-
-
 
   getPolicyDetails() {
     const formURlData = new URLSearchParams();
@@ -677,6 +713,34 @@ export class FinalReportComponent {
     URL.revokeObjectURL(url);
   }
 
+
+  async downloadPDF1(): Promise<void> {
+    this.loading = true;
+
+    const element = document.getElementById('pdfContent');
+    if (!element) {
+      this.loading = false;
+      return;
+    }
+
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    const pages = element.querySelectorAll('.page');
+
+    for (let i = 0; i < pages.length; i++) {
+      const page = pages[i] as HTMLElement;
+      const canvas = await html2canvas(page, { scale: 2, useCORS: true });
+      const imgData = canvas.toDataURL('image/png');
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+      if (i > 0) pdf.addPage();
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    }
+
+    pdf.save('document.pdf');
+    this.loading = false;
+  }
 
 
 }
