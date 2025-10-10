@@ -16,6 +16,7 @@ export class CaseTypeComponent {
 
   selectedCaseType: any = '';
   caseName: any;
+  caseDate: any;
   name: any;
   loginUserId: any;
   client_case_id: any;
@@ -67,8 +68,10 @@ export class CaseTypeComponent {
       next: (resp: any) => {
         if (resp.success) {
           sessionStorage.setItem('selectedCaseName', resp.data.case_name);
+          sessionStorage.setItem('caseDate', resp.data.plan_start_date);
           sessionStorage.setItem('selectedClientName', resp.data.full_name);
           sessionStorage.setItem('selectedCaseType', resp.data.case_type_id);
+          sessionStorage.setItem('selectedClientId', resp.data.client_id);
         }
       },
       error: error => {
@@ -78,6 +81,7 @@ export class CaseTypeComponent {
 
     setTimeout(() => {
       this.caseName = sessionStorage.getItem('selectedCaseName');
+      this.caseDate = sessionStorage.getItem('caseDate');
       this.name = sessionStorage.getItem('selectedClientName');
       this.selectedCaseType = sessionStorage.getItem('selectedCaseType');
       this.selectedClientId = sessionStorage.getItem('selectedClientId');
@@ -126,6 +130,7 @@ export class CaseTypeComponent {
 
     formURlData.append('case_type_id', this.selectedCaseType);
     formURlData.append('case_name', this.caseName);
+    formURlData.append('plan_start_date', this.caseDate);
     formURlData.append('completed_step', 'client_case');
     if (this.client_case_id) {
       formURlData.append('client_case_id', this.client_case_id);

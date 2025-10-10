@@ -21,9 +21,11 @@ export class CaseNameComponent {
   selectedClientName: any = '';
   selectedClientId: any = '';
   selectedCaseName: any = '';
+  caseDate: any;
   userRole: any;
   name: any;
   loading: boolean = false;
+  today: any;
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   caseType: any = '';
@@ -32,18 +34,22 @@ export class CaseNameComponent {
   constructor(private service: SharedService, private authService: AuthService, private router: Router, private toastr: NzMessageService) { }
 
   ngOnInit() {
+    this.today = new Date().toISOString().split('T')[0];
     this.agentId = this.authService.getAgentId();
     this.userRole = this.authService.getUserRole();
+    setTimeout(() => {
+      this.caseDate = sessionStorage.getItem('caseDate');
 
-    this.selectedCaseName = sessionStorage.getItem('selectedCaseName');
-    if (this.userRole == 'Client') {
-      this.selectedClientName = sessionStorage.getItem('selectedClientName');
-    }
+      this.selectedCaseName = sessionStorage.getItem('selectedCaseName');
+      
+      if (this.userRole == 'Client') {
+        this.selectedClientName = sessionStorage.getItem('selectedClientName');
+      }
 
-    if (this.userRole == 'Agent') {
-      this.selectedClientId = sessionStorage.getItem('selectedClientId');
-    }
-
+      if (this.userRole == 'Agent') {
+        this.selectedClientId = sessionStorage.getItem('selectedClientId');
+      }
+    }, 100);
 
     const formURlData = new URLSearchParams();
     formURlData.append('agent_id', this.agentId);
@@ -51,13 +57,14 @@ export class CaseNameComponent {
     this.service.postAPI(`get-clients-by-agent-id`, formURlData).subscribe({
       next: (resp: any) => {
         this.clientList = resp.users;
-
-        const defaultClient = this.clientList.find(client => client.id == this.selectedClientId);
-        if (defaultClient) {
-          this.selectedClientName = defaultClient.name;
-          this.selectedClientId = defaultClient.id;
-        }
-
+        setTimeout(() => {
+          const defaultClient = this.clientList.find(client => client.id == this.selectedClientId);
+          if (defaultClient) {
+            this.selectedClientName = defaultClient.name;
+            this.selectedClientId = defaultClient.id;
+            // this.caseDate = defaultClient.plan_start_date;
+          }
+        }, 100);
       },
       error: error => {
         this.clientList = []
@@ -72,11 +79,16 @@ export class CaseNameComponent {
   }
 
   next() {
-    //debugger
     if (this.selectedCaseName == '') {
       this.toastr.error('Please select case name.');
       return
     }
+
+    if (!this.caseDate) {
+      this.toastr.error('Please select started date.');
+      return
+    }
+
     if (this.userRole == 'Agent' && this.selectedClientId == '') {
       this.toastr.error('Please select client.')
       return
@@ -91,6 +103,7 @@ export class CaseNameComponent {
     if (this.userRole == 'Client') {
       this.router.navigate(['/user/loan-calculator/case-type']);
       sessionStorage.setItem('selectedCaseName', this.selectedCaseName ? this.selectedCaseName : '');
+      sessionStorage.setItem('caseDate', this.caseDate ? this.caseDate : '');
       sessionStorage.setItem('selectedClientName', this.selectedClientName ? this.selectedClientName : '');
       this.loading = false;
     }
@@ -99,6 +112,7 @@ export class CaseNameComponent {
       this.router.navigate(['/user/loan-calculator/case-type']);
       sessionStorage.setItem('selectedClientId', this.selectedClientId ? this.selectedClientId : '');
       sessionStorage.setItem('selectedCaseName', this.selectedCaseName ? this.selectedCaseName : '');
+      sessionStorage.setItem('caseDate', this.caseDate ? this.caseDate : '');
       this.loading = false;
     }
   }

@@ -40,6 +40,7 @@ export class SidebarComponent {
 
   toggleMenu() {
     sessionStorage.setItem('selectedCaseName', '');
+    sessionStorage.setItem('caseDate', '');
     sessionStorage.setItem('selectedClientName', '');
     sessionStorage.setItem('selectedClientId', '');
     sessionStorage.setItem('selectedCaseType', '');

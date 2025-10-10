@@ -22,11 +22,11 @@ export class FinalReportComponent {
   p: any = 1;
   caseDetails: any;
   case_type_id: any;
-  paymentChart: any;
+  ourVsRegularPayments: any;
 
-  compareChart: any;
+  mortgageHelocCashLoan: any;
   netWorthChart: any;
-  growthChart: any;
+  totalDespositsVsTotalCash: any;
 
   adultsData: any[] = [];
   childrenData: any[] = [];
@@ -42,27 +42,83 @@ export class FinalReportComponent {
   loading: boolean = false;
 
   networthOvertime: any;
+  mortgageHelocCashLoanResp: any;
 
-  constructor(private sharedService: SharedService, private route: ActivatedRoute) {
-    this.paymentChart = {
+  constructor(private sharedService: SharedService, private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.client_case_id = sessionStorage.getItem('client_case_id') ? sessionStorage.getItem('client_case_id') : this.route.snapshot.queryParamMap.get('id');;
+    this.getPeoplesDetails();
+    this.getClientCase();
+    this.getTotals(this.client_case_id);
+    this.graphCalc();
+  }
+
+  latestPlanCalculation: any[] = [];
+  report_data: any;
+
+  finalVals: any;
+  monthly_policy_premium_expense: any;
+
+  graphCalc() {
+    const formURlData = new URLSearchParams();
+    formURlData.append('case_id', this.client_case_id);
+
+    this.sharedService.postAPI(`create-plan`, formURlData).subscribe({
+      next: (resp: any) => {
+        if (resp.success) {
+
+          this.latestPlanCalculation = resp.plan;
+
+          this.report_data = resp.report_data;
+
+          this.ourVsRegularPaymentsGraph(resp);
+
+          this.mortgageHelocCashLoanGraph(resp);
+
+          this.netWorthChartGraph(resp);
+
+          this.totalDespositsVsTotalCashGraph(resp);
+
+          this.finalVals = resp.plan.at(-1).totals
+
+          this.monthly_policy_premium_expense = resp.plan.at(-1).expenses.monthly_policy_premium_expense
+
+        }
+      }
+    });
+  }
+
+  ourVsRegularPaymentsGraph(resp: any) {
+    this.ourVsRegularPayments = {
       chart: {
         type: 'area',
         height: 350,
-        toolbar: { show: false }
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        }
       },
       series: [
         {
           name: 'Regular Schedule Balance',
-          data: [400000, 380000, 360000, 340000, 320000, 300000, 280000, 260000, 240000, 220000, 200000, 180000, 160000, 140000, 120000, 100000, 80000, 60000, 40000, 20000, 0, 0, 0]
+          data: resp.report.ourVsRegularPayments.graphBalances
         },
         {
           name: 'Infineo Schedule Balance',
-          data: [400000, 300000, 200000, 100000, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+          data: resp.report.ourVsRegularPayments.graphMortgage
         }
       ],
       colors: ['#6666cc', '#0000ff'],
       stroke: {
-        curve: 'smooth',
+        curve: 'straight',
         width: [4, 4]
       },
       fill: {
@@ -78,11 +134,12 @@ export class FinalReportComponent {
         enabled: false
       },
       xaxis: {
-        categories: Array.from({ length: 23 }, (_, i) => i + 1)
+        categories: Array.from({ length: resp.report.ourVsRegularPayments.graphBalances.length }, (_, i) => `${i + 1}`),
+        title: { text: "Year" },
       },
       yaxis: {
         labels: {
-          formatter: (val: { toLocaleString: () => any; }) => `$${val.toLocaleString()}`
+          formatter: (val: number) => `$${val.toLocaleString()}`
         }
       },
       legend: {
@@ -90,90 +147,194 @@ export class FinalReportComponent {
         horizontalAlign: 'left'
       }
     };
+  }
 
-    this.compareChart = {
+  mortgageHelocCashLoanGraph(resp: any) {
+    this.mortgageHelocCashLoanResp = resp.report.mortgageHelocCashLoan;
+
+    const series: any[] = [];
+    const colors: string[] = [];
+
+    // debugger
+    // ✅ Add "Mortgage" only if case_type_id != '3'
+    if (this.case_type_id != '3') {
+      series.push({
+        name: "Mortgage",
+        data: this.mortgageHelocCashLoanResp.startingMortgageBalance.slice(1)
+      });
+      colors.push("#222222");
+    }
+
+    // ✅ Add "Heloc" only if case_type_id == '2'
+    if (this.case_type_id == '2') {
+      series.push({
+        name: "Heloc",
+        data: this.mortgageHelocCashLoanResp.startingHelocBalance.slice(1)
+      });
+      colors.push("#0044ff");
+    }
+
+    // ✅ Always add "Policy Loan"
+    series.push({
+      name: "Policy Loan",
+      data: this.mortgageHelocCashLoanResp.startingPolicyLoanBalance.slice(1)
+    });
+    colors.push("#ff8800");
+
+    // ✅ Always add "Cash Value (gross)"
+    series.push({
+      name: "Cash Value (gross)",
+      data: this.mortgageHelocCashLoanResp.endingPolicyCashValue.slice(1)
+    });
+    colors.push("#33cc99");
+
+    this.mortgageHelocCashLoan = {
       chart: {
         type: "bar",
         height: 400,
-        toolbar: { show: false }
-      },
-      series: [
-        {
-          name: "Mortgage",
-          data: [400000, 370000, 320000, 210000, 70000, 0, 0, 0, 0, 0]
+        toolbar: {
+          show: true,
+          tools: {
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
         },
-        {
-          name: "Heloc",
-          data: [0, 30000, 60000, 120000, 270000, 300000, 250000, 190000, 0, 0]
-        },
-        {
-          name: "Policy Loan",
-          data: [0, 15000, 5000, 0, 0, 0, 0, 0, 110000, 25000]
-        },
-        {
-          name: "Cash Value (gross)",
-          data: [20000, 60000, 110000, 180000, 200000, 250000, 290000, 340000, 400000, 460000]
+        zoom: {
+          enabled: true,
+          type: "x",
+          autoScaleYaxis: true
         }
-      ],
-      colors: ["#222222", "#0044ff", "#ff8800", "#33cc99"],
+      },
+      series,
+      colors,
       xaxis: {
-        categories: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
-        title: { text: "Year" }
+        categories: this.mortgageHelocCashLoanResp.startingMortgageBalance.slice(1).map((_: any, i: any) => (i + 1).toString()),
+        title: { text: "Year" },
+        tickAmount: 10,
+        labels: { rotate: -45 }
       },
       yaxis: {
-        labels: {
-          formatter: (val: { toLocaleString: () => any; }) => `$${val.toLocaleString()}`
-        }
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "50%",
-          endingShape: "rounded"
-        }
+        labels: { formatter: (val: number) => `$${val.toLocaleString()}` }
       },
       legend: {
         position: "top",
         horizontalAlign: "left"
       },
-      dataLabels: {
-        enabled: false
-      }
+      dataLabels: { enabled: false },
+      stroke: { curve: "smooth", width: 2 }
     };
 
-    
-    this.growthChart = {
+
+
+    // this.mortgageHelocCashLoan = {
+    //   chart: {
+    //     type: "bar",
+    //     height: 400,
+    //     toolbar: {
+    //       show: true,
+    //       tools: {
+    //         zoom: true,
+    //         zoomin: true,
+    //         zoomout: true,
+    //         pan: true,
+    //         reset: true
+    //       }
+    //     },
+    //     zoom: {
+    //       enabled: true,
+    //       type: "x",
+    //       autoScaleYaxis: true
+    //     }
+    //   },
+    //   series: [
+    //     { name: "Mortgage", data: this.mortgageHelocCashLoanResp.startingMortgageBalance.slice(1) },
+    //     { name: "Heloc", data: this.mortgageHelocCashLoanResp.startingHelocBalance.slice(1) },
+    //     { name: "Policy Loan", data: this.mortgageHelocCashLoanResp.startingPolicyLoanBalance.slice(1) },
+    //     { name: "Cash Value (gross)", data: this.mortgageHelocCashLoanResp.endingPolicyCashValue.slice(1) }
+    //   ],
+    //   colors: ["#222222", "#0044ff", "#ff8800", "#33cc99"],
+    //   xaxis: {
+    //     categories: this.mortgageHelocCashLoanResp.startingMortgageBalance.slice(1).map((_: any, i: any) => (i + 1).toString()),
+    //     title: { text: "Year" },
+    //     tickAmount: 10, // chart will show 10 ticks evenly spaced
+    //     labels: {
+    //       rotate: -45,
+    //     }
+    //   },
+    //   yaxis: {
+    //     labels: { formatter: (val: number) => `$${val.toLocaleString()}` }
+    //   },
+    //   legend: {
+    //     position: "top",
+    //     horizontalAlign: "left"
+    //   },
+    //   dataLabels: { enabled: false },
+    //   stroke: { curve: "smooth", width: 2 } // makes lines smooth
+    // };
+  }
+
+  netWorthChartGraph(resp: any) {
+    this.networthOvertime = resp.report.networthOvertime;
+
+    this.netWorthChart = {
       chart: {
         type: "area",
         height: 400,
-        toolbar: { show: false }
+        toolbar: {
+          show: true,
+          tools: {
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        },
+        zoom: {
+          enabled: true,
+          type: "x",
+          autoScaleYaxis: true
+        }
       },
       series: [
         {
-          name: "Total Cash Value",
-          data: [0, 50000, 120000, 300000, 600000, 1200000, 2500000, 4000000, 6000000, 8500000]
+          name: "Assets",
+          data: this.networthOvertime.assets.slice(1)
         },
         {
-          name: "Total Premiums Paid",
-          data: [0, 40000, 80000, 120000, 160000, 200000, 240000, 280000, 320000, 360000]
+          name: "Net Worth",
+          data: this.networthOvertime.worth.slice(1)
+        },
+        {
+          name: "Liabilities",
+          data: this.networthOvertime.liabilities.slice(1)
         }
       ],
-      colors: ["#0000ff", "#000000"],
+      colors: ["#ff7f0e", "#1f77b4", "#000000"],
       fill: {
         type: "solid",
-        opacity: [0.3, 0.3]
+        opacity: [0.3, 0, 0.3]
       },
       stroke: {
-        curve: "smooth",
-        width: [4, 3]
+        curve: "straight",
+        width: [2, 4, 2]
       },
       xaxis: {
-        categories: ["0", "5", "10", "15", "20", "25", "30", "40", "50", "55"],
-        title: { text: "Year" }
+        categories: this.networthOvertime.years.slice(1),
+        title: { text: "Year" },
+        tickAmount: 10,
+        labels: {
+          rotate: -45,
+        }
       },
       yaxis: {
         labels: {
-          formatter: (val: { toLocaleString: () => any; }) => `$${val.toLocaleString()}`
+          formatter: (val: number) => {
+            return `$${val.toLocaleString()}`;
+          }
         }
       },
       legend: {
@@ -185,106 +346,87 @@ export class FinalReportComponent {
       },
       tooltip: {
         y: {
-          formatter: (val: { toLocaleString: () => any; }) => `$${val.toLocaleString()}`
+          formatter: (val: number) => {
+            return `$${val.toLocaleString()}`;
+          }
         }
       }
     };
   }
 
-  ngOnInit(): void {
-    this.client_case_id = sessionStorage.getItem('client_case_id') ? sessionStorage.getItem('client_case_id') : this.route.snapshot.queryParamMap.get('id');;
-    this.getPeoplesDetails();
-    this.getClientCase();
-    this.graphCalc();
-  }
+  cash_deposited_maturity: any;
+  cash_value_maturity: any;
 
-  graphCalc() {
-    const formURlData = new URLSearchParams();
-    formURlData.append('case_id', this.client_case_id);
+  totalDespositsVsTotalCashGraph(resp: any) {
 
-    this.sharedService.postAPI(`create-plan`, formURlData).subscribe({
-      next: (resp: any) => {
-        if (resp.success) {
-          this.networthOvertime = resp.report.networthOvertime;
+    this.cash_value_maturity = resp.report.totalDespositsVsTotalCash.cash.at(-1);
+    this.cash_deposited_maturity = resp.report.totalDespositsVsTotalCash.deposits.at(-1);
 
-          this.netWorthChart = {
-            chart: {
-              type: "area",
-              height: 400,
-              toolbar: {
-                show: true,                // show toolbar with zoom buttons
-                tools: {
-                  zoom: true,              // enable zoom
-                  zoomin: true,            // enable zoom in button
-                  zoomout: true,           // enable zoom out button
-                  pan: true,               // enable pan
-                  reset: true              // enable reset zoom button
-                }
-              },
-              zoom: {
-                enabled: true,
-                type: "x",                 // zoom along x-axis
-                autoScaleYaxis: true       // adjust y-axis automatically
-              }
-            },
-            series: [
-              {
-                name: "Assets",
-                data: this.networthOvertime.assets
-              },
-              {
-                name: "Net Worth",
-                data: this.networthOvertime.worth
-              },
-              {
-                name: "Liabilities",
-                data: this.networthOvertime.liabilities
-              }
-            ],
-            colors: ["#ff7f0e", "#1f77b4", "#000000"],
-            fill: {
-              type: "solid",
-              opacity: [0.3, 0, 0.3]
-            },
-            stroke: {
-              curve: "smooth",
-              width: [2, 4, 2]
-            },
-            xaxis: {
-              categories: this.networthOvertime.years,
-              title: { text: "Year" },
-              tickAmount: 10,   // shows ~10 evenly spaced ticks
-              labels: {
-                rotate: -45,    // optional: tilt labels for readability
-              }
-            },
-            yaxis: {
-              labels: {
-                formatter: (val: number) => {
-                  return `$${val.toLocaleString()}`;
-                }
-              }
-            },
-            legend: {
-              position: "top",
-              horizontalAlign: "left"
-            },
-            dataLabels: {
-              enabled: false
-            },
-            tooltip: {
-              y: {
-                formatter: (val: number) => {
-                  return `$${val.toLocaleString()}`;
-                }
-              }
-            }
-          };
 
+    this.totalDespositsVsTotalCash = {
+      chart: {
+        type: "area",
+        height: 400,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            zoom: true,
+            zoomin: true,
+            zoomout: true,
+            pan: true,
+            reset: true
+          }
+        }
+      },
+      series: [
+        {
+          name: "Total Cash Value",
+          data: resp.report.totalDespositsVsTotalCash.cash
+        },
+        {
+          name: "Total Premiums Paid",
+          data: resp.report.totalDespositsVsTotalCash.deposits
+        }
+      ],
+      colors: ["#0000ff", "#000000"],
+      fill: {
+        type: "solid",
+        opacity: [0.3, 0.3]
+      },
+      stroke: {
+        curve: "straight",
+        width: [4, 3]
+      },
+      xaxis: {
+        categories: resp.report.totalDespositsVsTotalCash.years,
+        title: { text: "Year" },
+        tickAmount: 10,
+        labels: {
+          rotate: -45,
+        }
+      },
+      yaxis: {
+        labels: {
+          formatter: (val: number) => `$${val.toLocaleString()}`
+        }
+      },
+      legend: {
+        position: "top",
+        horizontalAlign: "left"
+      },
+      dataLabels: {
+        enabled: false
+      },
+      tooltip: {
+        y: {
+          formatter: (val: number) => `$${val.toLocaleString()}`
         }
       }
-    });
+    };
   }
+
+
 
 
   getClientCase() {
@@ -324,86 +466,93 @@ export class FinalReportComponent {
     });
   }
 
+  loan_tenure: any;
+
   getPropertyDetails() {
     const formURlData = new URLSearchParams();
     formURlData.append('case_id', this.client_case_id);
     this.sharedService.postAPI(`get-client-properties`, formURlData).subscribe({
       next: (resp: any) => {
         if (resp.success) {
+
           this.apiPropertyData = resp.data.reverse();
-          this.getCreditDetails();
+          this.loan_tenure = resp.data[0].loan_tenure;
+
+          const tenureInYears = (this.loan_tenure / 12).toFixed(0); // 1 decimal place (optional)
+          this.loan_tenure = `${tenureInYears}`;
+          // this.getCreditDetails();
         } else {
-          this.getCreditDetails();
+          // this.getCreditDetails();
           this.apiPropertyData = [];
         }
       },
       error: error => {
-        this.getCreditDetails();
+        // this.getCreditDetails();
         this.apiPropertyData = [0];
         console.log(error.message);
       }
     });
   }
 
-  getCreditDetails() {
-    const formURlData = new URLSearchParams();
-    formURlData.append('case_id', this.client_case_id);
+  // getCreditDetails() {
+  //   const formURlData = new URLSearchParams();
+  //   formURlData.append('case_id', this.client_case_id);
 
-    this.sharedService.postAPI(`get-client-credits`, formURlData).subscribe({
-      next: (resp: any) => {
-        if (resp.success) {
-          this.apiCreditData = resp.data.reverse();
-          this.getLoanDetails();
-        } else {
-          this.apiCreditData = [];
-        }
-      },
-      error: error => {
-        this.apiCreditData = [0];
-        console.log(error.message);
-      }
-    });
-  }
+  //   this.sharedService.postAPI(`get-client-credits`, formURlData).subscribe({
+  //     next: (resp: any) => {
+  //       if (resp.success) {
+  //         this.apiCreditData = resp.data.reverse();
+  //         this.getLoanDetails();
+  //       } else {
+  //         this.apiCreditData = [];
+  //       }
+  //     },
+  //     error: error => {
+  //       this.apiCreditData = [0];
+  //       console.log(error.message);
+  //     }
+  //   });
+  // }
 
-  getLoanDetails() {
-    const formURlData = new URLSearchParams();
-    formURlData.append('case_id', this.client_case_id);
+  // getLoanDetails() {
+  //   const formURlData = new URLSearchParams();
+  //   formURlData.append('case_id', this.client_case_id);
 
-    this.sharedService.postAPI(`get-client-loans`, formURlData).subscribe({
-      next: (resp: any) => {
-        if (resp.success) {
-          this.apiLoanData = resp.data.reverse();
-          this.getInvestmentDetails();
-        } else {
-          this.apiLoanData = [];
-        }
-      },
-      error: error => {
-        this.apiLoanData = [0];
-        console.log(error.message);
-      }
-    });
-  }
+  //   this.sharedService.postAPI(`get-client-loans`, formURlData).subscribe({
+  //     next: (resp: any) => {
+  //       if (resp.success) {
+  //         this.apiLoanData = resp.data.reverse();
+  //         this.getInvestmentDetails();
+  //       } else {
+  //         this.apiLoanData = [];
+  //       }
+  //     },
+  //     error: error => {
+  //       this.apiLoanData = [0];
+  //       console.log(error.message);
+  //     }
+  //   });
+  // }
 
-  getInvestmentDetails() {
-    const formURlData = new URLSearchParams();
-    formURlData.append('case_id', this.client_case_id);
+  // getInvestmentDetails() {
+  //   const formURlData = new URLSearchParams();
+  //   formURlData.append('case_id', this.client_case_id);
 
-    this.sharedService.postAPI(`get-client-investments`, formURlData).subscribe({
-      next: (resp: any) => {
-        if (resp.success) {
-          this.apiinvestmentsData = resp.data.reverse();
-          this.getTotals(this.client_case_id);
-        } else {
-          this.apiinvestmentsData = [];
-        }
-      },
-      error: error => {
-        this.apiinvestmentsData = [0];
-        console.log(error.message);
-      }
-    });
-  }
+  //   this.sharedService.postAPI(`get-client-investments`, formURlData).subscribe({
+  //     next: (resp: any) => {
+  //       if (resp.success) {
+  //         this.apiinvestmentsData = resp.data.reverse();
+  //         //this.getTotals(this.client_case_id);
+  //       } else {
+  //         this.apiinvestmentsData = [];
+  //       }
+  //     },
+  //     error: error => {
+  //       this.apiinvestmentsData = [0];
+  //       console.log(error.message);
+  //     }
+  //   });
+  // }
 
 
   getTotals(id: any) {
@@ -428,7 +577,8 @@ export class FinalReportComponent {
     this.sharedService.postData(`get-client-final-totals`, payload).subscribe({
       next: (resp: any) => {
         this.finalotalCalculations = resp.data;
-        this.getMonthlyExp();
+        //this.getMonthlyExp();
+        this.submit();
       },
       error: error => {
         console.log(error.message);
@@ -557,70 +707,70 @@ export class FinalReportComponent {
     });
   }
 
-  downloadPDF(): void {
-    const element = document.getElementById('pdfContent');
-    if (!element) {
-      console.error('Element not found!');
-      return;
-    }
+  // downloadPDF(): void {
+  //   const element = document.getElementById('pdfContent');
+  //   if (!element) {
+  //     console.error('Element not found!');
+  //     return;
+  //   }
 
-    this.loading = true; // Start loader
+  //   this.loading = true; // Start loader
 
-    html2canvas(element, { scale: 2 }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
+  //   html2canvas(element, { scale: 2 }).then((canvas) => {
+  //     const imgData = canvas.toDataURL('image/png');
+  //     const pdf = new jsPDF('p', 'mm', 'a4');
 
-      const imgWidth = 190;
-      const pageHeight = 297;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+  //     const imgWidth = 190;
+  //     const pageHeight = 297;
+  //     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
-      let yPosition = 10;
-      let pageCanvasHeight = pageHeight - 20;
-      let remainingHeight = imgHeight;
-      let startY = 0;
-      let page = 0;
+  //     let yPosition = 10;
+  //     let pageCanvasHeight = pageHeight - 20;
+  //     let remainingHeight = imgHeight;
+  //     let startY = 0;
+  //     let page = 0;
 
-      while (remainingHeight > 0) {
-        let cropHeight = Math.min(remainingHeight, pageCanvasHeight);
+  //     while (remainingHeight > 0) {
+  //       let cropHeight = Math.min(remainingHeight, pageCanvasHeight);
 
-        const pageCanvas = document.createElement('canvas');
-        pageCanvas.width = canvas.width;
-        pageCanvas.height = (cropHeight * canvas.width) / imgWidth;
+  //       const pageCanvas = document.createElement('canvas');
+  //       pageCanvas.width = canvas.width;
+  //       pageCanvas.height = (cropHeight * canvas.width) / imgWidth;
 
-        const pageCtx = pageCanvas.getContext('2d');
-        if (pageCtx) {
-          pageCtx.drawImage(
-            canvas,
-            0,
-            startY,
-            canvas.width,
-            pageCanvas.height,
-            0,
-            0,
-            pageCanvas.width,
-            pageCanvas.height
-          );
+  //       const pageCtx = pageCanvas.getContext('2d');
+  //       if (pageCtx) {
+  //         pageCtx.drawImage(
+  //           canvas,
+  //           0,
+  //           startY,
+  //           canvas.width,
+  //           pageCanvas.height,
+  //           0,
+  //           0,
+  //           pageCanvas.width,
+  //           pageCanvas.height
+  //         );
 
-          const pageImgData = pageCanvas.toDataURL('image/png');
+  //         const pageImgData = pageCanvas.toDataURL('image/png');
 
-          if (page > 0) pdf.addPage();
-          pdf.addImage(pageImgData, 'PNG', 10, yPosition, imgWidth, cropHeight);
+  //         if (page > 0) pdf.addPage();
+  //         pdf.addImage(pageImgData, 'PNG', 10, yPosition, imgWidth, cropHeight);
 
-          startY += pageCanvas.height;
-          remainingHeight -= cropHeight;
-          page++;
-        }
-      }
+  //         startY += pageCanvas.height;
+  //         remainingHeight -= cropHeight;
+  //         page++;
+  //       }
+  //     }
 
-      pdf.save('case-report.pdf');
-    })
-      .catch(error => {
-        console.error('Error generating PDF:', error);
-      })
-      .finally(() => {
-        this.loading = false; // Stop loader no matter what
-      });
-  }
+  //     pdf.save('case-report.pdf');
+  //   })
+  //     .catch(error => {
+  //       console.error('Error generating PDF:', error);
+  //     })
+  //     .finally(() => {
+  //       this.loading = false; // Stop loader no matter what
+  //     });
+  // }
 
 
 
@@ -740,6 +890,43 @@ export class FinalReportComponent {
 
     pdf.save('document.pdf');
     this.loading = false;
+  }
+
+  downloadCalculationCSV(plan: any[]) {
+    // Extract headers dynamically
+    const headers = [
+      'year',
+      ...Object.keys(plan[0].calculations)
+    ];
+
+    // Build CSV rows
+    const rows = plan.map(item => {
+      const calc = item.calculations;
+      return [
+        item.year,
+        ...headers.slice(1).map(h => {
+          const val = calc[h];
+          return Array.isArray(val) || typeof val === 'object'
+            ? JSON.stringify(val) // keep arrays/objects readable
+            : val;
+        })
+      ];
+    });
+
+    // Combine headers + rows
+    const csvContent =
+      [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+
+    // Create a Blob and trigger download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'plan.csv';
+    a.click();
+
+    window.URL.revokeObjectURL(url);
   }
 
 
