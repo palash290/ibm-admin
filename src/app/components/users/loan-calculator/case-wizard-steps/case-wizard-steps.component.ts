@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, effect } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { SharedService } from '../../../../services/shared.service';
 import { AuthService } from '../../../../services/auth.service';
 

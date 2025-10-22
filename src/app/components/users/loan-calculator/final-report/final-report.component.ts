@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { ChartComponent, NgApexchartsModule } from 'ng-apexcharts';
@@ -10,7 +10,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 @Component({
   selector: 'app-final-report',
   standalone: true,
-  imports: [RouterLink, NgApexchartsModule, CommonModule, NgxPaginationModule],
+  imports: [NgApexchartsModule, CommonModule, NgxPaginationModule],
   templateUrl: './final-report.component.html',
   styleUrl: './final-report.component.css'
 })
@@ -44,6 +44,9 @@ export class FinalReportComponent {
   networthOvertime: any;
   mortgageHelocCashLoanResp: any;
 
+  cash_deposited_maturity: any;
+  cash_value_maturity: any;
+
   constructor(private sharedService: SharedService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -56,7 +59,7 @@ export class FinalReportComponent {
 
   latestPlanCalculation: any[] = [];
   report_data: any;
-
+  step_data: any;
   finalVals: any;
   monthly_policy_premium_expense: any;
 
@@ -70,6 +73,8 @@ export class FinalReportComponent {
 
           this.latestPlanCalculation = resp.plan;
 
+          this.step_data = resp.step_data;
+
           this.report_data = resp.report_data;
 
           this.ourVsRegularPaymentsGraph(resp);
@@ -80,7 +85,8 @@ export class FinalReportComponent {
 
           this.totalDespositsVsTotalCashGraph(resp);
 
-          this.finalVals = resp.plan.at(-1).totals
+          // this.finalVals = resp.plan.at(-1).totals
+          this.finalVals = resp.plan[0].totals;
 
           this.monthly_policy_premium_expense = resp.plan.at(-1).expenses.monthly_policy_premium_expense
 
@@ -160,7 +166,7 @@ export class FinalReportComponent {
     if (this.case_type_id != '3') {
       series.push({
         name: "Mortgage",
-        data: this.mortgageHelocCashLoanResp.startingMortgageBalance.slice(1)
+        data: this.mortgageHelocCashLoanResp.startingMortgageBalance
       });
       colors.push("#222222");
     }
@@ -169,7 +175,7 @@ export class FinalReportComponent {
     if (this.case_type_id == '2') {
       series.push({
         name: "Heloc",
-        data: this.mortgageHelocCashLoanResp.startingHelocBalance.slice(1)
+        data: this.mortgageHelocCashLoanResp.startingHelocBalance
       });
       colors.push("#0044ff");
     }
@@ -177,14 +183,14 @@ export class FinalReportComponent {
     // ✅ Always add "Policy Loan"
     series.push({
       name: "Policy Loan",
-      data: this.mortgageHelocCashLoanResp.startingPolicyLoanBalance.slice(1)
+      data: this.mortgageHelocCashLoanResp.startingPolicyLoanBalance
     });
     colors.push("#ff8800");
 
     // ✅ Always add "Cash Value (gross)"
     series.push({
       name: "Cash Value (gross)",
-      data: this.mortgageHelocCashLoanResp.endingPolicyCashValue.slice(1)
+      data: this.mortgageHelocCashLoanResp.endingPolicyCashValue
     });
     colors.push("#33cc99");
 
@@ -211,7 +217,7 @@ export class FinalReportComponent {
       series,
       colors,
       xaxis: {
-        categories: this.mortgageHelocCashLoanResp.startingMortgageBalance.slice(1).map((_: any, i: any) => (i + 1).toString()),
+        categories: this.mortgageHelocCashLoanResp.startingMortgageBalance.map((_: any, i: any) => (i + 1).toString()),
         title: { text: "Year" },
         tickAmount: 10,
         labels: { rotate: -45 }
@@ -302,15 +308,15 @@ export class FinalReportComponent {
       series: [
         {
           name: "Assets",
-          data: this.networthOvertime.assets.slice(1)
+          data: this.networthOvertime.assets
         },
         {
           name: "Net Worth",
-          data: this.networthOvertime.worth.slice(1)
+          data: this.networthOvertime.worth
         },
         {
           name: "Liabilities",
-          data: this.networthOvertime.liabilities.slice(1)
+          data: this.networthOvertime.liabilities
         }
       ],
       colors: ["#ff7f0e", "#1f77b4", "#000000"],
@@ -323,7 +329,7 @@ export class FinalReportComponent {
         width: [2, 4, 2]
       },
       xaxis: {
-        categories: this.networthOvertime.years.slice(1),
+        categories: this.networthOvertime.years,
         title: { text: "Year" },
         tickAmount: 10,
         labels: {
@@ -353,9 +359,6 @@ export class FinalReportComponent {
       }
     };
   }
-
-  cash_deposited_maturity: any;
-  cash_value_maturity: any;
 
   totalDespositsVsTotalCashGraph(resp: any) {
 
@@ -467,6 +470,8 @@ export class FinalReportComponent {
   }
 
   loan_tenure: any;
+  years: number[] = [];
+  months: number[] = [];
 
   getPropertyDetails() {
     const formURlData = new URLSearchParams();
@@ -481,6 +486,7 @@ export class FinalReportComponent {
           const tenureInYears = (this.loan_tenure / 12).toFixed(0); // 1 decimal place (optional)
           this.loan_tenure = `${tenureInYears}`;
           // this.getCreditDetails();
+          this.generateTable();
         } else {
           // this.getCreditDetails();
           this.apiPropertyData = [];
@@ -493,6 +499,11 @@ export class FinalReportComponent {
       }
     });
   }
+
+generateTable() {
+  this.years = Array.from({ length: this.loan_tenure }, (_, i) => i + 1); // [1..25]
+  this.months = Array.from({ length: 12 }, (_, i) => i + 1);              // [1..12]
+}
 
   // getCreditDetails() {
   //   const formURlData = new URLSearchParams();
@@ -863,10 +874,29 @@ export class FinalReportComponent {
     URL.revokeObjectURL(url);
   }
 
+  // async downloadPDF1(): Promise<void> {
+  //   this.loading = true;
+  //   const element = document.getElementById('pdfContent');
+  //   if (!element) {
+  //     this.loading = false;
+  //     return;
+  //   }
+  //   const pdf = new jsPDF('p', 'mm', 'a4');
+  //   const pages = element.querySelectorAll('.page');
+  //   for (let i = 0; i < pages.length; i++) {
+  //     const page = pages[i] as HTMLElement;
+  //     const canvas = await html2canvas(page, { scale: 2, useCORS: true });
+  //     const imgData = canvas.toDataURL('image/png');
+  //     const imgProps = pdf.getImageProperties(imgData);
+  //     const pdfWidth = pdf.internal.pageSize.getWidth();
+  //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; if (i > 0) pdf.addPage();
+  //     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+  //   }
+  //   pdf.save('document.pdf'); this.loading = false;
+  // }
 
   async downloadPDF1(): Promise<void> {
     this.loading = true;
-
     const element = document.getElementById('pdfContent');
     if (!element) {
       this.loading = false;
@@ -878,6 +908,14 @@ export class FinalReportComponent {
 
     for (let i = 0; i < pages.length; i++) {
       const page = pages[i] as HTMLElement;
+
+      // ✅ Skip if page is empty or invisible
+      const textContent = page.innerText.trim();
+      const isVisible = page.offsetParent !== null;
+      if (!textContent || !isVisible) {
+        continue; // skip this page
+      }
+
       const canvas = await html2canvas(page, { scale: 2, useCORS: true });
       const imgData = canvas.toDataURL('image/png');
       const imgProps = pdf.getImageProperties(imgData);
@@ -891,6 +929,8 @@ export class FinalReportComponent {
     pdf.save('document.pdf');
     this.loading = false;
   }
+
+
 
   downloadCalculationCSV(plan: any[]) {
     // Extract headers dynamically

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SharedService } from '../../../../services/shared.service';
 import { AuthService } from '../../../../services/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';

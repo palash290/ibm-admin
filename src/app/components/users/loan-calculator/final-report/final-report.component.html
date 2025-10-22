@@ -211,13 +211,13 @@
 
                 </div>
                 }
-
             </div>
 
             <div class="page">
                 <!-- ct_outline_border ct_mt_30 -->
                 <div class="ct_mt_30">
                     <div class="mt-4">
+
                         @if(case_type_id == '2'){
                         <p>
                             The HELOC will be paid out in {{report_data?.helocYearByOurPlan}} years, meaning you have a
@@ -238,7 +238,6 @@
                             years earlier.”</p>
                         }
                         }
-
 
                         @if(case_type_id != '4' && case_type_id != '3'){
                         <div class="d-flex gap-2 mt-3">
@@ -262,7 +261,8 @@
                             <p class="mb-0 ct_fs_20 ct_fw_600">
                                 Cash value accumulated during the same period
                             </p>
-                            <p class="mb-0 ct_fw_700">$ 349,031</p>
+                            <p class="mb-0 ct_fw_700">$ {{report_data?.cashValueAccumulatedDuringThePeriod |
+                                number:'1.2-2'}}</p>
                         </div>
                         <div class="text-center mt-3">
                             <!-- <h5 class="ct_fs_20 ct_fw_700">
@@ -299,7 +299,8 @@
                             <p class="mb-2">
                                 By year {{report_data?.onlyHelocYearByOurPlan}}, your annual budget surplus increases to
                                 over
-                                <span class="ct_fw_700 ct_blue_text">${{report_data?.onlyHelocAmountByOurPlan}}</span> ,
+                                <span class="ct_fw_700 ct_blue_text">${{report_data?.onlyHelocAmountByOurPlan |
+                                    number:'1.2-2'}}</span> ,
                                 as
                                 your debts and associated payments are eliminated. That
                                 money, less your annual policy premium(s) is used to pay
@@ -313,8 +314,10 @@
                                 loans), your net worth will have increased from
                             </p>
                             <h6>
-                                <span class="ct_blue_text ct_fw_700">${{report_data?.firstMoneyCalculation}}</span> to
-                                <span class="ct_blue_text ct_fw_700">${{report_data?.secondMoneyCalculation}}</span>
+                                <span class="ct_blue_text ct_fw_700">${{report_data?.firstMoneyCalculation |
+                                    number:'1.2-2'}}</span> to
+                                <span class="ct_blue_text ct_fw_700">${{report_data?.secondMoneyCalculation |
+                                    number:'1.2-2'}}</span>
                             </h6>
                         </div>
                         }
@@ -323,7 +326,8 @@
                         <div class="d-flex gap-2 mt-3">
                             <div class="col-md-6 mb-4 mb-md-0">
                                 <div class="ct_grey_bg">
-                                    <h5 class="ct_fw_600 ct_fs_20">${{report_data?.firstMoneyCalculation}}</h5>
+                                    <h5 class="ct_fw_600 ct_fs_20">${{report_data?.firstMoneyCalculation |
+                                        number:'1.2-2'}}</h5>
                                     <p class="ct_text_op_6 mb-0">
                                         Net worth at start of the plan
                                     </p>
@@ -331,7 +335,8 @@
                             </div>
                             <div class="col-md-6 mb-4 mb-md-0">
                                 <div class="ct_grey_bg">
-                                    <h5 class="ct_fw_600 ct_fs_20">${{report_data?.secondMoneyCalculation}}</h5>
+                                    <h5 class="ct_fw_600 ct_fs_20">${{report_data?.secondMoneyCalculation |
+                                        number:'1.2-2'}}</h5>
                                     <p class="ct_text_op_6 mb-0">
                                         Net worth at end of the plan
                                     </p>
@@ -351,7 +356,7 @@
                     <p class="mb-0 ct_fs_20 ct_fw_600">Net worth increased
                     </p>
                     <p class="mb-0 ct_fw_700">${{report_data?.secondMoneyCalculation -
-                        report_data?.firstMoneyCalculation}}</p>
+                        report_data?.firstMoneyCalculation | number:'1.2-2'}}</p>
                 </div>
                 <div class="text-center mt-3">
                     <h5 class="ct_fs_20 ct_fw_700">
@@ -387,10 +392,10 @@
                         legacy.
                     </p>
                 </div>
-                <div class="row mt-3">
+                <!-- <div class="row mt-3">
                     <div class="col-md-6 mb-4 mb-md-0">
                         <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{cash_deposited_maturity}}</h5>
+                            <h5 class="ct_fw_600 ct_fs_20">${{cash_deposited_maturity | number:'1.2-2'}}</h5>
                             <p class="ct_text_op_6 mb-0">
                                 Total cash deposited ( at maturity )
                             </p>
@@ -398,18 +403,38 @@
                     </div>
                     <div class="col-md-6 mb-4 mb-md-0">
                         <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{cash_value_maturity}}</h5>
+                            <h5 class="ct_fw_600 ct_fs_20">${{cash_value_maturity | number:'1.2-2'}}</h5>
+                            <p class="ct_text_op_6 mb-0">
+                                Total cash value ( at maturity )
+                            </p>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="d-flex gap-2 mt-3">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="ct_grey_bg">
+                            <h5 class="ct_fw_600 ct_fs_20">${{cash_deposited_maturity | number:'1.2-2'}}</h5>
+                            <p class="ct_text_op_6 mb-0">
+                                Total cash deposited ( at maturity )
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="ct_grey_bg">
+                            <h5 class="ct_fw_600 ct_fs_20">${{cash_value_maturity | number:'1.2-2'}}</h5>
                             <p class="ct_text_op_6 mb-0">
                                 Total cash value ( at maturity )
                             </p>
                         </div>
                     </div>
                 </div>
+
                 <div
                     class="d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4 ct_light_blue_head_bg">
                     <p class="mb-0 ct_fs_20 ct_fw_600">Projected growth
                     </p>
-                    <p class="mb-0 ct_fw_700">$ {{cash_value_maturity - cash_deposited_maturity}}</p>
+                    <p class="mb-0 ct_fw_700">$ {{cash_value_maturity - cash_deposited_maturity | number:'1.2-2'}}</p>
                 </div>
                 <div class="text-center mt-3">
                     <h5 class="ct_fs_20 ct_fw_700">
@@ -437,8 +462,7 @@
                     <div class="row mt-3">
                         <div class="col-md-4 mb-4 mb-md-0">
                             <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">${{ totalCalculations?.total_income ?
-                                    totalCalculations?.total_income : '-' }}
+                                <h5 class="ct_fw_600 ct_fs_20">${{ totalCalculations?.total_income | number:'1.2-2'}}
                                 </h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Total income
@@ -457,7 +481,7 @@
                         <div class="col-md-4 mb-4 mb-md-0">
                             <div class="ct_grey_bg">
                                 <h5 class="ct_fw_600 ct_fs_20">${{
-                                    finalotalCalculations?.final_monthly_surplus_budget | number:'1.2-2' }}
+                                    finalVals?.calculated_monthly_final_surplus_budget | number:'1.2-2' }}
                                 </h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Total monthly surplus budget
@@ -466,11 +490,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="row mt-3">
+                <!-- <div class="row mt-3">
                     <div class="col-md-6 mt-4 ">
                         <div class="ct_grey_bg">
                             <h5 class="ct_fw_600 ct_fs_20">${{
-                                finalotalCalculations?.final_monthly_surplus_budget*12 | number:'1.2-2' }}
+                                finalVals?.calculated_monthly_final_surplus_budget*12 | number:'1.2-2' }}
                             </h5>
                             <p class="ct_text_op_6 mb-0">
                                 Annual surplus budget
@@ -486,14 +510,37 @@
                             </p>
                         </div>
                     </div>
+                </div> -->
+
+                <div class="d-flex gap-2 mt-3">
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="ct_grey_bg">
+                            <h5 class="ct_fw_600 ct_fs_20">${{
+                                finalVals?.calculated_monthly_final_surplus_budget*12 | number:'1.2-2' }}
+                            </h5>
+                            <p class="ct_text_op_6 mb-0">
+                                Annual surplus budget
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4 mb-md-0">
+                        <div class="ct_grey_bg">
+                            <h5 class="ct_fw_600 ct_fs_20">${{finalotalCalculations?.heloc_room | number:'1.2-2'}}
+                            </h5>
+                            <p class="ct_text_op_6 mb-0">
+                                Principal payment for year 1
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
                 <div class="mt-3">
                     <p class="text-center">Total surplus budget</p>
-                    <div class="row mt-3">
+                    <!-- <div class="row mt-3">
                         <div class="col-md-6 mb-4 mb-md-0">
                             <div class="ct_grey_bg">
                                 <h5 class="ct_fw_600 ct_fs_20">${{
-                                    finalotalCalculations?.final_monthly_surplus_budget | number:'1.2-2' }}
+                                    finalVals?.calculated_annual_budget_available | number:'1.2-2' }}
                                 </h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Monthly
@@ -503,7 +550,28 @@
                         <div class="col-md-6 mb-4 mb-md-0">
                             <div class="ct_grey_bg">
                                 <h5 class="ct_fw_600 ct_fs_20">${{
-                                    finalotalCalculations?.final_monthly_surplus_budget*12 | number:'1.2-2' }}</h5>
+                                    finalVals?.calculated_annual_budget_available*12 | number:'1.2-2' }}</h5>
+                                <p class="ct_text_op_6 mb-0">
+                                    Annually
+                                </p>
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class="d-flex gap-2 mt-3">
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="ct_grey_bg">
+                                <h5 class="ct_fw_600 ct_fs_20">${{
+                                    finalVals?.calculated_annual_budget_available | number:'1.2-2' }}
+                                </h5>
+                                <p class="ct_text_op_6 mb-0">
+                                    Monthly
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4 mb-md-0">
+                            <div class="ct_grey_bg">
+                                <h5 class="ct_fw_600 ct_fs_20">${{
+                                    finalVals?.calculated_annual_budget_available*12 | number:'1.2-2' }}</h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Annually
                                 </p>
@@ -519,18 +587,27 @@
                     <p class="mb-0">The initial total deposit of${{monthly_policy_premium_expense*12}} will come from a
                         withdrawal from your HELOC</p>
                     <ul class="mt-4 ct_policy_list">
+                        @if(case_type_id == '2'){
+                        <li>
+                            <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 1</span>
+                            <p class="mt-3">You will continue to make your mortgage and all other
+                                payments as normal until each item is paid in full.
+                            </p>
+                        </li>
+                        }
+                        @if(case_type_id == '1'){
                         <li>
                             <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 1</span>
                             <p class="mt-3">Make your normal mortgage payments. The room accumulated in the HELOC will
                                 increase each year as shown below.</p>
                             <div class="d-flex align-items-center gap-2 flex-wrap">
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 1 - $11,246</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 2 - $11,880</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 3 - $12,550</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 4 - $13,258</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 5 - $14,006</span>
+                                <span class="ct_custom_badge" style="background-color: #8ae6b9;"
+                                    *ngFor="let item of step_data?.stepOneCalculation">Year {{ item.year }} - ${{
+                                    item.principalPayment | number:'1.0-0' }}</span>
                             </div>
                         </li>
+                        }
+
                         <li>
                             <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 2</span>
                             <p class="mt-3">
@@ -545,8 +622,10 @@
                             </p>
                             <p>Preferably this is broken down to correspond to your paydays.</p>
                             <div class="d-flex align-items-center gap-2 flex-wrap">
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 1 - $2,631</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 2 - $3,081</span>
+                                <span class="ct_custom_badge" style="background-color: #8ae6b9;"
+                                    *ngFor="let item of step_data?.stepTwoCalculation">Year {{ item.year }} - ${{
+                                    item.monthlySurplus | number:'1.0-0' }}</span>
+                                <!-- <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 2 - $3,081</span>
                                 <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 3 - $3,545</span>
                                 <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 4 - $4,022</span>
                                 <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 5 - $7,277</span>
@@ -554,20 +633,21 @@
                                 <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 7 - $8,306</span>
                                 <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 8 - $5,509</span>
                                 <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 9 - $6,063</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 10 - $6,633</span>
+                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 10 - $6,633</span> -->
                             </div>
                         </li>
                         <li>
                             <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 3</span>
                             <p class="mt-3">
-                                Each year on the anniversary, <span class="ct_blue_text">$40,000</span> will be
+                                Each year on the anniversary, <span
+                                    class="ct_blue_text">${{monthly_policy_premium_expense*12}}</span> will be
                                 withdrawn
                                 from the HELOC and deposited into the policy(s).
 
                             </p>
                             <h5 class="ct_fs_20 mt-3"><span class="ct_fw_700">Note:</span> Both your income and the
                                 principal portion of mortgage payments will increase each
-                                year, but the policy funding stays at $40,000
+                                year, but the policy funding stays at ${{monthly_policy_premium_expense*12}}
                             </h5>
                             <div class="ct_grey_bg mt-3">
                                 <h5 class="ct_fw_700 ct_fs_20">Key Point
@@ -698,6 +778,25 @@
 
 
 
+            </div>
+
+            <div class="page">
+                <div>
+                    <table class="table table-bordered text-center align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Year ↓ / Month →</th>
+                                <th *ngFor="let month of months">Month {{ month }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let year of years">
+                                <td><strong>Year {{ year }}</strong></td>
+                                <td *ngFor="let month of months"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

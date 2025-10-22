@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SharedService } from '../../../../services/shared.service';
 import { AuthService } from '../../../../services/auth.service';
 import { NzMessageService } from 'ng-zorro-antd/message';
