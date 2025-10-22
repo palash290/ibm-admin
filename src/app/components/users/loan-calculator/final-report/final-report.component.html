@@ -158,8 +158,8 @@
                 @if(case_type_id != '4' && case_type_id != '3'){
                 <div class="ct_mt_30">
                     <h4 class="ct_fs_20 ct_fw_600">
-                        A Personal Mortgage Minimizer Handbook Prepared by James Pollard
-                        For John Doe, Jane Doe
+                        A Personal Mortgage Minimizer Handbook Prepared by {{caseDetails?.agent_name}}
+                        For {{caseDetails?.full_name}}
                     </h4>
                     <p class="mb-0">
                         The principal on your mortgage will be paid out at the bank in
@@ -344,7 +344,6 @@
                             </div>
                         </div>
                         }
-
 
                     </div>
                 </div>
@@ -608,6 +607,7 @@
                         </li>
                         }
 
+                        @if(case_type_id == '1'){
                         <li>
                             <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 2</span>
                             <p class="mt-3">
@@ -625,17 +625,32 @@
                                 <span class="ct_custom_badge" style="background-color: #8ae6b9;"
                                     *ngFor="let item of step_data?.stepTwoCalculation">Year {{ item.year }} - ${{
                                     item.monthlySurplus | number:'1.0-0' }}</span>
-                                <!-- <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 2 - $3,081</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 3 - $3,545</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 4 - $4,022</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 5 - $7,277</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 6 - $7,784</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 7 - $8,306</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 8 - $5,509</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 9 - $6,063</span>
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;">Year 10 - $6,633</span> -->
                             </div>
                         </li>
+                        }
+
+                        @if(case_type_id == '2'){
+                        <li>
+                            <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 2</span>
+                            <p class="mt-3">
+                                Deposit the surplus monthly budget identified below for each year onto the HELOC. The
+                                adjustments in the amount each year reflects the assumed increase in your income and
+                                the elimination of debt payments over time. The amount identified each year is paid
+                                towards your HELOC balance and if your HELOC balance reaches zero during the
+                                current year, apply the same payment to your policy loan for the remainder of that year.
+                                Once the HELOC is paid in full, your annual premium will be paid from income. This
+                                explain the decrease in your surplus budget in that year.
+
+                            </p>
+                            <p>Preferably this is broken down to correspond to your paydays.</p>
+                            <div class="d-flex align-items-center gap-2 flex-wrap">
+                                <span class="ct_custom_badge" style="background-color: #8ae6b9;"
+                                    *ngFor="let item of step_data?.stepTwoCalculation">Year {{ item.year }} - ${{
+                                    item.monthlySurplusWithDebt | number:'1.0-0' }}</span>
+                            </div>
+                        </li>
+                        }
+
                         <li>
                             <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 3</span>
                             <p class="mt-3">
@@ -643,7 +658,6 @@
                                     class="ct_blue_text">${{monthly_policy_premium_expense*12}}</span> will be
                                 withdrawn
                                 from the HELOC and deposited into the policy(s).
-
                             </p>
                             <h5 class="ct_fs_20 mt-3"><span class="ct_fw_700">Note:</span> Both your income and the
                                 principal portion of mortgage payments will increase each
