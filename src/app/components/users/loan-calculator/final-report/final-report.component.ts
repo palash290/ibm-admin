@@ -71,6 +71,8 @@ export class FinalReportComponent {
       next: (resp: any) => {
         if (resp.success) {
 
+          this.getPlanString(2, resp.plan)
+
           this.latestPlanCalculation = resp.plan;
 
           this.step_data = resp.step_data;
@@ -94,6 +96,67 @@ export class FinalReportComponent {
       }
     });
   }
+
+
+
+  getPlanString(year: number, plan: any) {
+    debugger
+    const data: any = plan.find((p: any) => p.year == year);
+    if (
+      data.calculations.specific_credit_balance_payments_this_year.length ||
+      data.calculations.specific_loan_balance_payments_this_year.length
+    ) {
+      const formatAmount = (amount: number) =>
+        `$${amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+
+
+      const processBalancePayments = (balance_payments: any) => {
+        let mainText = '';
+        balance_payments?.map((payment: any) => {
+          let amount = '';
+          let item = '';
+          let text = '';
+          Object.keys(payment).map((e: string) => {
+            if (e === 'fully_paid' && payment[e] === true) {
+              text = ` Completely pay off ${item} with a balance of ${amount}. `;
+            } else if (e === 'fully_paid' && payment[e] === false) {
+              text = ` Reduce your ${item} by ${amount}. `;
+            } else {
+              amount = formatAmount(payment[e]);
+              item = `${e}`;
+            }
+          });
+          mainText += text;
+        });
+        return mainText;
+
+      };
+
+
+      const creditActions =
+        data.specific_credit_balance_payments_this_year || [];
+      const loanActions = data.specific_loan_balance_payments_this_year || [];
+
+
+      let creditPara = processBalancePayments(creditActions);
+      let loanPara = processBalancePayments(loanActions);
+
+
+      let finalText;
+
+
+      finalText = `${creditPara}${loanPara} Your redirected monthly payment towards the policy loan is now
+        ${formatAmount(
+        data.total_annualized_debt_payments_redirected_so_far / 12.0
+      )}.`;
+
+
+      return finalText;
+    }
+    return
+  };
+
+
 
   ourVsRegularPaymentsGraph(resp: any) {
     this.ourVsRegularPayments = {
@@ -500,10 +563,10 @@ export class FinalReportComponent {
     });
   }
 
-generateTable() {
-  this.years = Array.from({ length: this.loan_tenure }, (_, i) => i + 1); // [1..25]
-  this.months = Array.from({ length: 12 }, (_, i) => i + 1);              // [1..12]
-}
+  generateTable() {
+    this.years = Array.from({ length: this.loan_tenure }, (_, i) => i + 1); // [1..25]
+    this.months = Array.from({ length: 12 }, (_, i) => i + 1);              // [1..12]
+  }
 
   // getCreditDetails() {
   //   const formURlData = new URLSearchParams();
@@ -932,30 +995,78 @@ generateTable() {
 
 
 
+  // downloadCalculationCSV(plan: any[]) {
+  //   // Extract headers dynamically
+  //   const headers = [
+  //     'year',
+  //     ...Object.keys(plan[0].calculations)
+  //   ];
+
+  //   // Build CSV rows
+  //   const rows = plan.map(item => {
+  //     const calc = item.calculations;
+  //     return [
+  //       item.year,
+  //       ...headers.map(h => {
+  //         const val = calc[h];
+  //         return Array.isArray(val) || typeof val === 'object'
+  //           ? JSON.stringify(val) // keep arrays/objects readable
+  //           : val;
+  //       })
+  //     ];
+  //   });
+
+  //   // Combine headers + rows
+  //   const csvContent =
+  //     [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+
+  //   // Create a Blob and trigger download
+  //   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  //   const url = window.URL.createObjectURL(blob);
+
+  //   const a = document.createElement('a');
+  //   a.href = url;
+  //   a.download = 'plan.csv';
+  //   a.click();
+
+  //   window.URL.revokeObjectURL(url);
+  // }
+
   downloadCalculationCSV(plan: any[]) {
-    // Extract headers dynamically
-    const headers = [
-      'year',
-      ...Object.keys(plan[0].calculations)
-    ];
+    if (!plan?.length) return;
+
+    // Extract headers dynamically from first calculations object
+    // ✅ Exclude 'year' if it exists inside calculations
+    const calcKeys = Object.keys(plan[0].calculations).filter(k => k !== 'year');
+
+    // Final header list
+    const headers = ['year', ...calcKeys];
 
     // Build CSV rows
     const rows = plan.map(item => {
       const calc = item.calculations;
-      return [
-        item.year,
-        ...headers.slice(1).map(h => {
-          const val = calc[h];
-          return Array.isArray(val) || typeof val === 'object'
-            ? JSON.stringify(val) // keep arrays/objects readable
-            : val;
-        })
-      ];
+
+      // Ensure order of values matches headers
+      const values = headers.map(h => {
+        if (h === 'year') return item.year; // handle year manually
+
+        const val = calc[h];
+        // Stringify arrays/objects safely (keep them in single cell)
+        if (Array.isArray(val) || typeof val === 'object') {
+          return `"${JSON.stringify(val).replace(/"/g, '""')}"`;
+        }
+        // Escape commas or quotes inside text
+        if (typeof val === 'string' && (val.includes(',') || val.includes('"'))) {
+          return `"${val.replace(/"/g, '""')}"`;
+        }
+        return val ?? '';
+      });
+
+      return values.join(',');
     });
 
     // Combine headers + rows
-    const csvContent =
-      [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+    const csvContent = [headers.join(','), ...rows].join('\n');
 
     // Create a Blob and trigger download
     const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });

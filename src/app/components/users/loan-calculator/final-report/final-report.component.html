@@ -2,12 +2,16 @@
     <div class="ct_px_30 mt-4 pb-4">
         <div class="container-fluid" id="pdfContent">
 
-            <!-- <button class="btn btn-primary" (click)="downloadCalculationCSV(latestPlanCalculation)">Download Calculation CSV</button> -->
 
             <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap ct_mb_30">
                 <h4 class="ct_fs_28 ct_fw_700 mb-0">North Branch Financial Security Ltd.</h4>
                 <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_575 ct_w_100_575 ">
-                    <button (click)="downloadPDF1()"
+
+                    <button class="ct_blue_btn ct_h_40 ct_fs_16 ct_border_radius_5 ct_white_nowrap ct_w_100_575" (click)="downloadCalculationCSV(latestPlanCalculation)">Download
+                        Calculation CSV</button>
+
+
+                    <!-- <button (click)="downloadPDF1()"
                         class="ct_blue_btn ct_h_40 ct_fs_16 ct_border_radius_5 ct_white_nowrap ct_w_100_575">
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"
                             class="me-2">
@@ -22,7 +26,7 @@
                                 stroke="white" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         Download PDF
-                    </button>
+                    </button> -->
                 </div>
             </div>
 

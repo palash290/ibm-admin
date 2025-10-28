@@ -93,7 +93,7 @@ export class SharedService {
     return this.http.delete(this.baseUrl + url, { headers: headers })
   };
 
-  
+
   //start//
   private getHeaders(contentType: string): HttpHeaders {
     const authToken = sessionStorage.getItem('ibsAdminToken') || '';
