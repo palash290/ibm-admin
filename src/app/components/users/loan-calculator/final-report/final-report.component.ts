@@ -70,8 +70,23 @@ export class FinalReportComponent {
     this.sharedService.postAPI(`create-plan`, formURlData).subscribe({
       next: (resp: any) => {
         if (resp.success) {
+          
+          // this.getPlanString(2, resp.plan)
+          resp.plan.forEach((planItem: any) => {
+            const year = planItem.year;
+            // debugger
+            if(this.case_type_id == 2){
+              var resultText = this.getPlanStringHeloc(year, resp.plan);
+            }
+            
+            if(this.case_type_id == 1){
+              var resultText = this.getPlanStringMortgage(year, resp.plan);
+            }
 
-          this.getPlanString(2, resp.plan)
+            console.log(`Year ${year}:`, resultText);
+
+            // this.planDescriptions.push({ year, text: resultText });
+          });
 
           this.latestPlanCalculation = resp.plan;
 
@@ -99,8 +114,10 @@ export class FinalReportComponent {
 
 
 
-  getPlanString(year: number, plan: any) {
-    debugger
+
+  //Property+mortgage+Heloc
+  getPlanStringHeloc(year: number, plan: any) {
+    // debugger
     const data: any = plan.find((p: any) => p.year == year);
     if (
       data.calculations.specific_credit_balance_payments_this_year.length ||
@@ -134,8 +151,8 @@ export class FinalReportComponent {
 
 
       const creditActions =
-        data.specific_credit_balance_payments_this_year || [];
-      const loanActions = data.specific_loan_balance_payments_this_year || [];
+        data.calculations.specific_credit_balance_payments_this_year || [];
+      const loanActions = data.calculations.specific_loan_balance_payments_this_year || [];
 
 
       let creditPara = processBalancePayments(creditActions);
@@ -147,7 +164,7 @@ export class FinalReportComponent {
 
       finalText = `${creditPara}${loanPara} Your redirected monthly payment towards the policy loan is now
         ${formatAmount(
-        data.total_annualized_debt_payments_redirected_so_far / 12.0
+        data.calculations.total_annualized_debt_payments_redirected_so_far / 12.0
       )}.`;
 
 
@@ -155,6 +172,87 @@ export class FinalReportComponent {
     }
     return
   };
+
+  //Property+mortgage
+  getPlanStringMortgage(year: number, plan: any) {
+    const data: any = plan.find((p: any) => p.year === year);
+    if (
+      data.calculations.specific_credit_balance_payments_this_year.length ||
+      data.calculations.specific_loan_balance_payments_this_year.length
+    ) {
+      const formatAmount = (amount: number) =>
+        `$${amount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+
+
+      const processBalancePayments = (balance_payments: any) => {
+        let mainText = '';
+        balance_payments?.map((payment: any) => {
+          let amount = '';
+          let item = '';
+          let text = '';
+          Object.keys(payment).map((e: string) => {
+            if (e === 'fully_paid' && payment[e] === true) {
+              text = ` Completely pay off ${item} with a balance of ${amount}. `;
+            } else if (e === 'fully_paid' && payment[e] === false) {
+              text = ` Reduce your ${item} by ${amount}. `;
+            } else {
+              amount = formatAmount(payment[e]);
+              item = `${e}`;
+            }
+          });
+          mainText += text;
+        });
+        return mainText;
+      };
+
+
+      const creditActions =
+        data.calculations.specific_credit_balance_payments_this_year || [];
+      const loanActions = data.calculations.specific_loan_balance_payments_this_year || [];
+
+
+      let creditPara = processBalancePayments(creditActions);
+      let loanPara = processBalancePayments(loanActions);
+
+
+      let finalText;
+      if (!plan[year - 1]?.starting_policy_loan_balance && year > 1) {
+        finalText = `${creditPara}${loanPara} Since your policy loan is paid off, the ${formatAmount(
+          data.calculations.total_annualized_debt_payments_redirected_so_far / 12.0
+        )} you were redirecting towards your policy loan will now be used to repay your HELOC.
+     `;
+      } else {
+        finalText = `${creditPara}${loanPara} Your redirected monthly payment towards the policy loan is now
+        ${formatAmount(
+          data.calculations.total_annualized_debt_payments_redirected_so_far / 12.0
+        )}.`;
+      }
+      if (
+        plan[year - 1]?.starting_policy_loan_balance &&
+        plan[year - 1]
+          ?.excess_heloc_funds_used_to_pay_back_policy_loan_this_year &&
+        year > 1
+      ) {
+        finalText =
+          finalText +
+          ` The left-over ${formatAmount(
+            plan[year - 1]
+              .excess_heloc_funds_used_to_pay_back_policy_loan_this_year
+          )} from your HELOC draw now also goes towards your policy loan. Once the policy loan balance reaches zero, the ${formatAmount(
+            data.calculations.total_annualized_debt_payments_redirected_so_far / 12.0
+          )} you redirected towards your policy loan now just increases your monthly surplus budget to ${formatAmount(
+            data.calculations.total_annualized_debt_payments_redirected_so_far / 12.0 +
+            data?.calculations.totals.calculated_monthly_final_surplus_budget
+          )} and is paid towards the HELOC balance each month instead.
+       `;
+      }
+
+
+      return finalText;
+    }
+    return
+  };
+
 
 
 
