@@ -8,6 +8,7 @@
   font-family: "Nunito Sans", sans-serif;
   word-break: break-word;
 }
+
 body {
   background-color: #f5f6fa !important;
 }
@@ -17,6 +18,7 @@ body {
   --light_blue: #5086ff1f;
   --grey: #f2f2f2;
 }
+
 .ct_text_979797 {
   color: #979797;
 }
@@ -103,6 +105,7 @@ input[type="number"] {
 .ct_fs_28 {
   font-size: 28px;
 }
+
 .ct_fs_32 {
   font-size: 32px;
 }
@@ -144,9 +147,11 @@ input[type="number"] {
   background-color: #4a81ff26;
   border-color: var(--blue);
 }
+
 .form-control {
   appearance: auto;
 }
+
 .ct_show_eye {
   position: absolute;
   top: 50%;
@@ -154,9 +159,11 @@ input[type="number"] {
   transform: translateY(-50%);
   cursor: pointer;
 }
+
 .ct_input {
   height: 48px;
 }
+
 .ct_input_icon_left {
   position: absolute;
   top: 50%;
@@ -167,6 +174,7 @@ input[type="number"] {
 .ct_input_ps_40 {
   padding-left: 40px;
 }
+
 .ct_input_ps_30 {
   padding-left: 30px;
 }
@@ -187,6 +195,7 @@ input[type="number"] {
 .ct_border_radius_10 {
   border-radius: 10px;
 }
+
 .ct_border_radius_5 {
   border-radius: 5px !important;
 }
@@ -214,9 +223,11 @@ textarea {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
 .ct_w_100 {
   width: 100px;
 }
+
 .ct_para_scroll {
   height: auto;
   max-height: 240px;
@@ -237,6 +248,7 @@ textarea {
 .ct_white_space_normal {
   white-space: normal;
 }
+
 .ct_text_upercase {
   text-transform: uppercase;
 }
@@ -244,9 +256,11 @@ textarea {
 .ct_mt_30 {
   margin-top: 30px;
 }
+
 .ct_mt_20 {
   margin-top: 20px;
 }
+
 .ct_mb_30 {
   margin-bottom: 30px;
 }
@@ -254,12 +268,15 @@ textarea {
 .ct_mt_44 {
   margin-top: 44px;
 }
+
 .ct_mb_44 {
   margin-bottom: 44px;
 }
+
 .ct_text_op_6 {
   opacity: 0.6;
 }
+
 .ct_h_40 {
   height: 40px;
 }
@@ -299,9 +316,11 @@ textarea {
 .ct_blue_btn:hover:before {
   transform: scale(1);
 }
-.ct_blue_btn:hover{
+
+.ct_blue_btn:hover {
   color: #fff !important;
 }
+
 .ct_outline_btn {
   padding: 9.5px 20px;
   outline: none;
@@ -337,10 +356,12 @@ textarea {
 .ct_outline_btn:hover:before {
   transform: scale(1);
 }
+
 .ct_outline_btn:hover {
   border-color: #e6e6e6;
-   color: #000 !important;
+  color: #000 !important;
 }
+
 /* Login page css S */
 .ct_login_bg {
   background-color: var(--blue);
@@ -370,6 +391,7 @@ textarea {
   width: 100%;
   z-index: -1;
 }
+
 .ct_login_overlay_images img:nth-child(1) {
   left: -3%;
   top: 0px;
@@ -380,45 +402,56 @@ textarea {
   0% {
     transform: translateX(-5px);
   }
+
   50% {
     transform: translateX(5px);
   }
+
   100% {
     transform: translateX(-5px);
   }
 }
+
 .ct_login_overlay_images img:nth-child(2) {
   right: -3%;
   top: 0px;
   animation: move_2 2s infinite linear;
 }
+
 @keyframes move_2 {
   0% {
     transform: translateX(5px);
   }
+
   50% {
     transform: translateX(-5px);
   }
+
   100% {
     transform: translateX(5px);
   }
 }
+
 .ct_login_overlay_images img:nth-child(3) {
   left: -3%;
   bottom: 0px;
   animation: move_3 2s infinite linear;
 }
+
 @keyframes move_3 {
   0% {
     transform: translateX(5px);
   }
+
   50% {
     transform: translateX(-5px);
   }
+
   100% {
     transform: translateX(5px);
   }
 }
+
 .ct_login_overlay_images img:nth-child(4) {
   right: -3%;
   bottom: 0px;
@@ -429,9 +462,11 @@ textarea {
   0% {
     transform: translateX(-5px);
   }
+
   50% {
     transform: translateX(5px);
   }
+
   100% {
     transform: translateX(-5px);
   }
@@ -440,12 +475,14 @@ textarea {
 .ct_blue_link {
   color: var(--blue);
 }
+
 /* Login page css E */
 
 /* Dashboard css S */
 .ct_admin_logo img {
   width: 100%;
 }
+
 .ct_side_bar {
   position: fixed;
   height: 100vh;
@@ -456,12 +493,14 @@ textarea {
   transition: 0.4s ease all;
   z-index: 9;
 }
+
 .ct_side_bar ul {
   margin-top: 40px;
   height: calc(100% - 100px);
   overflow-y: auto;
   padding-inline: 15px;
 }
+
 .ct_side_bar ul li a {
   padding: 13px 16px;
   border-radius: 5px;
@@ -475,14 +514,16 @@ textarea {
   position: relative;
 }
 
-.ct_side_bar ul li + li {
+.ct_side_bar ul li+li {
   margin-top: 10px;
 }
+
 .ct_side_bar ul li a:hover,
 .ct_side_bar ul li a.active {
   background-color: var(--blue);
   color: #fff;
 }
+
 .ct_side_bar ul li a.active svg path,
 .ct_side_bar ul li a:hover svg path {
   filter: brightness(44);
@@ -493,6 +534,7 @@ textarea {
   margin-left: 230px;
   transition: 0.4s ease all;
 }
+
 header {
   display: flex;
   align-items: center;
@@ -502,27 +544,33 @@ header {
   background-color: #fff;
   padding-inline: 30px;
 }
+
 .ct_menu_bar,
 .ct_close_sidebar {
   display: none;
 }
+
 .ct_admin_logo {
   padding-bottom: 15px;
 }
+
 .ct_admin_logo img {
   width: 149px;
   margin-inline: auto;
   display: block;
 }
+
 .ct_right_dropdown.dropdown ul {
   padding: 0px;
   border: 0px;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.09);
 }
+
 .ct_right_dropdown.dropdown .dropdown-item:hover {
   background-color: var(--blue);
   color: #fff;
 }
+
 .ct_right_dropdown button {
   border: 0px;
   padding: 11px 0px;
@@ -532,12 +580,14 @@ header {
   gap: 20px;
   border-radius: 6px;
 }
+
 .ct_img_30 {
   width: 30px;
   height: 30px;
   object-fit: cover;
   border-radius: 100px;
 }
+
 .ct_img_50 {
   width: 50px;
   height: 50px;
@@ -562,12 +612,15 @@ button.btn-close.ct_close {
 
   color: #000;
 }
+
 .ct_close:focus {
   box-shadow: unset;
 }
+
 .ct_notification_icon {
   position: relative;
 }
+
 .ct_notification_icon span {
   width: 16px;
   height: 16px;
@@ -582,6 +635,7 @@ button.btn-close.ct_close {
   font-size: 11px;
   color: #fff;
 }
+
 /* Sidebar css E */
 
 /* Notification Modal css S */
@@ -600,9 +654,11 @@ button.btn-close.ct_close {
   transform-origin: top;
   right: 10px;
 }
+
 .ct_notification_custom_dropdown.ct_notification_active {
   transform: scaleY(1);
 }
+
 .ct_dlt_all_12 button {
   background-color: transparent;
   outline: none;
@@ -622,7 +678,7 @@ button.btn-close.ct_close {
   padding-block: 10px;
 }
 
-.ct_notification_custom_dropdown li + li {
+.ct_notification_custom_dropdown li+li {
   border-top: 1px solid #f5f5f5;
 }
 
@@ -631,6 +687,7 @@ ul.ct_notification_scroll {
   overflow-y: auto;
   height: auto;
 }
+
 /* Notification Modal css E */
 
 /* Dashboard css S */
@@ -642,6 +699,7 @@ ul.ct_notification_scroll {
   justify-content: space-between;
   gap: 20px;
 }
+
 .ct_dash_icon {
   width: 60px;
   height: 60px;
@@ -659,17 +717,20 @@ ul.ct_notification_scroll {
   box-shadow: 6px 6px 54px 0px #0000000d;
   padding: 30px;
 }
+
 .ct_outline_border {
   border-radius: 10px;
   background-color: transparent;
   border: 1px solid #cccccc;
   padding: 30px;
 }
+
 .ct_blue_link_underline {
   color: var(--blue);
   border-bottom: 2px solid var(--blue);
   transition: 0.4s ease all;
 }
+
 .ct_blue_link_underline:hover {
   color: #000;
   border-bottom: 2px solid transparent;
@@ -691,6 +752,7 @@ ul.ct_notification_scroll {
   vertical-align: middle;
   white-space: nowrap;
 }
+
 .ct_custom_table tr th {
   background-color: #f8f9fa;
   border-bottom: 1px solid #d5d5d5;
@@ -706,6 +768,7 @@ ul.ct_notification_scroll {
 .ct_custom_table tr:last-child td {
   border-color: transparent;
 }
+
 .ct_custom_table tr th:first-child {
   border-top-left-radius: 10px;
 }
@@ -713,22 +776,23 @@ ul.ct_notification_scroll {
 .ct_custom_table tr th:last-child {
   border-top-right-radius: 10px;
 }
+
 .ct_back_icon {
   cursor: pointer;
 }
+
 /* Dashboard css E */
 /* View Report css S */
 .ct_light_blue_bg {
-  background: linear-gradient(
-    90deg,
-    rgba(186, 206, 251, 0.64) 0%,
-    rgba(200, 217, 255, 0.8) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(186, 206, 251, 0.64) 0%,
+      rgba(200, 217, 255, 0.8) 100%);
   padding: 22px 30px;
   position: relative;
   border-radius: 10px;
 }
-.ct_light_blue_bg > img {
+
+.ct_light_blue_bg>img {
   position: absolute;
   right: 30px;
   bottom: 22px;
@@ -736,31 +800,37 @@ ul.ct_notification_scroll {
   width: 100%;
   object-fit: contain;
 }
+
 .ct_grey_bg {
   background-color: var(--grey);
   padding: 16px 30px;
   border-radius: 10px;
 }
+
 .ct_light_grey_bg {
   background-color: #f9fafb;
   padding: 16px 30px;
   border-radius: 10px;
 }
+
 .ct_light_blue_bg2 {
   background-color: #f8faff;
   padding: 16px 30px;
   border-radius: 10px;
 }
+
 .ct_grid_3 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
+
 .ct_grid_4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
 }
+
 .ct_border_top_1 {
   border-top: 1px solid #e5e7eb;
 }
@@ -775,6 +845,7 @@ ul.ct_notification_scroll {
   justify-content: space-between;
   gap: 10px;
 }
+
 .ct_total_expence_bg {
   background-color: var(--light_blue);
   padding: 15px 25px;
@@ -790,6 +861,7 @@ ul.ct_monthly_expence_list {
   height: auto;
   overflow-y: auto;
 }
+
 /* View Report css E */
 
 /* Sub admin css S */
@@ -798,6 +870,7 @@ ul.ct_monthly_expence_list {
   width: 100%;
   min-width: 260px;
 }
+
 .ct_select_w_150 {
   width: 110px;
 }
@@ -805,9 +878,11 @@ ul.ct_monthly_expence_list {
 .ct_btn_h_48 {
   height: 48px;
 }
+
 .ct_icon_w_20 {
   width: 20px;
 }
+
 .ct_btn_w_162 {
   width: 182px;
 }
@@ -855,11 +930,11 @@ ul.ct_monthly_expence_list {
   transform: rotate(45deg);
 }
 
-.ct_custom-checkbox:checked ~ .ct_checkmark {
+.ct_custom-checkbox:checked~.ct_checkmark {
   background-color: var(--blue);
 }
 
-.ct_custom-checkbox:checked ~ .ct_checkmark:after {
+.ct_custom-checkbox:checked~.ct_checkmark:after {
   display: block;
 }
 
@@ -873,9 +948,10 @@ ul.ct_monthly_expence_list {
   }
 }
 
-.ct_custom-checkbox:checked ~ .ct_checkmark:after {
+.ct_custom-checkbox:checked~.ct_checkmark:after {
   animation: checkAnim 0.2s forwards;
 }
+
 .ct_transparent_table th,
 .ct_transparent_table td {
   background-color: transparent;
@@ -887,12 +963,15 @@ ul.ct_monthly_expence_list {
 .ct_active_status {
   color: #00b69b;
 }
+
 .ct_pending_status {
   color: #ffa756;
 }
+
 .ct_blocked_status {
   color: #ef3826;
 }
+
 /* Sub admin css E */
 
 /* Toggle switch css S */
@@ -941,24 +1020,21 @@ ul.ct_monthly_expence_list {
   transition: color 0.3s ease-in-out;
 }
 
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch-handle {
+.toggle-switch input[type="checkbox"]:checked+.toggle-switch-handle {
   transform: translateX(37px);
 }
 
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch-background {
+.toggle-switch input[type="checkbox"]:checked+.toggle-switch-background {
   background-color: var(--blue);
 }
 
-.toggle-switch input[type="checkbox"]:checked + .toggle-switch:before {
+.toggle-switch input[type="checkbox"]:checked+.toggle-switch:before {
   content: "On";
   color: var(--blue);
   right: -15px;
 }
 
-.toggle-switch
-  input[type="checkbox"]:checked
-  + .toggle-switch-background
-  .toggle-switch-handle {
+.toggle-switch input[type="checkbox"]:checked+.toggle-switch-background .toggle-switch-handle {
   transform: translateX(14px);
 }
 
@@ -967,6 +1043,7 @@ ul.ct_monthly_expence_list {
 .ct_purple_text {
   color: #f53bf5;
 }
+
 .ct_grey_input {
   background-color: #f5f6fa;
 }
@@ -993,7 +1070,8 @@ ul.ct_monthly_expence_list {
   border: 2px solid #d1d5db;
   border-radius: 50%;
 }
-.ct_radio-button input[type="radio"]:checked ~ .ct_radio-checkmark {
+
+.ct_radio-button input[type="radio"]:checked~.ct_radio-checkmark {
   border-color: var(--blue);
 }
 
@@ -1010,9 +1088,10 @@ ul.ct_monthly_expence_list {
   transition: all 0.2s ease-in-out;
 }
 
-.ct_radio-button input[type="radio"]:checked ~ .ct_radio-checkmark:before {
+.ct_radio-button input[type="radio"]:checked~.ct_radio-checkmark:before {
   transform: translate(-50%, -50%) scale(1);
 }
+
 /* Radio css E */
 
 .ct_reaasign_list li {
@@ -1020,7 +1099,8 @@ ul.ct_monthly_expence_list {
   background-color: var(--grey);
   border-radius: 10px;
 }
-.ct_reaasign_list li + li {
+
+.ct_reaasign_list li+li {
   margin-top: 10px;
 }
 
@@ -1043,6 +1123,7 @@ ul.ct_monthly_expence_list {
   grid-template-columns: 40% auto;
   gap: 10px;
 }
+
 .ct_full_view_img img {
   width: 100%;
   height: 350px;
@@ -1057,7 +1138,7 @@ ul.ct_monthly_expence_list {
   position: relative;
 }
 
-.ct_profile_img > img {
+.ct_profile_img>img {
   object-fit: cover;
   width: 92px;
   border-radius: 100px;
@@ -1247,16 +1328,19 @@ ul.ct_monthly_expence_list {
   padding: 15px;
   border-radius: 10px;
 }
+
 .ct_client_search_dropdown li {
   padding: 10px 10px;
   transition: 0.4s ease all;
   border-radius: 5px;
 }
+
 .ct_client_search_dropdown li:hover {
   background-color: var(--black);
   color: #fff;
 }
-.ct_client_search_dropdown li + li {
+
+.ct_client_search_dropdown li+li {
   border-top: 1px solid #e6e6e6;
   /* margin-top: 5px; */
 }
@@ -1330,6 +1414,7 @@ ul.ct_monthly_expence_list {
   border: 1px solid #e5e7eb;
   border-radius: 10px;
 }
+
 .ct_case_select_card.active {
   border-color: var(--blue);
 }
@@ -1389,6 +1474,7 @@ ul.ct_pdf_list_all {
   max-height: 266px;
   overflow-y: auto;
 }
+
 .ct_pe_30 {
   padding-right: 30px;
 }
@@ -1440,11 +1526,13 @@ ul.ct_pdf_list_all {
   opacity: 0.6;
   z-index: -1;
 }
+
 .ct_compared_loan_btn {
   margin-top: 50px;
   display: block;
   width: 200px;
 }
+
 .ct_compared_loan_btn button {
   background-color: #fff;
   padding: 11px 15px;

@@ -116,8 +116,13 @@ pagination-controls.ct_pagination_div {
     cursor: no-drop;
 }
 
-#ct_form_progressbar li{
+#ct_form_progressbar li {
     display: flex;
     align-items: start;
     gap: 5px;
+}
+
+.ct_table_border_1 td,
+.ct_table_border_1 tr {
+    border: 1px solid #e6e6e6 !important;
 }

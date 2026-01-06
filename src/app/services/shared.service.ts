@@ -9,8 +9,9 @@ import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
 export class SharedService {
 
   //baseUrl = 'http://192.168.29.76:8000/api/';
-  baseUrl = 'http://89.116.21.92:4010/api/';
+  //baseUrl = 'http://89.116.21.92:4010/api/';
   //baseUrl = 'http://localhost:8000/api/';
+  baseUrl = 'http://16.171.69.25:8000/api/'
   caseId = signal<any | null>(null);
 
   constructor(private http: HttpClient, private route: Router) { }

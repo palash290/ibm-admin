@@ -33,13 +33,7 @@ export class CasesComponent {
   ngOnInit() {
     this.userRole = this.authService.getUserRole();
     this.userId = this.authService.getAgentId();
-    //if (this.userRole == 'Client') {
     this.getSingleClientCases();
-    // }
-    // if (this.userRole == 'Agent') {
-    //   this.getAgentCases();
-    // }
-
   }
 
   getSingleClientCases() {

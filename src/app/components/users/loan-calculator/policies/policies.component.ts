@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Va
 import { Router, RouterLink } from '@angular/router';
 import * as Papa from 'papaparse';
 import { SharedService } from '../../../../services/shared.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-policies',
@@ -24,7 +25,7 @@ export class PoliciesComponent {
   minDate: any;
   //existingFileNames: any = '';
 
-  constructor(private fb: FormBuilder, private router: Router, private sharedService: SharedService) { }
+  constructor(private fb: FormBuilder, private router: Router, private sharedService: SharedService, private toastr: NzMessageService) { }
 
   ngOnInit(): void {
     this.client_case_id = sessionStorage.getItem('client_case_id');
@@ -190,6 +191,7 @@ export class PoliciesComponent {
       },
       error: (err) => {
         console.error(`Error uploading file for person index ${index}:`, err);
+        this.toastr.error(err.error.message)
         this.selectedFiles[index] = null;
       }
     });

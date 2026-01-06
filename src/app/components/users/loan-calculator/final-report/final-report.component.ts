@@ -63,6 +63,8 @@ export class FinalReportComponent {
   finalVals: any;
   monthly_policy_premium_expense: any;
 
+  planDescriptions: any[] = [];
+
   graphCalc() {
     const formURlData = new URLSearchParams();
     formURlData.append('case_id', this.client_case_id);
@@ -70,22 +72,24 @@ export class FinalReportComponent {
     this.sharedService.postAPI(`create-plan`, formURlData).subscribe({
       next: (resp: any) => {
         if (resp.success) {
-          
+
           // this.getPlanString(2, resp.plan)
           resp.plan.forEach((planItem: any) => {
             const year = planItem.year;
-            // debugger
-            if(this.case_type_id == 2){
+
+            if (this.case_type_id == 2) {
               var resultText = this.getPlanStringHeloc(year, resp.plan);
             }
-            
-            if(this.case_type_id == 1){
+
+            if (this.case_type_id == 1) {
               var resultText = this.getPlanStringMortgage(year, resp.plan);
             }
 
             console.log(`Year ${year}:`, resultText);
 
-            // this.planDescriptions.push({ year, text: resultText });
+            if (resultText) {
+              this.planDescriptions.push({ year, text: resultText });
+            }
           });
 
           this.latestPlanCalculation = resp.plan;
@@ -117,7 +121,6 @@ export class FinalReportComponent {
 
   //Property+mortgage+Heloc
   getPlanStringHeloc(year: number, plan: any) {
-    // debugger
     const data: any = plan.find((p: any) => p.year == year);
     if (
       data.calculations.specific_credit_balance_payments_this_year.length ||
@@ -146,7 +149,6 @@ export class FinalReportComponent {
           mainText += text;
         });
         return mainText;
-
       };
 
 
@@ -253,9 +255,6 @@ export class FinalReportComponent {
     return
   };
 
-
-
-
   ourVsRegularPaymentsGraph(resp: any) {
     this.ourVsRegularPayments = {
       chart: {
@@ -273,48 +272,92 @@ export class FinalReportComponent {
           }
         }
       },
+
       series: [
         {
           name: 'Regular Schedule Balance',
           data: resp.report.ourVsRegularPayments.graphBalances
         },
         {
-          name: 'Infineo Schedule Balance',
+          name: 'Smart Loan Calculator',
           data: resp.report.ourVsRegularPayments.graphMortgage
         }
       ],
-      colors: ['#6666cc', '#0000ff'],
+
+      colors: ['#4C6EF5', '#3BC9DB'],
+
       stroke: {
         curve: 'straight',
-        width: [4, 4]
+        width: 3,
+        dashArray: [6, 6]
       },
+
       fill: {
         type: 'gradient',
         gradient: {
-          shadeIntensity: 1,
-          opacityFrom: 0.4,
-          opacityTo: 0,
-          stops: [0, 90, 100]
+          shadeIntensity: 0.7,
+          opacityFrom: 0.15,
+          opacityTo: 0.03,
+          stops: [0, 80, 100]
         }
       },
+
       dataLabels: {
         enabled: false
       },
-      xaxis: {
-        categories: Array.from({ length: resp.report.ourVsRegularPayments.graphBalances.length }, (_, i) => `${i + 1}`),
-        title: { text: "Year" },
-      },
-      yaxis: {
-        labels: {
-          formatter: (val: number) => `$${val.toLocaleString()}`
+
+      grid: {
+        borderColor: '#e0e0e0',
+        strokeDashArray: 4,
+        padding: {
+          left: 10,
+          right: 20,
+          top: 10,
+          bottom: 10
         }
       },
+
+      xaxis: {
+        categories: Array.from(
+          { length: resp.report.ourVsRegularPayments.graphBalances.length },
+          (_, i) => `${i + 1}`
+        ),
+        title: {
+          text: "Year",
+          style: { fontWeight: 600 }
+        },
+        axisBorder: { show: false },
+        axisTicks: { show: false },
+        labels: { style: { colors: '#555' } }
+      },
+
+      yaxis: {
+        labels: {
+          formatter: (val: number) => `$${val.toLocaleString()}`,
+          style: { colors: '#555' }
+        }
+      },
+
       legend: {
         position: 'top',
-        horizontalAlign: 'left'
+        horizontalAlign: 'left',
+        fontSize: '14px',
+        markers: {
+          width: 10,
+          height: 10,
+          radius: 12
+        }
+      },
+
+      tooltip: {
+        theme: 'light',
+        y: {
+          formatter: (val: number) => `$${val.toLocaleString()}`
+        }
       }
     };
   }
+
 
   mortgageHelocCashLoanGraph(resp: any) {
     this.mortgageHelocCashLoanResp = resp.report.mortgageHelocCashLoan;
@@ -338,7 +381,7 @@ export class FinalReportComponent {
         name: "Heloc",
         data: this.mortgageHelocCashLoanResp.startingHelocBalance
       });
-      colors.push("#0044ff");
+      colors.push("#4880ff");
     }
 
     // ✅ Always add "Policy Loan"
@@ -393,54 +436,6 @@ export class FinalReportComponent {
       dataLabels: { enabled: false },
       stroke: { curve: "smooth", width: 2 }
     };
-
-
-
-    // this.mortgageHelocCashLoan = {
-    //   chart: {
-    //     type: "bar",
-    //     height: 400,
-    //     toolbar: {
-    //       show: true,
-    //       tools: {
-    //         zoom: true,
-    //         zoomin: true,
-    //         zoomout: true,
-    //         pan: true,
-    //         reset: true
-    //       }
-    //     },
-    //     zoom: {
-    //       enabled: true,
-    //       type: "x",
-    //       autoScaleYaxis: true
-    //     }
-    //   },
-    //   series: [
-    //     { name: "Mortgage", data: this.mortgageHelocCashLoanResp.startingMortgageBalance.slice(1) },
-    //     { name: "Heloc", data: this.mortgageHelocCashLoanResp.startingHelocBalance.slice(1) },
-    //     { name: "Policy Loan", data: this.mortgageHelocCashLoanResp.startingPolicyLoanBalance.slice(1) },
-    //     { name: "Cash Value (gross)", data: this.mortgageHelocCashLoanResp.endingPolicyCashValue.slice(1) }
-    //   ],
-    //   colors: ["#222222", "#0044ff", "#ff8800", "#33cc99"],
-    //   xaxis: {
-    //     categories: this.mortgageHelocCashLoanResp.startingMortgageBalance.slice(1).map((_: any, i: any) => (i + 1).toString()),
-    //     title: { text: "Year" },
-    //     tickAmount: 10, // chart will show 10 ticks evenly spaced
-    //     labels: {
-    //       rotate: -45,
-    //     }
-    //   },
-    //   yaxis: {
-    //     labels: { formatter: (val: number) => `$${val.toLocaleString()}` }
-    //   },
-    //   legend: {
-    //     position: "top",
-    //     horizontalAlign: "left"
-    //   },
-    //   dataLabels: { enabled: false },
-    //   stroke: { curve: "smooth", width: 2 } // makes lines smooth
-    // };
   }
 
   netWorthChartGraph(resp: any) {
@@ -666,66 +661,6 @@ export class FinalReportComponent {
     this.months = Array.from({ length: 12 }, (_, i) => i + 1);              // [1..12]
   }
 
-  // getCreditDetails() {
-  //   const formURlData = new URLSearchParams();
-  //   formURlData.append('case_id', this.client_case_id);
-
-  //   this.sharedService.postAPI(`get-client-credits`, formURlData).subscribe({
-  //     next: (resp: any) => {
-  //       if (resp.success) {
-  //         this.apiCreditData = resp.data.reverse();
-  //         this.getLoanDetails();
-  //       } else {
-  //         this.apiCreditData = [];
-  //       }
-  //     },
-  //     error: error => {
-  //       this.apiCreditData = [0];
-  //       console.log(error.message);
-  //     }
-  //   });
-  // }
-
-  // getLoanDetails() {
-  //   const formURlData = new URLSearchParams();
-  //   formURlData.append('case_id', this.client_case_id);
-
-  //   this.sharedService.postAPI(`get-client-loans`, formURlData).subscribe({
-  //     next: (resp: any) => {
-  //       if (resp.success) {
-  //         this.apiLoanData = resp.data.reverse();
-  //         this.getInvestmentDetails();
-  //       } else {
-  //         this.apiLoanData = [];
-  //       }
-  //     },
-  //     error: error => {
-  //       this.apiLoanData = [0];
-  //       console.log(error.message);
-  //     }
-  //   });
-  // }
-
-  // getInvestmentDetails() {
-  //   const formURlData = new URLSearchParams();
-  //   formURlData.append('case_id', this.client_case_id);
-
-  //   this.sharedService.postAPI(`get-client-investments`, formURlData).subscribe({
-  //     next: (resp: any) => {
-  //       if (resp.success) {
-  //         this.apiinvestmentsData = resp.data.reverse();
-  //         //this.getTotals(this.client_case_id);
-  //       } else {
-  //         this.apiinvestmentsData = [];
-  //       }
-  //     },
-  //     error: error => {
-  //       this.apiinvestmentsData = [0];
-  //       console.log(error.message);
-  //     }
-  //   });
-  // }
-
 
   getTotals(id: any) {
     const payload = {
@@ -879,70 +814,6 @@ export class FinalReportComponent {
     });
   }
 
-  // downloadPDF(): void {
-  //   const element = document.getElementById('pdfContent');
-  //   if (!element) {
-  //     console.error('Element not found!');
-  //     return;
-  //   }
-
-  //   this.loading = true; // Start loader
-
-  //   html2canvas(element, { scale: 2 }).then((canvas) => {
-  //     const imgData = canvas.toDataURL('image/png');
-  //     const pdf = new jsPDF('p', 'mm', 'a4');
-
-  //     const imgWidth = 190;
-  //     const pageHeight = 297;
-  //     const imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-  //     let yPosition = 10;
-  //     let pageCanvasHeight = pageHeight - 20;
-  //     let remainingHeight = imgHeight;
-  //     let startY = 0;
-  //     let page = 0;
-
-  //     while (remainingHeight > 0) {
-  //       let cropHeight = Math.min(remainingHeight, pageCanvasHeight);
-
-  //       const pageCanvas = document.createElement('canvas');
-  //       pageCanvas.width = canvas.width;
-  //       pageCanvas.height = (cropHeight * canvas.width) / imgWidth;
-
-  //       const pageCtx = pageCanvas.getContext('2d');
-  //       if (pageCtx) {
-  //         pageCtx.drawImage(
-  //           canvas,
-  //           0,
-  //           startY,
-  //           canvas.width,
-  //           pageCanvas.height,
-  //           0,
-  //           0,
-  //           pageCanvas.width,
-  //           pageCanvas.height
-  //         );
-
-  //         const pageImgData = pageCanvas.toDataURL('image/png');
-
-  //         if (page > 0) pdf.addPage();
-  //         pdf.addImage(pageImgData, 'PNG', 10, yPosition, imgWidth, cropHeight);
-
-  //         startY += pageCanvas.height;
-  //         remainingHeight -= cropHeight;
-  //         page++;
-  //       }
-  //     }
-
-  //     pdf.save('case-report.pdf');
-  //   })
-  //     .catch(error => {
-  //       console.error('Error generating PDF:', error);
-  //     })
-  //     .finally(() => {
-  //       this.loading = false; // Stop loader no matter what
-  //     });
-  // }
 
 
 
@@ -1035,31 +906,23 @@ export class FinalReportComponent {
     URL.revokeObjectURL(url);
   }
 
-  // async downloadPDF1(): Promise<void> {
-  //   this.loading = true;
-  //   const element = document.getElementById('pdfContent');
-  //   if (!element) {
-  //     this.loading = false;
-  //     return;
-  //   }
-  //   const pdf = new jsPDF('p', 'mm', 'a4');
-  //   const pages = element.querySelectorAll('.page');
-  //   for (let i = 0; i < pages.length; i++) {
-  //     const page = pages[i] as HTMLElement;
-  //     const canvas = await html2canvas(page, { scale: 2, useCORS: true });
-  //     const imgData = canvas.toDataURL('image/png');
-  //     const imgProps = pdf.getImageProperties(imgData);
-  //     const pdfWidth = pdf.internal.pageSize.getWidth();
-  //     const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width; if (i > 0) pdf.addPage();
-  //     pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-  //   }
-  //   pdf.save('document.pdf'); this.loading = false;
-  // }
 
   async downloadPDF1(): Promise<void> {
     this.loading = true;
+
+    // ✅ Enable print mode
+    let el = document.querySelectorAll('.print-only')
+    el.forEach(x => {
+      x.classList.add('print-mode')
+    })
+    // document.body.classList.add('print-mode');
+
+    // ✅ Wait for browser to apply CSS (VERY IMPORTANT)
+    await new Promise((resolve) => setTimeout(resolve, 50));
+
     const element = document.getElementById('pdfContent');
     if (!element) {
+      document.body.classList.remove('print-mode');
       this.loading = false;
       return;
     }
@@ -1069,15 +932,12 @@ export class FinalReportComponent {
 
     for (let i = 0; i < pages.length; i++) {
       const page = pages[i] as HTMLElement;
+      // pages[i].classList.add('ct_mt_5')
+      const canvas = await html2canvas(page, {
+        scale: 2,
+        useCORS: true
+      });
 
-      // ✅ Skip if page is empty or invisible
-      const textContent = page.innerText.trim();
-      const isVisible = page.offsetParent !== null;
-      if (!textContent || !isVisible) {
-        continue; // skip this page
-      }
-
-      const canvas = await html2canvas(page, { scale: 2, useCORS: true });
       const imgData = canvas.toDataURL('image/png');
       const imgProps = pdf.getImageProperties(imgData);
       const pdfWidth = pdf.internal.pageSize.getWidth();
@@ -1087,48 +947,17 @@ export class FinalReportComponent {
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
     }
 
+    // ✅ Disable print mode after PDF is created
+    // document.body.classList.remove('print-mode');
+    // let el = document.querySelectorAll('.print-only')
+    el.forEach(x => {
+      x.classList.remove('print-mode')
+    })
+
     pdf.save('document.pdf');
     this.loading = false;
   }
 
-
-
-  // downloadCalculationCSV(plan: any[]) {
-  //   // Extract headers dynamically
-  //   const headers = [
-  //     'year',
-  //     ...Object.keys(plan[0].calculations)
-  //   ];
-
-  //   // Build CSV rows
-  //   const rows = plan.map(item => {
-  //     const calc = item.calculations;
-  //     return [
-  //       item.year,
-  //       ...headers.map(h => {
-  //         const val = calc[h];
-  //         return Array.isArray(val) || typeof val === 'object'
-  //           ? JSON.stringify(val) // keep arrays/objects readable
-  //           : val;
-  //       })
-  //     ];
-  //   });
-
-  //   // Combine headers + rows
-  //   const csvContent =
-  //     [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
-
-  //   // Create a Blob and trigger download
-  //   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  //   const url = window.URL.createObjectURL(blob);
-
-  //   const a = document.createElement('a');
-  //   a.href = url;
-  //   a.download = 'plan.csv';
-  //   a.click();
-
-  //   window.URL.revokeObjectURL(url);
-  // }
 
   downloadCalculationCSV(plan: any[]) {
     if (!plan?.length) return;

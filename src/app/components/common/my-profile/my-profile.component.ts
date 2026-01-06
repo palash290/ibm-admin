@@ -22,7 +22,7 @@ export class MyProfileComponent {
   loading: boolean = false;
   profileImg: string | ArrayBuffer | null = null;
   pattern1 = "^[0-9_-]{8,15}";
-    selectedFile!: File;
+  selectedFile!: File;
 
   constructor(private service: SharedService, private toastr: NzMessageService, private location: Location) { }
 
@@ -118,7 +118,7 @@ export class MyProfileComponent {
     }
   }
 
-    backClicked() {
+  backClicked() {
     this.location.back();
   }
 

@@ -71,14 +71,6 @@ export class LoginComponent {
               this.route.navigateByUrl("/user/user-dashboard");
             }
             this.loading = false;
-
-            // if (resp.user.role_name == 'Client') {
-            //   this.route.navigateByUrl("/user/dashboard");
-            // }
-            // if (resp.user.role_name == 'SubAdmin') {
-            //   this.route.navigateByUrl("/admin/dashboard");
-            // }
-
           } else {
             this.toastr.warning(resp.message);
             this.loading = false;

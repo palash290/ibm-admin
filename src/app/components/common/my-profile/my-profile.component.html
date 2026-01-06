@@ -34,7 +34,6 @@
                                     <p class="mb-0 ct_text_op_05 ct_fs_14">{{userEmail}}</p>
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="row mt-5">
@@ -57,7 +56,8 @@
                                 <div class="form-group mb-4">
                                     <label for="" class="ct_fw_600 mb-2">Contact Number</label>
                                     <input type="text" class="form-control ct_input ct_input_grey_bg"
-                                        placeholder="Contact Number" value="+123456789" formControlName="phone" [maxlength]="15">
+                                        placeholder="Contact Number" value="+123456789" formControlName="phone"
+                                        [maxlength]="15">
 
                                     <div *ngIf="profileForm.controls['phone'].invalid && profileForm.controls['phone'].touched"
                                         class="err_msg">

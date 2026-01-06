@@ -51,17 +51,8 @@
                     <div class="ct_white_bg">
                         <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-4">
                             <h4 class="mb-0 ct_fs_24 ct_fw_700">Reports Generated Over Time</h4>
-                            <!-- <a class="ct_blue_link_underline ct_fw_600">View All</a> -->
-                            <!-- <select class="form-control ct_input ct_h_40 w-auto">
-                                <option value="">January</option>
-                                <option value="">January</option>
-                                <option value="">January</option>
-                            </select> -->
                         </div>
-                        <!-- <div id="chart"></div> -->
                         <div style="text-align:center">
-                            <!-- <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart"
-                                [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"></apx-chart> -->
                             <apx-chart *ngIf="chartOptions" [series]="chartOptions.series" [chart]="chartOptions.chart"
                                 [xaxis]="chartOptions.xaxis" [title]="chartOptions.title"
                                 [dataLabels]="chartOptions.dataLabels">

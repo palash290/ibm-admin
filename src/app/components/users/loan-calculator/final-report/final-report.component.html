@@ -4,13 +4,13 @@
 
 
             <div class="d-flex align-items-center justify-content-between gap-3 flex-wrap ct_mb_30">
-                <h4 class="ct_fs_28 ct_fw_700 mb-0">North Branch Financial Security Ltd.</h4>
+                <h4 class="ct_fs_28 ct_fw_700 mb-0">IBC Financial Report</h4>
                 <div class="d-flex align-items-center justify-content-between gap-2 ct_flex_column_575 ct_w_100_575 ">
 
                     <button class="ct_blue_btn ct_h_40 ct_fs_16 ct_border_radius_5 ct_white_nowrap ct_w_100_575"
                         (click)="downloadCalculationCSV(latestPlanCalculation)">Download Report (CSV)</button>
 
-                    <!-- <button (click)="downloadPDF1()"
+                    <button (click)="downloadPDF1()"
                         class="ct_blue_btn ct_h_40 ct_fs_16 ct_border_radius_5 ct_white_nowrap ct_w_100_575">
                         <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"
                             class="me-2">
@@ -25,8 +25,7 @@
                                 stroke="white" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         Download PDF
-                    </button> -->
-
+                    </button>
                 </div>
             </div>
 
@@ -34,7 +33,7 @@
                 <div class="ct_light_blue_bg">
                     <!-- <img src="img/building_img.png" alt="" /> -->
                     <div class="d-flex align-items-center gap-2 flex-wrap justify-content-between">
-                        <h4 class="ct_fs_24 ct_fw_700 mb-0">IBC Financial Report</h4>
+                        <h4 class="ct_fs_24 ct_fw_700 mb-0">{{caseDetails?.case_name}}</h4>
                     </div>
                     <div class="ct_mt_30">
                         <ul>
@@ -71,68 +70,7 @@
                                     <span class="ct_text_op_6">{{caseDetails?.agent_name}}</span>
                                 </p>
                             </li>
-                            <!-- <li class="d-flex align-items-center gap-2 mb-3">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M19.875 4.5H4.125C3.08947 4.5 2.25 5.33947 2.25 6.375V17.625C2.25 18.6605 3.08947 
-                                        19.5 4.125 
-                                        19.5H19.875C20.9105 19.5 21.75 18.6605 21.75 17.625V6.375C21.75 5.33947 20.9105 
-                                        4.5 19.875 4.5Z"
-                                        stroke="#5086FF" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-                                    <path d="M5.25 7.5L12 12.75L18.75 7.5" stroke="#5086FF" stroke-width="1.5"
-                                        stroke-linecap="round" stroke-linejoin="round" />
-                                </svg>
 
-                                <p class="mb-0">
-                                    Email:
-                                    <span class="ct_text_op_6">james.pollardinfineo.ai</span>
-                                </p>
-                            </li> -->
-                            <!-- <li class="d-flex align-items-center gap-2 mb-3">
-                                <svg width="24" height="24" viewBox="0 0 513 512" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <g clip-path="url(#clip0_1234_9580)">
-                                        <path
-                                            d="M241.9 2.00003C231 5.80003 221.5 14.6 217.4 24.5L215.1 30H208C200 30 192 32 185.9 35.6C177.3 40.6 168.7 52.5 166.9 61.7L166.3 64.9L129.6 65.2L93 65.5L87.9 68.2C82.6 71 76.8 76.7 73.8 82.2C72.1 85.3 72 94.9 71.7 287.4L71.5 489.3L73.8 494.4C77.2 501.8 80.8 505.5 87.7 508.9L93.8 512H256.5H419.2L425.3 508.9C432.2 505.5 435.8 501.8 439.2 494.4L441.5 489.3L441.3 287.4C441 94.9 440.9 85.3 439.2 82.2C436.2 76.7 430.4 71 425.1 68.2L420 65.5L383.4 65.2L346.7 64.9L346 61.2C344.9 55 339.5 46.2 333.4 40.5C325.8 33.5 318.9 30.8 306.9 30.2L297.8 29.8L295.5 24.4C293 18.2 286 9.90003 280.2 6.30003C270.1 -0.0999695 253.1 -1.99997 241.9 2.00003ZM265.3 22.6C272.7 25.7 276.8 31.2 278 39.7C278.4 43.2 279.5 45.7 281.1 47.3C283.3 49.6 284.4 49.8 296.3 50.2C310.1 50.7 314.9 52.1 319.8 56.8C324 60.7 325.5 64.3 325.5 70C325.5 77.7 321.7 83.3 313.5 87.6C310.2 89.4 306.8 89.5 256.5 89.5C206.2 89.5 202.8 89.4 199.5 87.6C191.5 83.4 187.5 77.7 187.5 70.5C187.5 64.9 189.4 60.3 193.1 56.8C198.2 52.1 202.9 50.7 216.7 50.2C228.6 49.8 229.7 49.6 231.9 47.3C233.5 45.7 234.6 43.2 235 39.7C235.9 33.5 237.3 30.4 241.2 26.8C247.1 21.2 257.6 19.3 265.3 22.6ZM171.4 89.8C174.1 95.1 183.5 103.7 189.8 106.5C198.3 110.4 206.2 111 256.5 111C306.8 111 314.7 110.4 323.2 106.5C329.5 103.7 338.9 95 341.6 89.7L343.6 85.9L379.6 86.2L415.7 86.5L418 89.2C419.3 90.7 420.6 93.9 421 96.2C421.3 98.6 421.5 186.9 421.3 292.5C421 501 421.4 487.1 415.6 490.2C413.7 491.3 383.7 491.5 256.1 491.5C108.2 491.5 98.8 491.4 96.2 489.8C94.6 488.7 93.2 486.5 92.5 484.1C91.8 481.4 91.6 419.4 91.7 286.8C92 102.2 92.1 93.3 93.8 90.7C94.8 89.1 96.6 87.5 97.8 87C99 86.5 115.6 86.1 134.7 86.1L169.5 86L171.4 89.8Z"
-                                            fill="#5086FF" />
-                                        <path
-                                            d="M186.8 132.4C184.4 134.5 184 135.6 184 140C184 146.7 187.3 150 194 150C200.7 150 204 146.7 204 140C204 133.3 200.7 130 194 130C190.8 130 188.8 130.7 186.8 132.4Z"
-                                            fill="#5086FF" />
-                                        <path
-                                            d="M221.8 132.4C219.4 134.5 219 135.6 219 140C219 144.4 219.4 145.5 221.8 147.6L224.6 150H274H323.4L326.2 147.6C328.6 145.5 329 144.4 329 140C329 135.6 328.6 134.5 326.2 132.4L323.4 130H274H224.6L221.8 132.4Z"
-                                            fill="#5086FF" />
-                                        <path
-                                            d="M235.998 196.7C196.398 205.1 165.298 236.9 157.798 276.4C155.598 288 156.498 311.8 159.498 322C169.898 357.9 196.698 383.7 233.198 393.1C244.898 396.1 266.098 396.4 277.998 393.6C314.898 385.1 342.998 358.3 353.698 321.5C355.698 314.4 355.998 311.5 355.898 295C355.898 277.8 355.698 275.9 353.198 267.5C341.898 230.7 313.198 204.2 276.198 196.6C266.498 194.6 245.498 194.6 235.998 196.7ZM275.098 218C297.498 223.6 316.898 239.1 326.998 259.5C333.898 273.2 335.798 282.5 335.298 298.5C334.898 309.7 334.398 312.7 331.798 320.3C322.398 347.3 299.798 367.4 272.298 373C260.498 375.5 252.498 375.5 240.698 373C211.298 367 186.998 343.8 179.498 314.6C176.798 303.8 176.798 287.3 179.498 276.4C186.598 248.1 209.298 225.3 237.498 218C247.898 215.4 264.498 215.3 275.098 218Z"
-                                            fill="#5086FF" />
-                                        <path
-                                            d="M287 258.9C285.9 259.4 274.4 270.4 261.5 283.4L238.1 306.9L231.9 301C226.3 295.6 225.2 295 221.5 295C215.4 295 211.5 299.1 211.5 305.6C211.5 310.4 211.6 310.5 222.3 321.2L233.1 332H238H243L272.2 302.7L301.5 273.5V268.8C301.5 262.6 298.6 259 293 258.5C290.8 258.2 288.1 258.4 287 258.9Z"
-                                            fill="#5086FF" />
-                                    </g>
-                                    <defs>
-                                        <clipPath id="clip0_1234_9580">
-                                            <rect width="512" height="512" fill="white" transform="translate(0.5)" />
-                                        </clipPath>
-                                    </defs>
-                                </svg>
-                                <p class="mb-0">
-                                    Prepared for:
-                                    <span class="ct_text_op_6">John Doe, Jane Doe</span>
-                                </p>
-                            </li> -->
-                            <!-- <li class="d-flex align-items-center gap-2 mb-3">
-                                <svg width="26" height="26" viewBox="0 0 26 26" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M6.82523 4.46888C6.58516 4.46888 6.35493 4.56425 6.18518 4.734C6.01542 4.90376 5.92006 5.13399 5.92006 5.37406V22.5723H7.7304V19.8568C7.7304 19.5482 7.85301 19.2521 8.07127 19.0339C8.28952 18.8156 8.58554 18.693 8.89419 18.693H16.9114C17.2201 18.693 17.5161 18.8156 17.7344 19.0339C17.9526 19.2521 18.0752 19.5482 18.0752 19.8568V22.5723H19.8856V13.1327C19.8856 12.8926 19.7902 12.6624 19.6205 12.4926C19.4507 12.3229 19.2205 12.2275 18.9804 12.2275H16.3942C16.0373 12.2275 15.7476 11.9378 15.7476 11.581V5.37406C15.7476 5.25519 15.7242 5.13748 15.6787 5.02766C15.6333 4.91784 15.5666 4.81806 15.4825 4.734C15.3985 4.64995 15.2987 4.58328 15.1889 4.53779C15.079 4.4923 14.9613 4.46888 14.8425 4.46888H6.82523ZM5.2735 23.8654C4.91661 23.8654 4.62695 23.5758 4.62695 23.2189V5.37406C4.62695 4.79104 4.85856 4.2319 5.27081 3.81964C5.68307 3.40738 6.24221 3.17578 6.82523 3.17578H14.8425C15.4255 3.17578 15.9846 3.40738 16.3969 3.81964C16.8091 4.2319 17.0407 4.79104 17.0407 5.37406V10.9344H18.9804C19.5634 10.9344 20.1226 11.166 20.5348 11.5783C20.9471 11.9905 21.1787 12.5497 21.1787 13.1327V23.2189C21.1787 23.5758 20.889 23.8654 20.5321 23.8654H5.2735ZM9.0235 22.5723H12.2563V19.9861H9.0235V22.5723ZM13.5494 22.5723H16.7821V19.9861H13.5494V22.5723ZM9.79937 8.3482C9.79937 8.62256 9.69038 8.88568 9.49637 9.07968C9.30237 9.27369 9.03925 9.38268 8.76488 9.38268C8.49052 9.38268 8.2274 9.27369 8.03339 9.07968C7.83939 8.88568 7.7304 8.62256 7.7304 8.3482C7.7304 8.07383 7.83939 7.81071 8.03339 7.61671C8.2274 7.4227 8.49052 7.31371 8.76488 7.31371C9.03925 7.31371 9.30237 7.4227 9.49637 7.61671C9.69038 7.81071 9.79937 8.07383 9.79937 8.3482ZM8.76488 13.0034C9.03925 13.0034 9.30237 12.8944 9.49637 12.7004C9.69038 12.5064 9.79937 12.2432 9.79937 11.9689C9.79937 11.6945 9.69038 11.4314 9.49637 11.2374C9.30237 11.0434 9.03925 10.9344 8.76488 10.9344C8.49052 10.9344 8.2274 11.0434 8.03339 11.2374C7.83939 11.4314 7.7304 11.6945 7.7304 11.9689C7.7304 12.2432 7.83939 12.5064 8.03339 12.7004C8.2274 12.8944 8.49052 13.0034 8.76488 13.0034ZM9.79937 15.5896C9.79937 15.8639 9.69038 16.1271 9.49637 16.3211C9.30237 16.5151 9.03925 16.6241 8.76488 16.6241C8.49052 16.6241 8.2274 16.5151 8.03339 16.3211C7.83939 16.1271 7.7304 15.8639 7.7304 15.5896C7.7304 15.3152 7.83939 15.0521 8.03339 14.8581C8.2274 14.6641 8.49052 14.5551 8.76488 14.5551C9.03925 14.5551 9.30237 14.6641 9.49637 14.8581C9.69038 15.0521 9.79937 15.3152 9.79937 15.5896ZM12.9028 9.38268C13.1772 9.38268 13.4403 9.27369 13.6343 9.07968C13.8283 8.88568 13.9373 8.62256 13.9373 8.3482C13.9373 8.07383 13.8283 7.81071 13.6343 7.61671C13.4403 7.4227 13.1772 7.31371 12.9028 7.31371C12.6285 7.31371 12.3653 7.4227 12.1713 7.61671C11.9773 7.81071 11.8683 8.07383 11.8683 8.3482C11.8683 8.62256 11.9773 8.88568 12.1713 9.07968C12.3653 9.27369 12.6285 9.38268 12.9028 9.38268ZM13.9373 11.9689C13.9373 12.2432 13.8283 12.5064 13.6343 12.7004C13.4403 12.8944 13.1772 13.0034 12.9028 13.0034C12.6285 13.0034 12.3653 12.8944 12.1713 12.7004C11.9773 12.5064 11.8683 12.2432 11.8683 11.9689C11.8683 11.6945 11.9773 11.4314 12.1713 11.2374C12.3653 11.0434 12.6285 10.9344 12.9028 10.9344C13.1772 10.9344 13.4403 11.0434 13.6343 11.2374C13.8283 11.4314 13.9373 11.6945 13.9373 11.9689ZM12.9028 16.6241C13.1772 16.6241 13.4403 16.5151 13.6343 16.3211C13.8283 16.1271 13.9373 15.8639 13.9373 15.5896C13.9373 15.3152 13.8283 15.0521 13.6343 14.8581C13.4403 14.6641 13.1772 14.5551 12.9028 14.5551C12.6285 14.5551 12.3653 14.6641 12.1713 14.8581C11.9773 15.0521 11.8683 15.3152 11.8683 15.5896C11.8683 15.8639 11.9773 16.1271 12.1713 16.3211C12.3653 16.5151 12.6285 16.6241 12.9028 16.6241ZM18.0752 15.5896C18.0752 15.8639 17.9662 16.1271 17.7722 16.3211C17.5782 16.5151 17.3151 16.6241 17.0407 16.6241C16.7664 16.6241 16.5033 16.5151 16.3093 16.3211C16.1153 16.1271 16.0063 15.8639 16.0063 15.5896C16.0063 15.3152 16.1153 15.0521 16.3093 14.8581C16.5033 14.6641 16.7664 14.5551 17.0407 14.5551C17.3151 14.5551 17.5782 14.6641 17.7722 14.8581C17.9662 15.0521 18.0752 15.3152 18.0752 15.5896Z"
-                                        fill="#5086FF" />
-                                </svg>
-                                <p class="mb-0">
-                                    Advisor Name:
-                                    <span class="ct_text_op_6">Sarah Johnson</span>
-                                </p>
-                            </li> -->
                             <li class="d-flex align-items-center gap-2 mb-0">
                                 <svg width="26" height="27" viewBox="0 0 26 27" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
@@ -160,28 +98,31 @@
 
                 <!-- ct_outline_border ct_mt_30 -->
                 @if(case_type_id != '4' && case_type_id != '3'){
-                <div class="ct_mt_30">
-                    <h4 class="ct_fs_20 ct_fw_600">
-                        A Personal Mortgage Minimizer Handbook Prepared by {{caseDetails?.agent_name}}
-                        For {{caseDetails?.full_name}}
+                <div class="mt-5 pt-2">
+                    <h4 class="ct_fs_24 ct_fw_600">
+                        A Personal Mortgage Minimizer Handbook Prepared by <span
+                            class="ct_blue_text">{{caseDetails?.agent_name}}</span>
+                        For <span class="ct_blue_text">{{caseDetails?.full_name}}</span>
                     </h4>
                     <p class="mb-0">
                         The principal on your mortgage will be paid out at the bank in
                         {{report_data?.mortgageYearByOurPlan}}
                         years.
                     </p>
-                    <div class="d-flex gap-2 mt-3">
+                    <div class="d-flex gap-2 mt-4">
                         <div class="col-md-6 mb-4 mb-md-0">
-                            <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">{{report_data?.mortgageYearByOurPlan}} Years</h5>
+                            <div class="ct_grey_bg et_light_blue_bg_card">
+                                <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">{{report_data?.mortgageYearByOurPlan}} Years
+                                </h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Time taken with infineo schedule
                                 </p>
                             </div>
                         </div>
                         <div class="col-md-6 mb-4 mb-md-0">
-                            <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">{{loan_tenure ? loan_tenure : '0'}} Years</h5>
+                            <div class="ct_grey_bg et_light_blue_bg_card">
+                                <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">{{loan_tenure ? loan_tenure : '0'}} Years
+                                </h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Time taken with your current schedule
                                 </p>
@@ -190,21 +131,21 @@
                     </div>
                     <div
                         class="d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4 ct_light_blue_head_bg">
-                        <p class="mb-0 ct_fs_20 ct_fw_600">Time saved</p>
+                        <p class="mb-0 ct_fs_24 ct_fw_600">Time saved</p>
                         <p class="mb-0 ct_fw_700">{{loan_tenure ? loan_tenure - report_data?.mortgageYearByOurPlan :
                             '0'}} Years</p>
                     </div>
-                    <div class="text-center mt-3">
+                    <div class="text-center mt-5">
                         <h4 class="ct_fs_24 ct_fw_700">
                             Your Mortgage Balance Over Time
                         </h4>
-                        <h5 class="ct_fs_20 ct_fw_700">
-                            <span class="ct_blue_text">infineo's Payment Plan</span> vs
+                        <h5 class="ct_fs_24 ct_fw_700">
+                            <span class="ct_blue_text">Smart Loan Calculator</span> vs
                             Current Payment Plan
                         </h5>
                     </div>
 
-                    <div style="text-align:center">
+                    <div style="text-align:center" class="mt-4">
                         <apx-chart [series]="ourVsRegularPayments?.series" [chart]="ourVsRegularPayments?.chart"
                             [colors]="ourVsRegularPayments?.colors" [stroke]="ourVsRegularPayments?.stroke"
                             [fill]="ourVsRegularPayments?.fill" [dataLabels]="ourVsRegularPayments?.dataLabels"
@@ -219,8 +160,8 @@
 
             <div class="page">
                 <!-- ct_outline_border ct_mt_30 -->
-                <div class="ct_mt_30">
-                    <div class="mt-4">
+                <div class="mt-5 pt-2">
+                    <div class="">
 
                         @if(case_type_id == '2'){
                         <p>
@@ -244,16 +185,18 @@
                         }
 
                         @if(case_type_id != '4' && case_type_id != '3'){
-                        <div class="d-flex gap-2 mt-3">
+                        <div class="d-flex gap-2 mt-4">
                             <div class="col-md-6 mb-4 mb-md-0">
-                                <div class="ct_grey_bg">
-                                    <h5 class="ct_fw_600 ct_fs_20">{{report_data?.helocYearByOurPlan}} Years</h5>
+                                <div class="ct_grey_bg et_light_blue_bg_card">
+                                    <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">{{report_data?.helocYearByOurPlan}}
+                                        Years</h5>
                                     <p class="ct_text_op_6 mb-0">Home free and clear</p>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4 mb-md-0">
-                                <div class="ct_grey_bg">
-                                    <h5 class="ct_fw_600 ct_fs_20">{{report_data?.helocYearByRegularPlan}} Years</h5>
+                                <div class="ct_grey_bg et_light_blue_bg_card">
+                                    <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">{{report_data?.helocYearByRegularPlan}}
+                                        Years</h5>
                                     <p class="ct_text_op_6 mb-0">Years earlier</p>
                                 </div>
                             </div>
@@ -262,19 +205,19 @@
 
                         <div
                             class="d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4 ct_light_blue_head_bg">
-                            <p class="mb-0 ct_fs_20 ct_fw_600">
+                            <p class="mb-0 ct_fs_24 ct_fw_600">
                                 Cash value accumulated during the same period
                             </p>
                             <p class="mb-0 ct_fw_700">$ {{report_data?.cashValueAccumulatedDuringThePeriod |
                                 number:'1.2-2'}}</p>
                         </div>
-                        <div class="text-center mt-3">
-                            <!-- <h5 class="ct_fs_20 ct_fw_700">
+                        <div class="text-center mt-5">
+                            <!-- <h5 class="ct_fs_24 ct_fw_700">
                                 Mortgage vs <span *ngIf="case_type_id == '2'" class="ct_blue_text">HELOC</span> vs
                                 <span class="ct_orange_text"> Policy Loan</span> vs
                                 <span class="ct_green_text">Cash Value</span>
                             </h5> -->
-                            <h5 class="ct_fs_20 ct_fw_700">
+                            <h5 class="ct_fs_24 ct_fw_700">
                                 <ng-container *ngIf="case_type_id != '3'">
                                     Mortgage
                                     <span *ngIf="case_type_id == '2'"> vs <span class="ct_blue_text">HELOC</span></span>
@@ -285,7 +228,7 @@
                             </h5>
                         </div>
 
-                        <div style="text-align:center">
+                        <div style="text-align:center" class="mt-4">
                             <apx-chart [series]="mortgageHelocCashLoan?.series" [chart]="mortgageHelocCashLoan?.chart"
                                 [colors]="mortgageHelocCashLoan?.colors"
                                 [plotOptions]="mortgageHelocCashLoan?.plotOptions"
@@ -327,10 +270,10 @@
                         }
 
                         @if(case_type_id != '4'){
-                        <div class="d-flex gap-2 mt-3">
+                        <div class="d-flex gap-2 mt-5">
                             <div class="col-md-6 mb-4 mb-md-0">
-                                <div class="ct_grey_bg">
-                                    <h5 class="ct_fw_600 ct_fs_20">${{report_data?.firstMoneyCalculation |
+                                <div class="ct_grey_bg et_light_blue_bg_card">
+                                    <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{report_data?.firstMoneyCalculation |
                                         number:'1.2-2'}}</h5>
                                     <p class="ct_text_op_6 mb-0">
                                         Net worth at start of the plan
@@ -338,8 +281,8 @@
                                 </div>
                             </div>
                             <div class="col-md-6 mb-4 mb-md-0">
-                                <div class="ct_grey_bg">
-                                    <h5 class="ct_fw_600 ct_fs_20">${{report_data?.secondMoneyCalculation |
+                                <div class="ct_grey_bg et_light_blue_bg_card">
+                                    <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{report_data?.secondMoneyCalculation |
                                         number:'1.2-2'}}</h5>
                                     <p class="ct_text_op_6 mb-0">
                                         Net worth at end of the plan
@@ -356,13 +299,13 @@
             <div class="page">
                 <div
                     class="d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4 ct_light_blue_head_bg">
-                    <p class="mb-0 ct_fs_20 ct_fw_600">Net worth increased
+                    <p class="mb-0 ct_fs_24 ct_fw_600">Net worth increased
                     </p>
                     <p class="mb-0 ct_fw_700">${{report_data?.secondMoneyCalculation -
                         report_data?.firstMoneyCalculation | number:'1.2-2'}}</p>
                 </div>
                 <div class="text-center mt-3">
-                    <h5 class="ct_fs_20 ct_fw_700">
+                    <h5 class="ct_fs_24 ct_fw_700">
                         Your <span class="ct_blue_text">Net Worth </span> Over Time via <br>
                         <span class="ct_orange_text">Assets</span> and Liabilities
                     </h5>
@@ -395,38 +338,21 @@
                         legacy.
                     </p>
                 </div>
-                <!-- <div class="row mt-3">
-                    <div class="col-md-6 mb-4 mb-md-0">
-                        <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{cash_deposited_maturity | number:'1.2-2'}}</h5>
-                            <p class="ct_text_op_6 mb-0">
-                                Total cash deposited ( at maturity )
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-4 mb-md-0">
-                        <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{cash_value_maturity | number:'1.2-2'}}</h5>
-                            <p class="ct_text_op_6 mb-0">
-                                Total cash value ( at maturity )
-                            </p>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="d-flex gap-2 mt-3">
                     <div class="col-md-6 mb-4 mb-md-0">
-                        <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{cash_deposited_maturity | number:'1.2-2'}}</h5>
-                            <p class="ct_text_op_6 mb-0">
+                        <div class="ct_grey_bg et_light_blue_bg_card">
+                            <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{cash_deposited_maturity | number:'1.2-2'}}
+                            </h5>
+                            <p class=" ct_text_op_6 mb-0">
                                 Total cash deposited ( at maturity )
                             </p>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4 mb-md-0">
-                        <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{cash_value_maturity | number:'1.2-2'}}</h5>
-                            <p class="ct_text_op_6 mb-0">
+                        <div class="ct_grey_bg et_light_blue_bg_card">
+                            <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{cash_value_maturity | number:'1.2-2'}}</h5>
+                            <p class=" ct_text_op_6 mb-0">
                                 Total cash value ( at maturity )
                             </p>
                         </div>
@@ -435,12 +361,12 @@
 
                 <div
                     class="d-flex align-items-center justify-content-between gap-3 flex-wrap mt-4 ct_light_blue_head_bg">
-                    <p class="mb-0 ct_fs_20 ct_fw_600">Projected growth
+                    <p class="mb-0 ct_fs_24 ct_fw_600">Projected growth
                     </p>
                     <p class="mb-0 ct_fw_700">$ {{cash_value_maturity - cash_deposited_maturity | number:'1.2-2'}}</p>
                 </div>
                 <div class="text-center mt-3">
-                    <h5 class="ct_fs_20 ct_fw_700">
+                    <h5 class="ct_fs_24 ct_fw_700">
                         <span class="ct_blue_text">Total Cash Value </span> vs Total Premiums Paid
                     </h5>
                 </div>
@@ -464,8 +390,9 @@
                         following numbers:</p>
                     <div class="row mt-3">
                         <div class="col-md-4 mb-4 mb-md-0">
-                            <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">${{ totalCalculations?.total_income | number:'1.2-2'}}
+                            <div class="ct_grey_bg et_light_blue_bg_card">
+                                <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{ totalCalculations?.total_income |
+                                    number:'1.2-2'}}
                                 </h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Total income
@@ -473,8 +400,9 @@
                             </div>
                         </div>
                         <div class="col-md-4 mb-4 mb-md-0">
-                            <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">${{ totalCalculations?.total_expense | number:'1.2-2' }}
+                            <div class="ct_grey_bg et_light_blue_bg_card">
+                                <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{ totalCalculations?.total_expense |
+                                    number:'1.2-2' }}
                                 </h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Total monthly expense
@@ -482,8 +410,8 @@
                             </div>
                         </div>
                         <div class="col-md-4 mb-4 mb-md-0">
-                            <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">${{
+                            <div class="ct_grey_bg et_light_blue_bg_card">
+                                <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{
                                     finalVals?.calculated_monthly_final_surplus_budget | number:'1.2-2' }}
                                 </h5>
                                 <p class="ct_text_op_6 mb-0">
@@ -493,32 +421,11 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="row mt-3">
-                    <div class="col-md-6 mt-4 ">
-                        <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{
-                                finalVals?.calculated_monthly_final_surplus_budget*12 | number:'1.2-2' }}
-                            </h5>
-                            <p class="ct_text_op_6 mb-0">
-                                Annual surplus budget
-                            </p>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mt-4 ">
-                        <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{finalotalCalculations?.heloc_room | number:'1.2-2'}}
-                            </h5>
-                            <p class="ct_text_op_6 mb-0">
-                                Principal payment for year 1
-                            </p>
-                        </div>
-                    </div>
-                </div> -->
 
                 <div class="d-flex gap-2 mt-3">
                     <div class="col-md-6 mb-4 mb-md-0">
-                        <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{
+                        <div class="ct_grey_bg et_light_blue_bg_card">
+                            <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{
                                 finalVals?.calculated_monthly_final_surplus_budget*12 | number:'1.2-2' }}
                             </h5>
                             <p class="ct_text_op_6 mb-0">
@@ -527,8 +434,9 @@
                         </div>
                     </div>
                     <div class="col-md-6 mb-4 mb-md-0">
-                        <div class="ct_grey_bg">
-                            <h5 class="ct_fw_600 ct_fs_20">${{finalotalCalculations?.heloc_room | number:'1.2-2'}}
+                        <div class="ct_grey_bg et_light_blue_bg_card">
+                            <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{finalotalCalculations?.heloc_room |
+                                number:'1.2-2'}}
                             </h5>
                             <p class="ct_text_op_6 mb-0">
                                 Principal payment for year 1
@@ -537,12 +445,12 @@
                     </div>
                 </div>
 
-                <div class="mt-3">
-                    <p class="text-center">Total surplus budget</p>
+                <div class="mt-5">
+                    <p class="text-center ct_fs_24 ct_fw_700">Total surplus budget</p>
                     <!-- <div class="row mt-3">
                         <div class="col-md-6 mb-4 mb-md-0">
                             <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">${{
+                                <h5 class="ct_fw_600 ct_fs_24">${{
                                     finalVals?.calculated_annual_budget_available | number:'1.2-2' }}
                                 </h5>
                                 <p class="ct_text_op_6 mb-0">
@@ -552,7 +460,7 @@
                         </div>
                         <div class="col-md-6 mb-4 mb-md-0">
                             <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">${{
+                                <h5 class="ct_fw_600 ct_fs_24">${{
                                     finalVals?.calculated_annual_budget_available*12 | number:'1.2-2' }}</h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Annually
@@ -562,8 +470,8 @@
                     </div> -->
                     <div class="d-flex gap-2 mt-3">
                         <div class="col-md-6 mb-4 mb-md-0">
-                            <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">${{
+                            <div class="ct_grey_bg et_light_blue_bg_card">
+                                <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{
                                     finalVals?.calculated_annual_budget_available | number:'1.2-2' }}
                                 </h5>
                                 <p class="ct_text_op_6 mb-0">
@@ -572,8 +480,8 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-4 mb-md-0">
-                            <div class="ct_grey_bg">
-                                <h5 class="ct_fw_600 ct_fs_20">${{
+                            <div class="ct_grey_bg et_light_blue_bg_card">
+                                <h5 class="ct_fw_700 ct_fs_24 ct_blue_text">${{
                                     finalVals?.calculated_annual_budget_available*12 | number:'1.2-2' }}</h5>
                                 <p class="ct_text_op_6 mb-0">
                                     Annually
@@ -585,26 +493,32 @@
                         ${{monthly_policy_premium_expense*12 | number:'1.2-2'}} as the annual
                         deposit into the Mortgage Minimizer System.</p>
                 </div>
-                <div class=" ct_mt_30">
+               
+            </div>
+
+
+
+            <div class="page">
+                <div class=" ct_mt_30 print-only">
                     <h4 class="ct_fs_22 ct_fw_700">Policy(s) Setup & Initial Funding</h4>
                     <p class="mb-0">The initial total deposit of${{monthly_policy_premium_expense*12}} will come from a
                         withdrawal from your HELOC</p>
                     <ul class="mt-4 ct_policy_list">
                         @if(case_type_id == '2'){
                         <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 1</span>
-                            <p class="mt-3">You will continue to make your mortgage and all other
+                            <span class="ct_custom_badge text-white" style="background-color: #4880ff;">Step 1</span>
+                            <p class="mt-3 mb-0">You will continue to make your mortgage and all other
                                 payments as normal until each item is paid in full.
                             </p>
                         </li>
                         }
                         @if(case_type_id == '1'){
                         <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 1</span>
+                            <span class="ct_custom_badge text-white" style="background-color: #4880ff;">Step 1</span>
                             <p class="mt-3">Make your normal mortgage payments. The room accumulated in the HELOC will
                                 increase each year as shown below.</p>
                             <div class="d-flex align-items-center gap-2 flex-wrap">
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;"
+                                <span class="ct_custom_badge" style="background-color: #0000f41f;"
                                     *ngFor="let item of step_data?.stepOneCalculation">Year {{ item.year }} - ${{
                                     item.principalPayment | number:'1.0-0' }}</span>
                             </div>
@@ -613,7 +527,7 @@
 
                         @if(case_type_id == '1'){
                         <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 2</span>
+                            <span class="ct_custom_badge text-white" style="background-color: #4880ff;">Step 2</span>
                             <p class="mt-3">
                                 Deposit the surplus monthly budget identified below for each year onto the HELOC. The
                                 adjustments in the amount each year reflects the assumed increase in your income and
@@ -626,7 +540,7 @@
                             </p>
                             <p>Preferably this is broken down to correspond to your paydays.</p>
                             <div class="d-flex align-items-center gap-2 flex-wrap">
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;"
+                                <span class="ct_custom_badge" style="background-color: #0000f41f;"
                                     *ngFor="let item of step_data?.stepTwoCalculation">Year {{ item.year }} - ${{
                                     item.monthlySurplus | number:'1.0-0' }}</span>
                             </div>
@@ -635,7 +549,7 @@
 
                         @if(case_type_id == '2'){
                         <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 2</span>
+                            <span class="ct_custom_badge text-white" style="background-color: #4880ff;">Step 2</span>
                             <p class="mt-3">
                                 Deposit the surplus monthly budget identified below for each year onto the HELOC. The
                                 adjustments in the amount each year reflects the assumed increase in your income and
@@ -648,7 +562,7 @@
                             </p>
                             <p>Preferably this is broken down to correspond to your paydays.</p>
                             <div class="d-flex align-items-center gap-2 flex-wrap">
-                                <span class="ct_custom_badge" style="background-color: #8ae6b9;"
+                                <span class="ct_custom_badge" style="background-color: #0000f41f;"
                                     *ngFor="let item of step_data?.stepTwoCalculation">Year {{ item.year }} - ${{
                                     item.monthlySurplusWithDebt | number:'1.0-0' }}</span>
                             </div>
@@ -656,19 +570,19 @@
                         }
 
                         <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Step 3</span>
+                            <span class="ct_custom_badge text-white" style="background-color: #4880ff;">Step 3</span>
                             <p class="mt-3">
                                 Each year on the anniversary, <span
                                     class="ct_blue_text">${{monthly_policy_premium_expense*12}}</span> will be
                                 withdrawn
                                 from the HELOC and deposited into the policy(s).
                             </p>
-                            <h5 class="ct_fs_20 mt-3"><span class="ct_fw_700">Note:</span> Both your income and the
+                            <h5 class="ct_fs_24 mt-3"><span class="ct_fw_700">Note:</span> Both your income and the
                                 principal portion of mortgage payments will increase each
                                 year, but the policy funding stays at ${{monthly_policy_premium_expense*12}}
                             </h5>
                             <div class="ct_grey_bg mt-3">
-                                <h5 class="ct_fw_700 ct_fs_20">Key Point
+                                <h5 class="ct_fw_700 ct_fs_24">Key Point
                                 </h5>
                                 <p class="ct_text_op_6 mb-0">This entire system is designed to provide financial
                                     flexibility
@@ -685,15 +599,15 @@
                         </li>
                     </ul>
                 </div>
+
             </div>
 
-
             <div class="page">
-                <div class=" ct_mt_30">
+                <div class="ct_mt_20 print-only">
                     <h4 class="ct_fs_22 ct_fw_700">Steps to OPERATE your Mortgage Minimizer</h4>
 
                     <div class="mt-4">
-                        <span class="ct_custom_badge text-white" style="background-color: #0000f4;">Instructions</span>
+                        <span class="ct_custom_badge text-white" style="background-color: #4880ff;">Instructions</span>
                         <p class="mt-4 mb-2">
                             <span class="ct_fw_700">One week after making the annual premium payment</span> into your
                             policy(s), take the
@@ -704,7 +618,6 @@
                         <p>
                             Dollar for dollar that amount will become available in the HELOC. Withdraw that amount
                             and use it to pay off your other debts as directed below.
-
                         </p>
                         <p class="ct_fw_700">Note, you are not making any additional payments, only changing who
                             receives
@@ -718,89 +631,19 @@
                     </div>
 
                     <ul class="mt-4 ct_policy_list">
-                        <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #000;">In year 1</span>
-                            <p class="mt-3">Completely pay off Credit Card with a balance of $9,000.00. Completely
-                                pay off Credit Card with a balance of $7,000.00. Reduce your Car Loan by
-                                $8,049.63. Your redirected monthly payment towards the policy loan is
-                                now $241.53</p>
-                        </li>
-                        <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #000;">In year 2</span>
-                            <p class="mt-3">Completely pay off Car Loan with a balance of $256.69. Your redirected
-                                monthly payment towards the policy loan is now $1,365.28. The left-over
-                                $30,638.04 from your HELOC draw now also goes towards your policy
-                                loan. Once the policy loan balance reaches zero, the $1,365.28 you
-                                redirected towards your policy loan now just increases your monthly surplus
-                                budget to $3,996.61 and is paid towards the HELOC balance each month
-                                instead.</p>
-                        </li>
-                        <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #000;">From year 3 to year
-                                7
+                        <li *ngFor="let plan of planDescriptions; let i = index">
+                            <span class="ct_custom_badge text-white" style="background-color: #202224;">
+                                In year {{ plan.year }}
                             </span>
-                            <p class="mt-3">Now that all credit and loan items are paid, put the full available policy
-                                loan
-                                annually towards the mortgage until it's paid in full. The policy loan amount
-                                put on the mortgage is immediately available in the HELOC, withdraw this
-                                amount from the HELOC and pay back the policy loan. Complete this step
-                                within a one week period.
-                            </p>
-                        </li>
-                        <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #000;">In year 2</span>
-                            <p class="mt-3">Completely pay off Car Loan with a balance of $256.69. Your redirected
-                                monthly payment towards the policy loan is now $1,365.28. The left-over
-                                $30,638.04 from your HELOC draw now also goes towards your policy
-                                loan. Once the policy loan balance reaches zero, the $1,365.28 you
-                                redirected towards your policy loan now just increases your monthly surplus
-                                budget to $3,996.61 and is paid towards the HELOC balance each month
-                                instead.</p>
-                        </li>
-                        <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #000;">In year 8
-                            </span>
-                            <p class="mt-3">Continue to fund the policy(s) until the policy loan available exceeds the
-                                HELOC debt. Once that occurs, take a policy loan to pay off the entire
-                                HELOC balance in full. Now, your annual premium will be paid from your
-                                income and then use the balance of your surplus dollars to pay the policy
-                                loan until it is paid in full.
-                            </p>
-                        </li>
-                        <li>
-                            <span class="ct_custom_badge text-white" style="background-color: #000;">In year 10
-                            </span>
-                            <p class="mt-3">If you have followed the plan as designed, your final policy loan payment
-                                will be made this year, and you will be 100% debt free. The next chapter in
-                                controlling your cash and expanding your personal financial system is now
-                                an option. It's time to look towards future generations.
-                            </p>
+                            <p class="mt-3" [innerHTML]="plan.text"></p>
                         </li>
                     </ul>
                 </div>
-
-
-
-
-
-
-
-
-
-                <!-- Old Report -->
-
-
-
-
-
-
-
-
             </div>
 
             <div class="page">
-                <div>
-                    <table class="table table-bordered text-center align-middle">
+                <div class="print-only" style="border: 1px solid #d8d8d8;">
+                    <table class="table table-bordered mb-0 text-center align-middle ct_table_border_1">
                         <thead class="table-light">
                             <tr>
                                 <th>Year ↓ / Month →</th>

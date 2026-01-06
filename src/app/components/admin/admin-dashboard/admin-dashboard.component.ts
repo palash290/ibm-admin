@@ -23,9 +23,7 @@ export class AdminDashboardComponent {
   data: any;
 
 
-  constructor(private authService: AuthService, private sharedService: SharedService) {
-
-  }
+  constructor(private authService: AuthService, private sharedService: SharedService) {}
 
   ngOnInit() {
     this.userRole = this.authService.getUserRole();

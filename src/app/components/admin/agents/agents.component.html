@@ -224,21 +224,6 @@
                 <div class="form-group mb-4">
                     <label class="ct_fw_600 mb-2">Users</label><br />
                     <div #dropdown>
-                        <!-- <div class="custom-dropdown">
-                            <div class="position-relative">
-                                <div class="dropdown-header" (click)="toggleUserDropdown()">
-                                    {{ getSelectedUserNames() }}
-                                </div>
-                                <i class="fa-solid fa-angle-down ct_show_eye " style="right: 3px;font-size: 12px;"></i>
-                            </div>
-                            <div class="dropdown-list ct_checkbox_main" *ngIf="userDropdownOpen">
-                                <label *ngFor="let user of availableUsers">
-                                    <input type="checkbox" [checked]="isUserSelected(user.id)"
-                                        (change)="toggleUserSelection(user.id)" />
-                                    {{ user.name }}
-                                </label>
-                            </div>
-                        </div> -->
                         <div class="custom-dropdown">
                             <div class="position-relative">
                                 <div class="dropdown-header" (click)="toggleUserDropdown()">

@@ -89,12 +89,12 @@ export class PropertyDatailsComponent {
         //credit_available: [prop.credit_available || '', showHelocFields ? Validators.required : []],
 
         // Monthly Expenses
-        monthly_mortgage_insurance_expense: [prop.monthly_mortgage_insurance_expense || 0, Validators.required],
-        monthly_mortgage_extra_expense: [prop.monthly_mortgage_extra_expense || 0, Validators.required],
-        monthly_property_tax_expense: [prop.monthly_property_tax_expense || 0, Validators.required],
-        monthly_property_insurance_expense: [prop.monthly_property_insurance_expense || 0, Validators.required],
-        monthly_utility_expense: [prop.monthly_utility_expense || 0, Validators.required],
-        community_condo_fees_expense: [prop.community_condo_fees_expense || 0, Validators.required],
+        monthly_mortgage_insurance_expense: [prop.monthly_mortgage_insurance_expense || 0],
+        monthly_mortgage_extra_expense: [prop.monthly_mortgage_extra_expense || 0],
+        monthly_property_tax_expense: [prop.monthly_property_tax_expense || 0],
+        monthly_property_insurance_expense: [prop.monthly_property_insurance_expense || 0],
+        monthly_utility_expense: [prop.monthly_utility_expense || 0],
+        community_condo_fees_expense: [prop.community_condo_fees_expense || 0],
         // extra_payment_made: [prop.extra_payment_made || '', Validators.required]
       });
 
@@ -162,12 +162,12 @@ export class PropertyDatailsComponent {
       //credit_available: ['', showHelocFields ? Validators.required : []],
 
       // Monthly Expenses (conditionally shown)
-      monthly_mortgage_insurance_expense: ['', Validators.required],
-      monthly_mortgage_extra_expense: ['', Validators.required],
-      monthly_property_tax_expense: ['', Validators.required],
-      monthly_property_insurance_expense: ['', Validators.required],
-      monthly_utility_expense: ['', Validators.required],
-      community_condo_fees_expense: ['', Validators.required],
+      monthly_mortgage_insurance_expense: [''],
+      monthly_mortgage_extra_expense: [''],
+      monthly_property_tax_expense: [''],
+      monthly_property_insurance_expense: [''],
+      monthly_utility_expense: [''],
+      community_condo_fees_expense: [''],
       // extra_payment_made: ['', Validators.required]
     });
 

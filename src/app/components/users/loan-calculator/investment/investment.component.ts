@@ -102,7 +102,6 @@ export class InvestmentComponent {
     this.investments.removeAt(index);
   }
 
-
   submit(): void {
     //console.log('Investment Details:', this.form.value.investments);
     // this.router.navigateByUrl('/user/loan-calculator/monthly-expenses')

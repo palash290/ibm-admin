@@ -50,10 +50,6 @@ export class CreditDatailsComponent {
         this.addCredit();
       }
     });
-
-    // if (this.apiCreditData.length == 0) {
-    //   this.addCredit();
-    // }
   }
 
   populateCredits(data: any[]): void {
